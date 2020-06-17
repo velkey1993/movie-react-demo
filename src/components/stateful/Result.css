@@ -1,0 +1,51 @@
+#result-container {
+    position: relative;
+    background: #232323;
+    border-radius: 0;
+}
+
+#result-container-movie-types {
+    display: flex;
+}
+
+#result-container-movie-types p {
+    color: white;
+    margin-right: 2%;
+}
+
+#result-container-movie-sort-types {
+    display: flex;
+    height: 30px;
+}
+
+#result-container-movie-sort-types p {
+    color: #555555;
+    margin-right: 20px;
+    display: inline;
+}
+
+#result-container-movie-sort-types select {
+    background-color: rgba(35, 35, 35, 0.8);
+    color: white;
+    border: 0;
+}
+
+hr {
+    position: relative;
+    margin-top: 0;
+}
+
+#result-container-movie-count p {
+    color: white;
+}
+
+#result-container-movie-page-name {
+    position: absolute;
+    height: 30px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #f65261;
+    background: #424242;
+}
