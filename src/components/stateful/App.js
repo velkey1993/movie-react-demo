@@ -54,7 +54,7 @@ function App() {
 
     return (
         <div className={"container"}>
-            <ErrorBoundary><Search/></ErrorBoundary>
+            <ErrorBoundary><Search sortByTypes={sortByTypes}/></ErrorBoundary>
             <ErrorBoundary><Result movieTypes={movieTypes} sortByTypes={sortByTypes} movies={movies}/></ErrorBoundary>
         </div>
     );
