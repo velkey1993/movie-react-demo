@@ -31,7 +31,13 @@ function App() {
             <div id="container" className={"container"}>
                 <div id="blur" />
                 <ErrorBoundary>
-                    <Search genres={genres}/>
+                    <Search
+                        genres={genres}
+                        addMovie={(movie) => {
+                            movie = mockMovieService.create(movie);
+                            setMovies((movies) => [...movies, movie]);
+                        }}
+                    />
                 </ErrorBoundary>
                 <ErrorBoundary>
                     <Result

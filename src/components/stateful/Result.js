@@ -10,12 +10,13 @@ class Result extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            movieList: this.sortMovieList(props.movies, props.sortByTypes[0].value)
+            sortByType : props.sortByTypes[0].value
         }
         this.handleSortByTypeChange = this.handleSortByTypeChange.bind(this);
+        this.sortMovieList = this.sortMovieList.bind(this);
     }
 
-    sortMovieList(movieList, sortByType) {
+    sortMovieList (movieList, sortByType) {
         return _.sortBy(movieList, movie => {
             if (sortByType === 'genres') {
                 return movie[sortByType][0];
@@ -27,11 +28,11 @@ class Result extends PureComponent {
     handleSortByTypeChange(e) {
         const sortByType = e.target.value
         this.setState({
-            movieList: this.sortMovieList(this.props.movies, sortByType)
+            sortByType : sortByType
         })
     }
 
-    render() {
+    render () {
         return (
             <div id="result-container" className="jumbotron">
                 <div className="row">
@@ -60,7 +61,7 @@ class Result extends PureComponent {
                     <p><b>{this.props.movies.length}</b> movies found</p>
                 </div>
                 <div id={"result-container-movie-list"} className={"row"}>
-                    {this.state.movieList.map(movie => {
+                    {this.sortMovieList(this.props.movies, this.state.sortByType).map(movie => {
                             return (
                                 <ErrorBoundary key={movie.id}>
                                     <Movie
