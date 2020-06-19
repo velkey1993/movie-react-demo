@@ -7,6 +7,9 @@ export class Edit extends React.Component {
         const { movie } = props;
         this.state = { movie: movie };
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleMultiSelectInputChange = this.handleMultiSelectInputChange.bind(
+            this
+        );
     }
 
     componentDidMount() {
@@ -32,6 +35,10 @@ export class Edit extends React.Component {
         });
     }
 
+    handleMultiSelectInputChange(event) {
+        alert("Not supported");
+    }
+
     render() {
         return (
             <>
@@ -54,27 +61,33 @@ export class Edit extends React.Component {
                         />
                         <h5>RELEASE DATE</h5>
                         <input
-                            name={"releaseDate"}
+                            name={"release_date"}
                             type={"date"}
                             onChange={this.handleInputChange}
-                            value={new Date(this.state.movie.releaseDate || "")
-                                .toISOString()
-                                .slice(0, 10)}
+                            value={this.state.movie.release_date}
                         />
                         <h5>MOVIE URL</h5>
                         <input
-                            name={"movieUrl"}
+                            name={"poster_path"}
                             type={"text"}
                             onChange={this.handleInputChange}
-                            value={this.state.movie.movieUrl || ""}
+                            value={this.state.movie.poster_path || ""}
                         />
                         <h5>GENRE</h5>
                         <select
-                            name={"genre"}
-                            onChange={this.handleInputChange}
-                            value={this.state.movie.genre || ""}
+                            multiple
+                            name={"genres"}
+                            onChange={this.handleMultiSelectInputChange}
+                            value={this.state.movie.genres}
                         >
-                            {["comedy", "drama"].map((type) => {
+                            {[
+                                ...new Set(
+                                    this.state.movie.genres.concat([
+                                        "Comedy",
+                                        "Family",
+                                    ])
+                                ),
+                            ].map((type) => {
                                 return (
                                     <option key={type} value={type}>
                                         {type}
@@ -101,7 +114,7 @@ export class Edit extends React.Component {
                             <button
                                 className="save"
                                 onClick={() => {
-                                    this.props.updateMovie();
+                                    this.props.updateMovie(this.state.movie);
                                 }}
                             >
                                 SAVE

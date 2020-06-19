@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 
 export const useEscAware = (callback) => {
@@ -39,3 +39,28 @@ export const withModel = (Component) => (props) => {
     }, []);
     return <Component {...props} />;
 };
+
+function extractIfFunction(initialState) {
+    return initialState instanceof Function ? initialState() : initialState;
+}
+
+export function useStateWithLocaleStorage(key, initialState, callbacks) {
+    const [value, setValue] = useState(() => {
+        const rawItem = localStorage.getItem(key);
+
+        if (rawItem !== "undefined" && rawItem) {
+            const item = JSON.parse(rawItem);
+            callbacks?.present && callbacks.present(item);
+            return item;
+        } else {
+            callbacks?.missing && callbacks.missing();
+            return extractIfFunction(initialState);
+        }
+    });
+
+    useEffect(() => {
+        localStorage.setItem(key, JSON.stringify(value));
+    }, [value, key]);
+
+    return [value, setValue];
+}

@@ -1,46 +1,20 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 import Search from "./Search";
 import Result from "./Result";
-import simpson from "../../assets/Simpsons_final_poster.png";
 import ErrorBoundary from "./ErrorBoundary";
+import * as mockMovieService from "../../service/MockMovieService";
+import { useStateWithLocaleStorage } from "../../utils/Custom";
 
 const movieTypes = ["ALL", "DOCUMENTARY", "COMEDY", "HORROR", "CRIME"];
 
 const sortByTypes = ["TITLE", "RELEASE DATE", "GENRE"];
 
-const movies = [
-    {
-        id: 1,
-        image: simpson,
-        title: "The Simpsons Movie",
-        releaseDate: "2020-10-10",
-        genre: "Animated Comedy",
-    },
-    {
-        id: 2,
-        image: simpson,
-        title: "The Simpsons Movie",
-        releaseDate: "2020-10-10",
-        genre: "Animated Comedy",
-    },
-    {
-        id: 3,
-        image: simpson,
-        title: "The Simpsons Movie",
-        releaseDate: "2020-10-10",
-        genre: "Animated Comedy",
-    },
-    {
-        id: 4,
-        image: simpson,
-        title: "The Simpsons Movie",
-				releaseDate: "2020-10-10",
-        genre: "Animated Comedy",
-    },
-];
-
 function App() {
+    const [movies, setMovies] = useStateWithLocaleStorage("movies", () =>
+        mockMovieService.read()
+    );
+
     return (
         <>
             <div id="container" className={"container"}>
@@ -53,6 +27,20 @@ function App() {
                         movieTypes={movieTypes}
                         sortByTypes={sortByTypes}
                         movies={movies}
+                        updateMovie={(movie) => {
+                            movie = mockMovieService.update(movie);
+                            setMovies((movies) =>
+                                movies.map((item) =>
+                                    item.id === movie.id ? movie : item
+                                )
+                            );
+                        }}
+                        deleteMovie={(id) => {
+                            id = mockMovieService.remove(id);
+                            setMovies((movies) =>
+                                movies.filter((item) => item.id !== id)
+                            );
+                        }}
                     />
                 </ErrorBoundary>
             </div>

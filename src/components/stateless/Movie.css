@@ -9,7 +9,7 @@
 
 .image-wrapper img {
     min-height: auto;
-    min-width: 100%;
+    width: 100%;
     grid-row: 1;
     grid-column: 1;
 }

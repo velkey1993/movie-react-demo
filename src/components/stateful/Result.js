@@ -40,12 +40,8 @@ class Result extends PureComponent {
                                 <ErrorBoundary key={movie.id}>
                                     <Movie
                                         movie={movie}
-                                        deleteMovie={() =>
-                                            alert("movie deleted, no effect")
-                                        }
-                                        updateMovie={() =>
-                                            alert("updated movie, no effect")
-                                        }
+                                        deleteMovie={this.props.deleteMovie}
+                                        updateMovie={this.props.updateMovie}
                                     />
                                 </ErrorBoundary>
                             );
