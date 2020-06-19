@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import './AddMovie.css';
 import {Button, Modal, ModalBody, ModalFooter} from "react-bootstrap";
 import ModalHeader from "react-bootstrap/ModalHeader";
+import Form from "react-bootstrap/Form";
 
 class AddMovie extends Component {
 
@@ -22,6 +23,7 @@ class AddMovie extends Component {
         const root = document.getElementById("root");
         root.style["opacity"] = "1";
         root.style["filter"] = "blur(0px)";
+        this.cleanUpState();
     }
 
     handleInputChange(event) {
@@ -54,39 +56,53 @@ class AddMovie extends Component {
         return (
             <Modal {...this.props} onShow={() => this.blurRoot()} onExit={() => this.resetRoot()} size="md"
                    aria-labelledby="contained-modal-title-vcenter" centered style={{opacity: 1}}>
-                <ModalHeader closeButton/>
-                <ModalBody>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        <h1 style={{color: "white", marginTop: 0, marginBottom: 30}}>ADD MOVIE</h1>
-                    </Modal.Title>
-                    <h4>TITLE</h4>
-                    <input name={"title"} type={"text"} className={"modal-input-bg"} placeholder={"Select Title"}
-                           onChange={this.handleInputChange}/>
-                    <h4>RELEASE DATE</h4>
-                    <input name={"releaseDate"} type={"date"} className={"modal-input-bg"} placeholder={"Select Date"}
-                           onChange={this.handleInputChange}/>
-                    <h4>MOVIE URL</h4>
-                    <input name={"movieUrl"} type={"text"} className={"modal-input-bg"} placeholder={"Movie URL here"}
-                           onChange={this.handleInputChange}/>
-                    <h4>GENRE</h4>
-                    <select name={"genre"} className={"modal-input-bg"} onChange={this.handleInputChange}>
-                        {this.props.sortbytypes.map((type, index) => {
-                            return <option key={index} value={type}>{type}</option>
-                        })}
-                    </select>
-                    <h4>OVERVIEW</h4>
-                    <input name={"overview"} type={"text"} className={"modal-input-bg"} placeholder={"Overview here"}
-                           onChange={this.handleInputChange}/>
-                    <h4>RUNTIME</h4>
-                    <input name={"runtime"} type={"text"} className={"modal-input-bg"} placeholder={"Runtime here"}
-                           onChange={this.handleInputChange}/>
-                </ModalBody>
-                <ModalFooter>
-                    <Button onClick={this.props.onHide}
-                            style={{backgroundColor: "#232323", borderColor: "#f65261"}}>RESET</Button>
-                    <Button onClick={this.handleSubmit}
-                            style={{backgroundColor: "#f65261", border: 0}}>SUBMIT</Button>
-                </ModalFooter>
+                <Form onSubmit={this.handleSubmit}>
+                    <ModalHeader closeButton/>
+                    <ModalBody>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            <h1>ADD MOVIE</h1>
+                        </Modal.Title>
+                        <Form.Group>
+                            <Form.Label>TITLE</Form.Label>
+                            <Form.Control className={"modal-input-bg"} name={"title"} type="text"
+                                          placeholder="Select Title" onChange={this.handleInputChange}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>RELEASE DATE</Form.Label>
+                            <Form.Control className={"modal-input-bg"} name={"releaseDate"} type="date"
+                                          placeholder="Select Date" onChange={this.handleInputChange}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>MOVIE URL</Form.Label>
+                            <Form.Control className={"modal-input-bg"} name={"movieUrl"} type="text"
+                                          placeholder="Movie URL here" onChange={this.handleInputChange}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>GENRE</Form.Label>
+                            <Form.Control className={"modal-input-bg"} name={"genre"} as="select"
+                                          placeholder="Select Genre..." onChange={this.handleInputChange}>
+                                <option key="default" value="default">Select Genre...</option>
+                                {this.props.sortbytypes.map((type, index) => {
+                                    return <option key={index} value={type}>{type}</option>
+                                })}
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>OVERVIEW</Form.Label>
+                            <Form.Control className="modal-input-bg" name="overview" type="text"
+                                          placeholder="Overview here" onChange={this.handleInputChange}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>RUNTIME</Form.Label>
+                            <Form.Control className="modal-input-bg" name="runtime" type="text"
+                                          placeholder="Runtime here" onChange={this.handleInputChange}/>
+                        </Form.Group>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button id="modal-footer-bt-reset" onClick={this.props.onHide}>RESET</Button>
+                        <Button id="modal-footer-bt-submit" variant="primary" type="submit">SUBMIT</Button>
+                    </ModalFooter>
+                </Form>
             </Modal>
         );
     }
