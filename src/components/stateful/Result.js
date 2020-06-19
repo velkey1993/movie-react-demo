@@ -1,29 +1,54 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import _ from 'lodash';
 import './Result.css';
 import Movie from "../stateless/Movie";
 import ErrorBoundary from "./ErrorBoundary";
 
 class Result extends PureComponent {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            movieList: this.sortMovieListByGenre(props.movies, props.sortByTypes[0].value)
+        }
+        this.handleSortByTypeChange = this.handleSortByTypeChange.bind(this);
+    }
+
+    sortMovieListByGenre(movieList, sortByType) {
+        return _.sortBy(movieList, movie => {
+            if (sortByType === 'genres') {
+                return movie[sortByType][0];
+            }
+            return movie[sortByType];
+        }, movie => movie['title']);
+    }
+
+    handleSortByTypeChange(e) {
+        const sortByType = e.target.value
+        this.setState({
+            movieList: this.sortMovieListByGenre(this.props.movies, sortByType)
+        })
+    }
+
     render() {
         return (
-            <div id={"result-container"} className={"jumbotron"}>
-                <div className={"row"}>
-                    <div id={"result-container-movie-types"} className={"col-lg-9"}>
+            <div id="result-container" className="jumbotron">
+                <div className="row">
+                    <div id="result-container-movie-types" className="col-lg-9">
                         {
                             this.props.movieTypes.map((type, index) => {
-                                return <p key={index}>{type}</p>
+                                return <p key={index}>{type.name}</p>
                             })
                         }
                     </div>
-                    <div className={"col-lg-3"}>
-                        <div id={"result-container-movie-sort-types"}>
+                    <div className="col-lg-3">
+                        <div id="result-container-movie-sort-by-types">
                             <p>SORT BY</p>
-                            <select>
+                            <select onChange={this.handleSortByTypeChange}>
                                 {
                                     this.props.sortByTypes.map((type, index) => {
-                                        return <option key={index} value={type}>{type}</option>
+                                        return <option key={index} value={type.value}>{type.name}</option>
                                     })
                                 }
                             </select>
@@ -31,26 +56,25 @@ class Result extends PureComponent {
                     </div>
                 </div>
                 <hr/>
-                <div id={"result-container-movie-count"}>
+                <div id="result-container-movie-count">
                     <p><b>{this.props.movies.length}</b> movies found</p>
                 </div>
-                <div id={"result-container-movie-list"} className={"row"}>
-                    {this.props.movies.map(movie => {
-                            return (
-                                <ErrorBoundary key={movie.id}>
-                                    <Movie
-                                        key={movie.id}
-                                        image={movie.image}
-                                        title={movie.title}
-                                        genre={movie.genre}
-                                        releaseDate={movie.releaseDate}
-                                    />
-                                </ErrorBoundary>
-                            )
-                        }
-                    )}
+                <div id="result-container-movie-list" className="row">
+                    {this.state.movieList.map(movie => {
+                        return (
+                            <ErrorBoundary key={movie.id}>
+                                <Movie
+                                    key={movie.id}
+                                    image={movie.image}
+                                    title={movie.title}
+                                    genres={movie.genres}
+                                    releaseDate={movie.releaseDate}
+                                />
+                            </ErrorBoundary>
+                        )
+                    })}
                 </div>
-                <div id={"result-container-movie-page-name"}><b>epam</b>roulette</div>
+                <div id="result-container-movie-page-name"><b>epam</b>roulette</div>
             </div>
         )
     }

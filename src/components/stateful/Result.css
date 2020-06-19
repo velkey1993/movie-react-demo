@@ -13,18 +13,18 @@
     margin-right: 2%;
 }
 
-#result-container-movie-sort-types {
+#result-container-movie-sort-by-types {
     display: flex;
     height: 30px;
 }
 
-#result-container-movie-sort-types p {
+#result-container-movie-sort-by-types p {
     color: #555555;
     margin-right: 20px;
     display: inline;
 }
 
-#result-container-movie-sort-types select {
+#result-container-movie-sort-by-types select {
     background-color: rgba(35, 35, 35, 0.8);
     color: white;
     border: 0;

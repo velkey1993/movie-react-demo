@@ -64,26 +64,26 @@ class AddMovie extends Component {
                         </Modal.Title>
                         <Form.Group>
                             <Form.Label>TITLE</Form.Label>
-                            <Form.Control className={"modal-input-bg"} name={"title"} type="text"
+                            <Form.Control className="modal-input-bg" name="title" type="text"
                                           placeholder="Select Title" onChange={this.handleInputChange}/>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>RELEASE DATE</Form.Label>
-                            <Form.Control className={"modal-input-bg"} name={"releaseDate"} type="date"
+                            <Form.Control className="modal-input-bg" name="releaseDate" type="date"
                                           placeholder="Select Date" onChange={this.handleInputChange}/>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>MOVIE URL</Form.Label>
-                            <Form.Control className={"modal-input-bg"} name={"movieUrl"} type="text"
+                            <Form.Control className="modal-input-bg" name="movieUrl" type="text"
                                           placeholder="Movie URL here" onChange={this.handleInputChange}/>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>GENRE</Form.Label>
-                            <Form.Control className={"modal-input-bg"} name={"genre"} as="select"
+                            <Form.Control className="modal-input-bg" name="genre" as="select"
                                           placeholder="Select Genre..." onChange={this.handleInputChange}>
                                 <option key="default" value="default">Select Genre...</option>
-                                {this.props.sortbytypes.map((type, index) => {
-                                    return <option key={index} value={type}>{type}</option>
+                                {this.props.movietypes.map((type, index) => {
+                                    return <option key={index} value={type.name}>{type.name}</option>
                                 })}
                             </Form.Control>
                         </Form.Group>

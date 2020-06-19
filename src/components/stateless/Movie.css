@@ -1,3 +1,13 @@
 .movie {
     color: #555555;
 }
+
+.movie img {
+    width: 220px;
+    height: 325px;
+}
+
+#movie-information {
+    width: 220px;
+    height: 120px;
+}
