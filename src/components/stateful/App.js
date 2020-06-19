@@ -10,13 +10,13 @@ import ErrorBoundary from "./ErrorBoundary";
 
 function App() {
 
-    const movieTypes = [
+    const genres = [
         {name: "ALL", value: []},
         {name: "DOCUMENTARY", value: ["Documentary"]},
         {name: "COMEDY", value: ["Animated Comedy"]},
         {name: "HORROR", value: ["Horror"]},
         {name: "CRIME", value: ["Crime"]},
-        {name: "OTHER", value: ["Spaghetti Western"]}
+        {name: "OTHER", value: ["Spaghetti Western", "18+"]}
     ]
 
     const sortByTypes = [
@@ -58,8 +58,8 @@ function App() {
 
     return (
         <div className="container">
-            <ErrorBoundary><Search movieTypes={movieTypes}/></ErrorBoundary>
-            <ErrorBoundary><Result movieTypes={movieTypes} sortByTypes={sortByTypes} movies={movies}/></ErrorBoundary>
+            <ErrorBoundary><Search genres={genres}/></ErrorBoundary>
+            <ErrorBoundary><Result genres={genres} sortByTypes={sortByTypes} movies={movies}/></ErrorBoundary>
         </div>
     );
 }

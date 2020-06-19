@@ -78,12 +78,12 @@ class AddMovie extends Component {
                                           placeholder="Movie URL here" onChange={this.handleInputChange}/>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>GENRE</Form.Label>
+                            <Form.Label>GENRES</Form.Label>
                             <Form.Control className="modal-input-bg" name="genre" as="select"
-                                          placeholder="Select Genre..." onChange={this.handleInputChange}>
+                                          onChange={this.handleInputChange}>
                                 <option key="default" value="default">Select Genre...</option>
-                                {this.props.movietypes.map((type, index) => {
-                                    return <option key={index} value={type.name}>{type.name}</option>
+                                {this.props.genres.map((genre, index) => {
+                                    return <option key={index} value={genre.name}>{genre.name}</option>
                                 })}
                             </Form.Control>
                         </Form.Group>

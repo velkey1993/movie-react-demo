@@ -10,12 +10,12 @@ class Result extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            movieList: this.sortMovieListByGenre(props.movies, props.sortByTypes[0].value)
+            movieList: this.sortMovieList(props.movies, props.sortByTypes[0].value)
         }
         this.handleSortByTypeChange = this.handleSortByTypeChange.bind(this);
     }
 
-    sortMovieListByGenre(movieList, sortByType) {
+    sortMovieList(movieList, sortByType) {
         return _.sortBy(movieList, movie => {
             if (sortByType === 'genres') {
                 return movie[sortByType][0];
@@ -27,7 +27,7 @@ class Result extends PureComponent {
     handleSortByTypeChange(e) {
         const sortByType = e.target.value
         this.setState({
-            movieList: this.sortMovieListByGenre(this.props.movies, sortByType)
+            movieList: this.sortMovieList(this.props.movies, sortByType)
         })
     }
 
@@ -37,8 +37,8 @@ class Result extends PureComponent {
                 <div className="row">
                     <div id="result-container-movie-types" className="col-lg-9">
                         {
-                            this.props.movieTypes.map((type, index) => {
-                                return <p key={index}>{type.name}</p>
+                            this.props.genres.map((genre, index) => {
+                                return <p key={index}>{genre.name}</p>
                             })
                         }
                     </div>
@@ -81,7 +81,7 @@ class Result extends PureComponent {
 }
 
 Result.propTypes = {
-    movieTypes: PropTypes.array,
+    genres: PropTypes.array,
     sortByTypes: PropTypes.array,
     movies: PropTypes.array
 }
