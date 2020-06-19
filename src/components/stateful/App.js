@@ -6,9 +6,20 @@ import ErrorBoundary from "./ErrorBoundary";
 import * as mockMovieService from "../../service/MockMovieService";
 import { useStateWithLocaleStorage } from "../../utils/Custom";
 
-const movieTypes = ["ALL", "DOCUMENTARY", "COMEDY", "HORROR", "CRIME"];
+const genres = [
+    {name: "ALL", value: []},
+    {name: "DOCUMENTARY", value: ["Documentary"]},
+    {name: "COMEDY", value: ["Animated Comedy"]},
+    {name: "HORROR", value: ["Horror"]},
+    {name: "CRIME", value: ["Crime"]},
+    {name: "OTHER", value: ["Spaghetti Western", "18+"]}
+]
 
-const sortByTypes = ["TITLE", "RELEASE DATE", "GENRE"];
+const sortByTypes = [
+    {name: "TITLE", value: "title"},
+    {name: "RELEASE DATE", value: "releaseDate"},
+    {name: "GENRES", value: "genres"}
+]
 
 function App() {
     const [movies, setMovies] = useStateWithLocaleStorage("movies", () =>
@@ -20,11 +31,11 @@ function App() {
             <div id="container" className={"container"}>
                 <div id="blur" />
                 <ErrorBoundary>
-                    <Search />
+                    <Search genres={genres}/>
                 </ErrorBoundary>
                 <ErrorBoundary>
                     <Result
-                        movieTypes={movieTypes}
+                        genres={genres}
                         sortByTypes={sortByTypes}
                         movies={movies}
                         updateMovie={(movie) => {

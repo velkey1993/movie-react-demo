@@ -5,7 +5,7 @@ import EditOrDelete from "../stateful/EditOrDelete";
 
 const Movie = ({ movie, deleteMovie, updateMovie }) => {
     return (
-        <div className={"movie col-xl-1 col-lg-3 col-md-4 col-xs-6"}>
+        <div className={"movie col-xl-1 col-lg-3 col-md-4 col-sm-6 col-xs-12"}>
             <div className="image-wrapper">
                 <img src={ movie.poster_path } alt={ movie.title } />
                 <EditOrDelete
