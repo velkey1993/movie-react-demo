@@ -17,7 +17,7 @@ const genres = [
 
 const sortByTypes = [
     {name: "TITLE", value: "title"},
-    {name: "RELEASE DATE", value: "releaseDate"},
+    {name: "RELEASE DATE", value: "release_date"},
     {name: "GENRES", value: "genres"}
 ]
 
