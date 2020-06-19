@@ -12,13 +12,15 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url("../../assets/search-background.jpg");
+    background-image: linear-gradient(
+            rgba(30, 30, 30, 0.7),
+            rgba(30, 30, 30, 0.7)
+        ),
+        url("../../assets/search-background.jpg");
     background-position: 0 25%;
     background-size: cover;
     background-repeat: no-repeat;
-    -webkit-filter: blur(3px);
-    -ms-filter: blur(3px);
-    filter: blur(3px);
+
     z-index: -1;
 }
 
@@ -27,6 +29,7 @@
     color: #f65261;
     top: 5%;
     left: 5%;
+    z-index: 10;
 }
 
 #search-container-add-movie {

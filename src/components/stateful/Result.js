@@ -39,14 +39,16 @@ class Result extends PureComponent {
                             return (
                                 <ErrorBoundary key={movie.id}>
                                     <Movie
-                                        key={movie.id}
-                                        image={movie.image}
-                                        title={movie.title}
-                                        genre={movie.genre}
-                                        releaseDate={movie.releaseDate}
+                                        movie={movie}
+                                        deleteMovie={() =>
+                                            alert("movie deleted, no effect")
+                                        }
+                                        updateMovie={() =>
+                                            alert("updated movie, no effect")
+                                        }
                                     />
                                 </ErrorBoundary>
-                            )
+                            );
                         }
                     )}
                 </div>
