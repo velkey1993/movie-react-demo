@@ -4,7 +4,7 @@ import AddMovie from "./AddMovie";
 import {Button} from "react-bootstrap";
 import ErrorBoundary from "./ErrorBoundary";
 
-const Search = ({genres}) => {
+const Search = ({genres, addMovie}) => {
 
     const placeholderText = "What do you want to watch?";
 

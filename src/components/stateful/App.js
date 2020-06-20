@@ -1,66 +1,67 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 import Search from "./Search";
 import Result from "./Result";
-import simpson from "../../assets/simpsons.png";
-import sausage_party from "../../assets/sausage-party.jpg";
-import captain_underpants from "../../assets/captain-underpants.jpg";
-import the_good_the_bad_and_the_ugly from "../../assets/the-good-the-bad-and-the-ugly.jpg"
 import ErrorBoundary from "./ErrorBoundary";
+import * as mockMovieService from "../../service/MockMovieService";
+import { useStateWithLocaleStorage } from "../../utils/Custom";
+
+const genres = [
+    {name: "ALL", value: []},
+    {name: "DOCUMENTARY", value: ["Documentary"]},
+    {name: "COMEDY", value: ["Animated Comedy"]},
+    {name: "HORROR", value: ["Horror"]},
+    {name: "CRIME", value: ["Crime"]},
+    {name: "OTHER", value: ["Spaghetti Western", "18+"]}
+]
+
+const sortByTypes = [
+    {name: "TITLE", value: "title"},
+    {name: "RELEASE DATE", value: "release_date"},
+    {name: "GENRES", value: "genres"}
+]
 
 function App() {
-
-    const genres = [
-        {name: "ALL", value: []},
-        {name: "DOCUMENTARY", value: ["Documentary"]},
-        {name: "COMEDY", value: ["Animated Comedy"]},
-        {name: "HORROR", value: ["Horror"]},
-        {name: "CRIME", value: ["Crime"]},
-        {name: "OTHER", value: ["Spaghetti Western", "18+"]}
-    ]
-
-    const sortByTypes = [
-        {name: "TITLE", value: "title"},
-        {name: "RELEASE DATE", value: "releaseDate"},
-        {name: "GENRES", value: "genres"}
-    ]
-
-    const movies = [
-        {
-            id: 1,
-            image: simpson,
-            title: "The Simpsons Movie",
-            releaseDate: 2007,
-            genres: ["Animated Comedy"]
-        },
-        {
-            id: 2,
-            image: sausage_party,
-            title: "Sausage Party",
-            releaseDate: 2016,
-            genres: ["Animated Comedy", "18+"]
-        },
-        {
-            id: 3,
-            image: captain_underpants,
-            title: "Captain Underpants: The First Epic Movie",
-            releaseDate: 2017,
-            genres: ["Animated Comedy"]
-        },
-        {
-            id: 4,
-            image: the_good_the_bad_and_the_ugly,
-            title: "The Good, the Bad and the Ugly",
-            releaseDate: 1966,
-            genres: ["Spaghetti Western"]
-        }
-    ]
+    const [movies, setMovies] = useStateWithLocaleStorage("movies", () =>
+        mockMovieService.read()
+    );
 
     return (
-        <div className="container">
-            <ErrorBoundary><Search genres={genres}/></ErrorBoundary>
-            <ErrorBoundary><Result genres={genres} sortByTypes={sortByTypes} movies={movies}/></ErrorBoundary>
-        </div>
+        <>
+            <div id="container" className={"container"}>
+                <div id="blur" />
+                <ErrorBoundary>
+                    <Search
+                        genres={genres}
+                        addMovie={(movie) => {
+                            movie = mockMovieService.create(movie);
+                            setMovies((movies) => [...movies, movie]);
+                        }}
+                    />
+                </ErrorBoundary>
+                <ErrorBoundary>
+                    <Result
+                        genres={genres}
+                        sortByTypes={sortByTypes}
+                        movies={movies}
+                        updateMovie={(movie) => {
+                            movie = mockMovieService.update(movie);
+                            setMovies((movies) =>
+                                movies.map((item) =>
+                                    item.id === movie.id ? movie : item
+                                )
+                            );
+                        }}
+                        deleteMovie={(id) => {
+                            id = mockMovieService.remove(id);
+                            setMovies((movies) =>
+                                movies.filter((item) => item.id !== id)
+                            );
+                        }}
+                    />
+                </ErrorBoundary>
+            </div>
+        </>
     );
 }
 
