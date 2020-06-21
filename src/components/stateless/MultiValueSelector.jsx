@@ -29,7 +29,6 @@ const MultiValueSelector = ({ options = [], values = [], onChange }) => {
                                 const list = values.includes(item)
                                     ? values.filter((value) => value !== item)
                                     : [...new Set([...values, item])];
-                                console.log(list);
                                 onChange(list);
                             }}
                         />
