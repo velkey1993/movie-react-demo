@@ -1,13 +1,27 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import CloseButton from "../stateless/CloseButton";
+import MultiValueSelector from "../stateless/MultiValueSelector";
+
+const GENRES = [
+    "Adventure",
+    "Comedy",
+    "Family",
+    "Animation",
+    "Drama",
+    "Romance",
+    "Science Fiction",
+    "Action",
+    "Mystery",
+    "Thriller",
+];
 export class Edit extends React.Component {
     constructor(props) {
         super(props);
         const { movie } = props;
         this.state = { movie: movie };
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleMultiSelectInputChange = this.handleMultiSelectInputChange.bind(
+        this.handleMultiSelectInputChange = this.handleMultiValueInputChange.bind(
             this
         );
     }
@@ -35,8 +49,13 @@ export class Edit extends React.Component {
         });
     }
 
-    handleMultiSelectInputChange(event) {
-        alert("Not supported");
+    handleMultiValueInputChange(name, multiValues) {
+        this.setState({
+            movie: {
+                ...this.state.movie,
+                [name]: multiValues,
+            },
+        });
     }
 
     render() {
@@ -74,27 +93,16 @@ export class Edit extends React.Component {
                             value={this.state.movie.poster_path || ""}
                         />
                         <h5>GENRE</h5>
-                        <select
-                            multiple
-                            name={"genres"}
-                            onChange={this.handleMultiSelectInputChange}
-                            value={this.state.movie.genres}
-                        >
-                            {[
-                                ...new Set(
-                                    this.state.movie.genres.concat([
-                                        "Comedy",
-                                        "Family",
-                                    ])
-                                ),
-                            ].map((type) => {
-                                return (
-                                    <option key={type} value={type}>
-                                        {type}
-                                    </option>
-                                );
-                            })}
-                        </select>
+                        <MultiValueSelector
+                            options={GENRES}
+                            values={this.state.movie.genres}
+                            onChange={(values) =>
+                                this.handleMultiValueInputChange(
+                                    "genres",
+                                    values
+                                )
+                            }
+                        />
                         <h5>OVERVIEW</h5>
                         <input
                             name={"overview"}

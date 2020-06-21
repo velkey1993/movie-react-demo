@@ -79,20 +79,31 @@
     box-sizing: border-box;
 }
 
-.x-modal-edit-content p,
-.x-modal-edit-content input,
-.x-modal-edit-content select,
-.x-modal-edit-content option {
-    color: #ddd;
-
-    margin: auto;
+.x-modal-edit-content .inner > p,
+.x-modal-edit-content .inner > input {
+    margin: 2px 0;
     border: none;
     width: 100%;
     height: 2.5em;
     padding: 0 1em;
 }
 
-.x-modal-edit-content p {
+.x-modal-edit-content .inner > .MultiValueSelector {
+    margin: 2px 0;
+    border: none;
+    width: 100%;
+    height: 2.5em;
+    /* padding: 0 1em; */
+}
+
+.x-modal-edit-content .inner > .MultiValueSelector > input {
+    border: none;
+    width: 100%;
+    height: 2.5em;
+    padding: 0 1em;
+}
+
+.x-modal-edit-content .inner > p {
     padding: 0;
     height: 1em;
     font-size: 1em;
@@ -100,9 +111,14 @@
     margin-bottom: 1em;
 }
 
-.x-modal-edit-content input,
-select {
+.x-modal-edit-content .inner > input,
+.x-modal-edit-content .inner > .MultiValueSelector,
+.x-modal-edit-content .inner > .MultiValueSelector input {
     background-color: #424242;
+}
+
+.x-modal-edit-content .inner > .MultiValueSelector .Item.selected {
+    background-color: #f65261;
 }
 
 .x-modal-edit-content button {

@@ -1,0 +1,48 @@
+.MultiValueSelector {
+    background-color: inherit;
+    position: relative;
+}
+
+.MultiValueSelector .MultiValueInput {
+    position: relative;
+    z-index: 3;
+}
+
+/* order is important */
+.MultiValueSelector ul {
+    list-style-type: none;
+    background-color: inherit;
+    overflow: visible;
+    z-index: 2;
+    position: absolute;
+    width: 100%;
+    visibility: hidden;
+}
+
+.MultiValueSelector ul:hover {
+    visibility: initial;
+}
+
+.MultiValueInput:hover + ul {
+    visibility: initial;
+}
+
+*:focus-within .MultiValueSelector ul {
+    visibility: hidden;
+}
+
+.MultiValueSelector:focus-within ul {
+    visibility: initial;
+}
+
+.MultiValueSelector .Item {
+    margin-bottom: 1px;
+    border-radius: 4px;
+    cursor: default;
+    padding: 0 1em;
+    background-color: inherit;
+}
+
+.MultiValueSelector .Item.selected {
+    background-color: inherit;
+}

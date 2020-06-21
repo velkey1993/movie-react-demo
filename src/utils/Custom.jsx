@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 
 export const useEscAware = (callback) => {
@@ -27,7 +27,7 @@ export const useDisableScroll = () =>
         };
     }, []);
 
-export const withModel = (Component) => (props) => {
+export const withModal = (Component) => (props) => {
     useEffect(() => {
         ReactDOM.render(
             <div className="block blur container"></div>,
@@ -63,4 +63,12 @@ export function useStateWithLocaleStorage(key, initialState, callbacks) {
     }, [value, key]);
 
     return [value, setValue];
+}
+
+export function usePrevious(value, initialValue) {
+    const ref = useRef(initialValue);
+    useEffect(() => {
+        ref.current = value;
+    });
+    return ref.current;
 }
