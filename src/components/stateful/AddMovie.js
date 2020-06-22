@@ -21,8 +21,9 @@ class AddMovie extends Component {
 
     resetRoot() {
         const root = document.getElementById("root");
-        root.style["opacity"] = "1";
-        root.style["filter"] = "blur(0px)";
+        //"" removes these styles, otherwise fixed position is buggy.
+        root.style["opacity"] = "";
+        root.style["filter"] = "";
         this.cleanUpState();
     }
 
