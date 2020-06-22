@@ -10,6 +10,7 @@ class AddMovie extends Component {
         super(props);
         this.state = {};
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleReset = this.handleReset.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -24,7 +25,6 @@ class AddMovie extends Component {
         //"" removes these styles, otherwise fixed position is buggy.
         root.style["opacity"] = "";
         root.style["filter"] = "";
-        this.cleanUpState();
     }
 
     handleInputChange(event) {
@@ -36,15 +36,16 @@ class AddMovie extends Component {
         });
     }
 
-    handleSubmit(event) {
-        // dummy submit handling
-        alert('The title is: ' + this.state.title);
-        this.cleanUpState();
-        this.props.onHide();
-        event.preventDefault();
+    componentDidMount () { 
+        this.blurRoot()
     }
 
-    cleanUpState() {
+    componentWillUnmount () { 
+        this.resetRoot();
+    }
+
+
+    handleReset () { 
         Object.keys(this.state).map(key => {
             this.setState({
                 [key]: undefined
@@ -53,9 +54,28 @@ class AddMovie extends Component {
         })
     }
 
+    handleSubmit(event) {
+        // dummy submit handling
+        event.preventDefault();
+        alert('The title is: ' + this.state.title);
+        const movie = {
+            title: this.state.title || "Test Movie",
+            release_date:
+            this.state.release_date ||
+            new Date().toISOString().substring(0, 10),
+            genres :['Test genre']
+        };
+        this.props.addMovie(movie);
+        this.props.exit();
+    }
+
+
     render() {
         return (
-            <Modal {...this.props} onShow={() => this.blurRoot()} onExit={() => this.resetRoot()} size="md"
+            <Modal
+                show={ true}
+                onHide={ this.props.exit } 
+                size="md"
                    aria-labelledby="contained-modal-title-vcenter" centered style={{opacity: 1}}>
                 <Form onSubmit={this.handleSubmit}>
                     <ModalHeader closeButton/>
@@ -100,7 +120,7 @@ class AddMovie extends Component {
                         </Form.Group>
                     </ModalBody>
                     <ModalFooter>
-                        <Button id="modal-footer-bt-reset" onClick={this.props.onHide}>RESET</Button>
+                        <Button id="modal-footer-bt-reset" onClick={this.handleReset}>RESET</Button>
                         <Button id="modal-footer-bt-submit" variant="primary" type="submit">SUBMIT</Button>
                     </ModalFooter>
                 </Form>

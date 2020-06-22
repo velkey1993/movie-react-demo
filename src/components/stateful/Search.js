@@ -22,9 +22,10 @@ const Search = ({genres, addMovie}) => {
                     <Button id="add-movie-button" variant="primary" onClick={() => setModalShow(true)}>
                         <b id="add-movie-button-text">+ ADD MOVIE</b>
                     </Button>
-                    <ErrorBoundary>
-                        <AddMovie show={modalShow} onHide={() => setModalShow(false)} genres={genres}/>
-                    </ErrorBoundary>
+                    {modalShow &&
+                        <ErrorBoundary>
+                            <AddMovie exit={() => setModalShow(false)} genres={genres} addMovie={addMovie}/>
+                        </ErrorBoundary>}
                 </div>
                 <div id="search-container-search-bar">
                     <input id="search-container-search-bar-input" placeholder={placeholderText}/>
