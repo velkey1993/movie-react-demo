@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 
 export const useEscAware = (callback) => {
@@ -18,16 +18,25 @@ export const useEscAware = (callback) => {
     }, [fun]);
 };
 
-export const useDisableScroll = () =>
+export const useDisableScroll = () => {
+    const documentWidth = document.documentElement.clientWidth;
+    const windowWidth = window.innerWidth;
+    const resize = windowWidth - documentWidth;
     useEffect(() => {
+        const previousPadding = document.body.style.paddingRight;
+        document.body.style.paddingRight =
+            document.body.style.paddingRight + resize + "px";
         const initialOverflow = document.body.style.overflow;
         document.body.style.overflow = "hidden";
         return () => {
+            document.body.style.paddingRight = previousPadding;
             document.body.style.overflow = initialOverflow;
         };
-    }, []);
+    }, [resize]);
+    return resize;
+};
 
-export const withModel = (Component) => (props) => {
+export const withModal = (Component) => (props) => {
     useEffect(() => {
         ReactDOM.render(
             <div className="block blur container"></div>,
@@ -63,4 +72,12 @@ export function useStateWithLocaleStorage(key, initialState, callbacks) {
     }, [value, key]);
 
     return [value, setValue];
+}
+
+export function usePrevious(value, initialValue) {
+    const ref = useRef(initialValue);
+    useEffect(() => {
+        ref.current = value;
+    });
+    return ref.current;
 }

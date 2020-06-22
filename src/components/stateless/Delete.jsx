@@ -1,7 +1,7 @@
 import React from "react";
 import CloseButton from "./CloseButton";
-import { withModel, useDisableScroll } from "../../utils/Custom";
-export const Delete = withModel(({ close, deleteMovie }) => {
+import { withModal, useDisableScroll } from "../../utils/Custom";
+export const Delete = withModal(({ close, deleteMovie }) => {
     useDisableScroll();
     return (
         <>
