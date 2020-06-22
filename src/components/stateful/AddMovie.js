@@ -10,7 +10,6 @@ class AddMovie extends Component {
         super(props);
         this.state = {};
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleReset = this.handleReset.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -44,15 +43,6 @@ class AddMovie extends Component {
         this.resetRoot();
     }
 
-
-    handleReset () { 
-        Object.keys(this.state).map(key => {
-            this.setState({
-                [key]: undefined
-            });
-            return null;
-        })
-    }
 
     handleSubmit(event) {
         // dummy submit handling
@@ -120,7 +110,7 @@ class AddMovie extends Component {
                         </Form.Group>
                     </ModalBody>
                     <ModalFooter>
-                        <Button id="modal-footer-bt-reset" onClick={this.handleReset}>RESET</Button>
+                        <Button id="modal-footer-bt-reset" type="reset">RESET</Button>
                         <Button id="modal-footer-bt-submit" variant="primary" type="submit">SUBMIT</Button>
                     </ModalFooter>
                 </Form>
