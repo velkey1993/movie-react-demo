@@ -27,16 +27,26 @@ export class Edit extends React.Component {
     }
 
     componentDidMount() {
+        const documentWidth = document.documentElement.clientWidth;
+        const windowWidth = window.innerWidth;
+        const scrollBarWidth = windowWidth - documentWidth;
+        this.resize = scrollBarWidth;
         this.initialOverflow = document.body.style.overflow;
+        this.initialPadding = document.body.style.paddingRight;
+        document.body.style.paddingRight += scrollBarWidth + "px";
         document.body.style.overflow = "hidden";
         ReactDOM.render(
-            <div className="block blur container"></div>,
+            <div
+                style={{ marginLeft: `${-scrollBarWidth / 2}px` }}
+                className="block blur container"
+            ></div>,
             document.getElementById("blur")
         );
     }
 
     componentWillUnmount() {
         document.body.style.overflow = this.initialOverflow;
+        document.body.style.paddingRight = this.initialPadding;
         ReactDOM.render(null, document.getElementById("blur"));
     }
 

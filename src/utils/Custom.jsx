@@ -18,14 +18,23 @@ export const useEscAware = (callback) => {
     }, [fun]);
 };
 
-export const useDisableScroll = () =>
+export const useDisableScroll = () => {
+    const documentWidth = document.documentElement.clientWidth;
+    const windowWidth = window.innerWidth;
+    const resize = windowWidth - documentWidth;
     useEffect(() => {
+        const previousPadding = document.body.style.paddingRight;
+        document.body.style.paddingRight =
+            document.body.style.paddingRight + resize + "px";
         const initialOverflow = document.body.style.overflow;
         document.body.style.overflow = "hidden";
         return () => {
+            document.body.style.paddingRight = previousPadding;
             document.body.style.overflow = initialOverflow;
         };
-    }, []);
+    }, [resize]);
+    return resize;
+};
 
 export const withModal = (Component) => (props) => {
     useEffect(() => {
