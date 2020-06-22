@@ -7,12 +7,12 @@ import * as mockMovieService from "../../service/MockMovieService";
 import { useStateWithLocaleStorage } from "../../utils/Custom";
 
 const genres = [
-    {name: "ALL", value: []},
+    {name: "ALL", value: ["All"]},
     {name: "DOCUMENTARY", value: ["Documentary"]},
     {name: "COMEDY", value: ["Animated Comedy"]},
     {name: "HORROR", value: ["Horror"]},
     {name: "CRIME", value: ["Crime"]},
-    {name: "OTHER", value: ["Spaghetti Western", "18+"]}
+    {name: "OTHER", value: ["Spaghetti Western"]}
 ]
 
 const sortByTypes = [

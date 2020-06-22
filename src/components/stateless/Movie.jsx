@@ -24,10 +24,9 @@ const Movie = ({ movie, deleteMovie, updateMovie }) => {
 }
 
 Movie.propTypes = {
-    image: PropTypes.string,
-    title: PropTypes.string,
-    releaseDate: PropTypes.number,
-    genre: PropTypes.string
+    movie: PropTypes.object,
+    deleteMovie: PropTypes.func,
+    updateMovie: PropTypes.func
 }
 
 export default Movie;
