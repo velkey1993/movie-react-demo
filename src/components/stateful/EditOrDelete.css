@@ -1,0 +1,181 @@
+.block {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.blur {
+    backdrop-filter: blur(5px) brightness(90%);
+}
+
+.x-modal-popup-content {
+    grid-row: 1;
+    grid-column: 1;
+    height: 5em;
+    margin: 15px;
+    justify-self: end;
+    background-color: #232323;
+    border-radius: 4px;
+    z-index: 2;
+    display: grid;
+}
+
+.x-close {
+    justify-self: end;
+    float: right;
+    line-height: 1;
+    color: #fff;
+    font-weight: lighter;
+    cursor: pointer;
+}
+
+.x-modal-popup-content .x-close {
+    line-height: 1;
+    font-size: 0.5em;
+    font-weight: lighter;
+    margin: 5px;
+}
+
+.x-modal-delete-content .x-close,
+.x-modal-edit-content .x-close {
+    line-height: 1;
+    font-size: medium;
+    font-weight: lighter;
+    margin: 20px;
+}
+
+.x-modal-popup-content ul {
+    list-style-type: none;
+    grid-row: 2;
+    padding-inline-start: 0px;
+}
+
+.x-modal-popup-content ul li {
+    padding-left: 20px;
+    padding-right: 80px;
+}
+
+.x-modal-popup-content ul li:hover {
+    background-color: #f65261;
+}
+
+.x-modal-edit-content {
+    position: fixed;
+    z-index: 1;
+    position: fixed;
+    background-color: #232323;
+    width: 500px;
+    height: 700px;
+    top: 50%;
+    left: 50%;
+    margin-top: -400px;
+    margin-left: -250px;
+    overflow: auto;
+}
+
+.x-modal-edit-content .inner {
+    margin: 50px;
+    box-sizing: border-box;
+}
+
+.x-modal-edit-content .inner > p,
+.x-modal-edit-content .inner > input {
+    margin: 2px 0;
+    border: none;
+    width: 100%;
+    height: 2.5em;
+    padding: 0 1em;
+}
+
+.x-modal-edit-content .inner > .MultiValueSelector {
+    margin: 2px 0;
+    border: none;
+    width: 100%;
+    height: 2.5em;
+    /* padding: 0 1em; */
+}
+
+.x-modal-edit-content .inner > .MultiValueSelector > input {
+    border: none;
+    width: 100%;
+    height: 2.5em;
+    padding: 0 1em;
+}
+
+.x-modal-edit-content .inner > p {
+    padding: 0;
+    height: 1em;
+    font-size: 1em;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+}
+
+.x-modal-edit-content .inner > input,
+.x-modal-edit-content .inner > .MultiValueSelector,
+.x-modal-edit-content .inner > .MultiValueSelector input {
+    background-color: #424242;
+}
+
+.x-modal-edit-content .inner > .MultiValueSelector .Item.selected {
+    background-color: #f65261;
+}
+
+.x-modal-edit-content button {
+    float: right;
+    border-radius: 3px;
+    border: 1px solid;
+    height: 3em;
+    width: 120px;
+    margin-left: 10px;
+    margin-top: 40px;
+    border-color: #f65261;
+}
+
+.x-modal-edit-content .reset {
+    color: #f65261;
+    background-color: inherit;
+}
+
+.x-modal-edit-content .save {
+    color: #ddd;
+    background-color: #f65261;
+}
+
+.x-modal-edit-content h5 {
+    color: #f65261;
+}
+
+.x-modal-edit-content h5.id {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+.x-modal-delete-content {
+    position: fixed;
+    z-index: 1;
+    position: fixed;
+    background-color: #232323;
+    width: 500px;
+    height: 240px;
+    top: 0%;
+    left: 50%;
+    margin-top: 20vh;
+    margin-left: -250px;
+    overflow: auto;
+}
+
+.x-modal-delete-content .inner {
+    margin: 60px;
+}
+
+.x-modal-delete-content button {
+    float: right;
+    background-color: #f65261;
+    border-radius: 3px;
+    border: 0;
+    height: 3em;
+    width: 120px;
+}
