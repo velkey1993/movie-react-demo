@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import CloseButton from "../stateless/CloseButton";
 import MultiValueSelector from "../stateless/MultiValueSelector";
 
@@ -35,19 +34,11 @@ export class Edit extends React.Component {
         this.initialPadding = document.body.style.paddingRight;
         document.body.style.paddingRight += scrollBarWidth + "px";
         document.body.style.overflow = "hidden";
-        ReactDOM.render(
-            <div
-                style={{ marginLeft: `${-scrollBarWidth / 2}px` }}
-                className="block blur container"
-            ></div>,
-            document.getElementById("blur")
-        );
     }
 
     componentWillUnmount() {
         document.body.style.overflow = this.initialOverflow;
         document.body.style.paddingRight = this.initialPadding;
-        ReactDOM.render(null, document.getElementById("blur"));
     }
 
     handleInputChange(event) {
@@ -70,13 +61,14 @@ export class Edit extends React.Component {
 
     render() {
         return (
-            <>
+            <div
+                className={"modal-wrapper blur"}
+                style={{
+                    paddingRight: this.initialPadding + this.resize + "px",
+                }}
+            >
                 <div className="x-modal-edit-content">
-                    <CloseButton
-                        close={() => {
-                            this.props.close();
-                        }}
-                    />
+                    <CloseButton close={this.props.close} />
                     <div className="inner">
                         <h3>EDIT MOVIE</h3>
                         <h5 className="id">MOVIE ID</h5>
@@ -148,7 +140,7 @@ export class Edit extends React.Component {
                         </div>
                     </div>
                 </div>
-            </>
+            </div>
         );
     }
 }

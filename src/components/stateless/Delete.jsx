@@ -1,8 +1,7 @@
 import React from "react";
 import CloseButton from "./CloseButton";
-import { withModal, useDisableScroll } from "../../utils/Custom";
+import { withModal } from "../../utils/Custom";
 export const Delete = withModal(({ close, deleteMovie }) => {
-    useDisableScroll();
     return (
         <>
             <div className="x-modal-delete-content">

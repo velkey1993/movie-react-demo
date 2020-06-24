@@ -29,7 +29,6 @@ function App() {
     return (
         <>
             <div id="container" className={"container"}>
-                <div id="blur" />
                 <ErrorBoundary>
                     <Search
                         genres={genres}
