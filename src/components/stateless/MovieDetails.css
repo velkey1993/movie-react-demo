@@ -1,0 +1,62 @@
+#movie-details-container {
+    position: relative;
+    background: none;
+    margin-top: 30px;
+    border-radius: 0;
+}
+
+.jumbotron #movie-details-container-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(
+        rgba(30, 30, 30, 0.95),
+        rgba(30, 30, 30, 0.95)
+    ),
+    url("../../assets/top-component-background.jpg");
+    background-position: 0 25%;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    z-index: -1;
+}
+
+#movie-details-container-page-name {
+    position: absolute;
+    color: #f65261;
+    top: 5%;
+    left: 5%;
+    z-index: 10;
+}
+
+#movie-details-container-search {
+    position: absolute;
+    top: 4%;
+    right: 4%;
+}
+
+#movie-details-container-search-button {
+    color: #FF6565;
+    background-color: rgba(85, 85, 85, 0);
+    border: 0;
+    font-size: 120%;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+#movie-details-container-data {
+    position: relative;
+    margin-top: 30px;
+}
+
+#movie-details-container-data img {
+    width: 220px;
+    height: 325px;
+}
+
+#movie-details-container-data .container {
+    padding-right: 0;
+    padding-left: 0;
+}

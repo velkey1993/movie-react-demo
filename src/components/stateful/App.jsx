@@ -1,10 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 import "./App.css";
-import Search from "./Search";
 import Result from "./Result";
 import ErrorBoundary from "./ErrorBoundary";
 import * as mockMovieService from "../../service/MockMovieService";
-import { useStateWithLocaleStorage } from "../../utils/Custom";
+import {useStateWithLocaleStorage} from "../../utils/Custom";
+import TopComponent from "../stateless/TopComponent";
+
+const topComponents = {
+    SEARCH: "SEARCH",
+    MOVIE_DETAILS: "MOVIE_DETAILS"
+};
 
 const genres = [
     {name: "ALL", value: ["All"]},
@@ -15,51 +20,49 @@ const genres = [
     {name: "OTHER", value: ["Spaghetti Western"]}
 ]
 
-const sortByTypes = [
-    {name: "TITLE", value: "title"},
-    {name: "RELEASE DATE", value: "release_date"},
-    {name: "GENRES", value: "genres"}
-]
+export const AppContext = React.createContext({});
 
 function App() {
-    const [movies, setMovies] = useStateWithLocaleStorage("movies", () =>
-        mockMovieService.read()
-    );
+
+    const [movies, setMovies] = useStateWithLocaleStorage("movies", () => mockMovieService.read());
+    const [topComponent, setTopComponent] = useState({component: topComponents.SEARCH});
 
     return (
         <>
             <div id="container" className={"container"}>
-                <div id="blur" />
-                <ErrorBoundary>
-                    <Search
-                        genres={genres}
-                        addMovie={(movie) => {
-                            movie = mockMovieService.create(movie);
-                            setMovies((movies) => [...movies, movie]);
-                        }}
-                    />
-                </ErrorBoundary>
-                <ErrorBoundary>
-                    <Result
-                        genres={genres}
-                        sortByTypes={sortByTypes}
-                        movies={movies}
-                        updateMovie={(movie) => {
-                            movie = mockMovieService.update(movie);
-                            setMovies((movies) =>
-                                movies.map((item) =>
-                                    item.id === movie.id ? movie : item
-                                )
-                            );
-                        }}
-                        deleteMovie={(id) => {
-                            id = mockMovieService.remove(id);
-                            setMovies((movies) =>
-                                movies.filter((item) => item.id !== id)
-                            );
-                        }}
-                    />
-                </ErrorBoundary>
+                <AppContext.Provider value={{genres: genres, topComponents: topComponents}}>
+                    <div id="blur"/>
+                    <ErrorBoundary>
+                        <TopComponent
+                            componentToRender={topComponent}
+                            setTopComponent={setTopComponent}
+                            addMovie={(movie) => {
+                                movie = mockMovieService.create(movie);
+                                setMovies((movies) => [...movies, movie]);
+                            }}
+                        />
+                    </ErrorBoundary>
+                    <ErrorBoundary>
+                        <Result
+                            movies={movies}
+                            updateMovie={(movie) => {
+                                movie = mockMovieService.update(movie);
+                                setMovies((movies) =>
+                                    movies.map((item) =>
+                                        item.id === movie.id ? movie : item
+                                    )
+                                );
+                            }}
+                            deleteMovie={(id) => {
+                                id = mockMovieService.remove(id);
+                                setMovies((movies) =>
+                                    movies.filter((item) => item.id !== id)
+                                );
+                            }}
+                            setTopComponent={setTopComponent}
+                        />
+                    </ErrorBoundary>
+                </AppContext.Provider>
             </div>
         </>
     );

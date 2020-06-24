@@ -4,7 +4,7 @@ import AddMovie from "./AddMovie";
 import {Button} from "react-bootstrap";
 import ErrorBoundary from "./ErrorBoundary";
 
-const Search = ({genres, addMovie}) => {
+const Search = ({addMovie}) => {
 
     const placeholderText = "What do you want to watch?";
 
@@ -23,7 +23,7 @@ const Search = ({genres, addMovie}) => {
                         <b id="add-movie-button-text">+ ADD MOVIE</b>
                     </Button>
                     <ErrorBoundary>
-                        <AddMovie show={modalShow} onHide={() => setModalShow(false)} genres={genres} addMovie={addMovie}/>
+                        <AddMovie show={modalShow} onHide={() => setModalShow(false)} addMovie={addMovie}/>
                     </ErrorBoundary>
                 </div>
                 <div id="search-container-search-bar">
