@@ -84,7 +84,7 @@ class Result extends PureComponent {
                                         movie={movie}
                                         deleteMovie={this.props.deleteMovie}
                                         updateMovie={this.props.updateMovie}
-                                        setTopComponent={this.props.setTopComponent}
+                                        showMovieDetails={this.props.showMovieDetails}
                                     />
                                 </ErrorBoundary>
                             );
@@ -99,7 +99,10 @@ class Result extends PureComponent {
 }
 
 Result.propTypes = {
-    movies: PropTypes.array
+    movies: PropTypes.array,
+    deleteMovie: PropTypes.func,
+    updateMovie: PropTypes.func,
+    showMovieDetails: PropTypes.func
 }
 
 export default Result;

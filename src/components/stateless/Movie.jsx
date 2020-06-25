@@ -1,12 +1,9 @@
-import React, {useContext} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import './Movie.css';
 import EditOrDelete from "../stateful/EditOrDelete";
-import {AppContext} from "../stateful/App";
 
-const Movie = ({movie, deleteMovie, updateMovie, setTopComponent}) => {
-
-    const topComponents = useContext(AppContext).topComponents;
+const Movie = ({movie, deleteMovie, updateMovie, showMovieDetails}) => {
 
     return (
         <div className={"movie col-xl-1 col-lg-3 col-md-4 col-sm-6 col-xs-12"}>
@@ -14,7 +11,7 @@ const Movie = ({movie, deleteMovie, updateMovie, setTopComponent}) => {
                 <img
                     src={movie.poster_path}
                     alt={movie.title}
-                    onClick={() => setTopComponent({component: topComponents.MOVIE_DETAILS, movie: movie})}
+                    onClick={() => showMovieDetails(movie.id)}
                 />
                 <EditOrDelete
                     movie={movie}
@@ -34,7 +31,8 @@ const Movie = ({movie, deleteMovie, updateMovie, setTopComponent}) => {
 Movie.propTypes = {
     movie: PropTypes.object,
     deleteMovie: PropTypes.func,
-    updateMovie: PropTypes.func
+    updateMovie: PropTypes.func,
+    showMovieDetails: PropTypes.func
 }
 
 export default Movie;

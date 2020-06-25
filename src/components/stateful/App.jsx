@@ -6,11 +6,6 @@ import * as mockMovieService from "../../service/MockMovieService";
 import {useStateWithLocaleStorage} from "../../utils/Custom";
 import TopComponent from "../stateless/TopComponent";
 
-const topComponents = {
-    SEARCH: "SEARCH",
-    MOVIE_DETAILS: "MOVIE_DETAILS"
-};
-
 const genres = [
     {name: "ALL", value: ["All"]},
     {name: "DOCUMENTARY", value: ["Documentary"]},
@@ -25,16 +20,16 @@ export const AppContext = React.createContext({});
 function App() {
 
     const [movies, setMovies] = useStateWithLocaleStorage("movies", () => mockMovieService.read());
-    const [topComponent, setTopComponent] = useState({component: topComponents.SEARCH});
+    const [movieId, setMovieId] = useState();
 
     return (
         <>
             <div id="container" className={"container"}>
-                <AppContext.Provider value={{genres: genres, topComponents: topComponents}}>
+                <AppContext.Provider value={{genres: genres}}>
                     <ErrorBoundary>
                         <TopComponent
-                            componentToRender={topComponent}
-                            setTopComponent={setTopComponent}
+                            movie={movies.find(movie => movie.id === movieId)}
+                            closeDetails={() => setMovieId(undefined)}
                             addMovie={(movie) => {
                                 movie = mockMovieService.create(movie);
                                 setMovies((movies) => [...movies, movie]);
@@ -58,7 +53,7 @@ function App() {
                                     movies.filter((item) => item.id !== id)
                                 );
                             }}
-                            setTopComponent={setTopComponent}
+                            showMovieDetails={setMovieId}
                         />
                     </ErrorBoundary>
                 </AppContext.Provider>

@@ -1,11 +1,8 @@
-import React, {useContext} from "react";
+import React from "react";
 import './MovieDetails.css'
 import {Button, Col, Row} from "react-bootstrap";
-import {AppContext} from "../stateful/App";
 
-function MovieDetails({movie, setTopComponent}) {
-
-    const topComponents = useContext(AppContext).topComponents;
+function MovieDetails({movie, closeDetails}) {
 
     return (
         <div id="movie-details-container" className="jumbotron">
@@ -16,7 +13,7 @@ function MovieDetails({movie, setTopComponent}) {
                 </p>
                 <div id="movie-details-container-search">
                     <Button id="movie-details-container-search-button" variant="primary"
-                            onClick={() => setTopComponent({component: topComponents.SEARCH})}>
+                            onClick={closeDetails}>
                         <span className="glyphicon glyphicon-search"/>
                     </Button>
                 </div>
@@ -28,7 +25,13 @@ function MovieDetails({movie, setTopComponent}) {
                         <Col xs={6} sm={5} md={6} lg={7} xl={9}>
                             <Row>
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12}>
-                                    <p style={{fontSize: "300%", marginBottom: 0}}>{movie.title}  <span style={{border: "1px solid white", borderRadius: "100%", fontSize: "80%", padding: "5px", color: "greenyellow"}}>{movie.vote_average}</span></p>
+                                    <p id="movie-details-container-data-title">
+                                        {movie.title}
+                                        &emsp;
+                                        <span id="movie-details-container-data-vote-average">
+                                            {movie.vote_average}
+                                        </span>
+                                    </p>
                                 </Col>
                             </Row>
                             <Row>
@@ -38,7 +41,11 @@ function MovieDetails({movie, setTopComponent}) {
                             </Row>
                             <Row>
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12}>
-                                    <p style={{color: "#f65261"}}>{new Date(movie.release_date).toISOString().slice(0, 4)} &emsp; {movie.runtime} min</p>
+                                    <p style={{color: "#f65261"}}>
+                                        {new Date(movie.release_date).toISOString().slice(0, 4)}
+                                        &emsp;
+                                        {movie.runtime} min
+                                    </p>
                                 </Col>
                             </Row>
                             <Row>

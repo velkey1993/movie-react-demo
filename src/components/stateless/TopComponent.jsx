@@ -1,14 +1,11 @@
 import Search from "../stateful/Search";
 import MovieDetails from "./MovieDetails";
-import React, {useContext} from "react";
-import {AppContext} from "../stateful/App";
+import React from "react";
 
-function TopComponent({componentToRender, setTopComponent, addMovie}) {
+function TopComponent({movie, closeDetails, addMovie}) {
 
-    const topComponents = useContext(AppContext).topComponents;
-
-    return componentToRender.component === topComponents.MOVIE_DETAILS
-        ? <MovieDetails movie={componentToRender.movie} setTopComponent={setTopComponent}/>
+    return movie
+        ? <MovieDetails movie={movie} closeDetails={closeDetails}/>
         : <Search addMovie={addMovie}/>;
 }
 

@@ -20,9 +20,7 @@ export class Edit extends React.Component {
         const { movie } = props;
         this.state = { movie: movie };
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleMultiSelectInputChange = this.handleMultiValueInputChange.bind(
-            this
-        );
+        this.handleMultiValueInputChange = this.handleMultiValueInputChange.bind(this);
     }
 
     componentDidMount() {
