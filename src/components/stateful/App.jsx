@@ -31,7 +31,6 @@ function App() {
         <>
             <div id="container" className={"container"}>
                 <AppContext.Provider value={{genres: genres, topComponents: topComponents}}>
-                    <div id="blur"/>
                     <ErrorBoundary>
                         <TopComponent
                             componentToRender={topComponent}
