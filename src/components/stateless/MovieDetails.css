@@ -24,17 +24,7 @@
 }
 
 #movie-details-container-page-name {
-    position: absolute;
     color: #f65261;
-    top: 5%;
-    left: 5%;
-    z-index: 10;
-}
-
-#movie-details-container-search {
-    position: absolute;
-    top: 4%;
-    right: 4%;
 }
 
 #movie-details-container-search-button {
@@ -44,11 +34,6 @@
     font-size: 120%;
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
-}
-
-#movie-details-container-data {
-    position: relative;
-    margin-top: 30px;
 }
 
 #movie-details-container-data img {

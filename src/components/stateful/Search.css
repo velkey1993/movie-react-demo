@@ -3,7 +3,6 @@
     background: none;
     margin-top: 30px;
     border-radius: 0;
-    height: 300px;
 }
 
 .jumbotron #search-container-background {
@@ -25,17 +24,7 @@
 }
 
 #search-container-page-name {
-    position: absolute;
     color: #f65261;
-    top: 5%;
-    left: 5%;
-    z-index: 10;
-}
-
-#search-container-add-movie {
-    position: absolute;
-    top: 5%;
-    right: 5%;
 }
 
 #add-movie-button-text {
@@ -48,25 +37,10 @@
     border-radius: 6px;
     border: 0;
     height: 50px;
-    width: 120px;
 }
 
 #search-container-find-text {
     color: #ffffff;
-    position: absolute;
-    top: 20%;
-    left: 10%;
-}
-
-#search-container-search-bar {
-    position: absolute;
-    top: 50%;
-    left: 10%;
-    height: 100px;
-    width: 90%;
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
 }
 
 #search-container-search-bar-input {
@@ -76,7 +50,7 @@
     font-size: 250%;
     opacity: 80%;
     height: 50px;
-    width: 80%;
+    width: 100%;
     margin-right: 10px;
 }
 
@@ -86,5 +60,5 @@
     border: 0;
     color: white;
     height: 50px;
-    width: 80px;
+    padding: 0 20px;
 }

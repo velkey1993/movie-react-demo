@@ -8,16 +8,22 @@ function MovieDetails({movie, closeDetails}) {
         <div id="movie-details-container" className="jumbotron">
             <div id="movie-details-container-background"/>
             <div id="movie-details-container-content">
-                <p id="movie-details-container-page-name">
-                    <b>epam</b>roulette
-                </p>
-                <div id="movie-details-container-search">
-                    <Button id="movie-details-container-search-button" variant="primary"
-                            onClick={closeDetails}>
-                        <span className="glyphicon glyphicon-search"/>
-                    </Button>
-                </div>
                 <div id="movie-details-container-data">
+                    <Row>
+                        <Col xs={11} sm={11} md={11} lg={11} xl={11}>
+                            <p id="movie-details-container-page-name">
+                                <b>epam</b>roulette
+                            </p>
+                        </Col>
+                        <Col xs={1} sm={1} md={1} lg={1} xl={1}>
+                            <div>
+                                <Button id="movie-details-container-search-button" variant="primary"
+                                        onClick={closeDetails}>
+                                    <span className="glyphicon glyphicon-search"/>
+                                </Button>
+                            </div>
+                        </Col>
+                    </Row>
                     <Row>
                         <Col xs={6} sm={5} md={4} lg={3} xl={1}>
                             <img src={movie.poster_path} alt={movie.title}/>
