@@ -47,12 +47,12 @@ function AddMovie({ show, onHide, addMovie }) {
             <Formik
                 validationSchema={schema}
                 initialValues={{
-                    title: '',
-                    release_date: '',
-                    poster_path: '',
-                    genres: [],
-                    overview: '',
-                    runtime: '',
+                    title: 'Test',
+                    release_date: '2017-12-01',
+                    poster_path: 'https://image.tmdb.org/t/p/w500/k4FwHlMhuRR5BISY2Gm2QZHlH5Q.jpg',
+                    genres: ['Drama', 'Fantasy', 'Romance'],
+                    overview: 'An other-worldly story ...',
+                    runtime: 123,
                 }}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                     setSubmitting(true);
@@ -123,7 +123,7 @@ function AddMovie({ show, onHide, addMovie }) {
                                 <Form.Label>MOVIE URL</Form.Label>
                                 <Form.Control
                                     className={touched.poster_path && errors.poster_path ? 'modal-input-bg error' : 'modal-input-bg'}
-                                    type='text'
+                                    type='url'
                                     name='poster_path'
                                     placeholder='Movie URL here'
                                     onChange={handleChange}
@@ -200,7 +200,7 @@ function AddMovie({ show, onHide, addMovie }) {
                                 <Form.Label>RUNTIME</Form.Label>
                                 <Form.Control
                                     className={touched.runtime && errors.runtime ? 'modal-input-bg error' : 'modal-input-bg'}
-                                    type='text'
+                                    type='number'
                                     name='runtime'
                                     placeholder='Runtime here'
                                     onChange={handleChange}

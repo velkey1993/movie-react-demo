@@ -41,9 +41,9 @@ export default class Edit extends React.Component {
 
     handleInputChange(event) {
         const { target } = event;
-        const { value, name } = target;
+        const { value, name, type } = target;
         this.setState(state => ({
-            movie: { ...state.movie, [name]: value },
+            movie: { ...state.movie, [name]: type === 'number' ? parseInt(value, 10) : value },
         }));
     }
 
@@ -91,7 +91,7 @@ export default class Edit extends React.Component {
                         <h5>MOVIE URL</h5>
                         <input
                             name='poster_path'
-                            type='text'
+                            type='url'
                             onChange={this.handleInputChange}
                             value={this.state.movie.poster_path || ''}
                         />
@@ -115,7 +115,7 @@ export default class Edit extends React.Component {
                         <h5>RUNTIME</h5>
                         <input
                             name='runtime'
-                            type='text'
+                            type='number'
                             onChange={this.handleInputChange}
                             value={this.state.movie.runtime || ''}
                         />
