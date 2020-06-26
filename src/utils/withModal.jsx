@@ -2,23 +2,26 @@ import React, { useState, useEffect } from 'react';
 import useEscAware from './useEscAware';
 
 const useWindowWidth = () => {
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [windowWidth, setWindowWidth] = useState(window?.innerWidth || 0);
 
     useEffect(() => {
         const resizeHandler = () => {
-            setWindowWidth(() => window.innerWidth);
+            setWindowWidth(() => window?.innerWidth || 0);
         };
-        window.addEventListener('resize', resizeHandler);
-        return () => window.removeEventListener('resize', resizeHandler);
+        window && window.addEventListener('resize', resizeHandler);
+        return () => window && window.removeEventListener('resize', resizeHandler);
     }, []);
 
     return windowWidth;
 };
 
 const getScrollWidth = () => {
-    const documentWidth = document.documentElement.clientWidth;
-    const windowWidth = window.innerWidth;
-    return windowWidth - documentWidth;
+    if (typeof window !== 'undefined') {
+        const documentWidth = document.documentElement.clientWidth;
+        const windowWidth = window.innerWidth;
+        return windowWidth - documentWidth;
+    }
+    return 0;
 };
 
 const withModal = Component => (props) => {
