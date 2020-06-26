@@ -1,20 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { usePrevious } from "../../utils/Custom";
-import _ from "lodash";
+import React, { useState, useEffect } from 'react';
+import _ from 'lodash';
+import { usePrevious } from '../../utils/Custom';
 
-const deserializer = (str) => {
-    return str
-        .split(",")
-        .map((item) => item.trim())
-        .filter((item) => item.length !== 0);
-};
-
-const serializer = (values) => values.join(", ");
 
 const MultiValueInput = ({ values = [], onChange }) => {
+    const deserializer = str => str
+        .split(',')
+        .map(item => item.trim())
+        .filter(item => item.length !== 0);
+
+    const serializer = values => values.join(', ');
+
     const [text, setText] = useState(serializer(values));
     const previousText = usePrevious(text, text);
-
     useEffect(() => {
         setText(serializer(values));
     }, [values]);
@@ -30,10 +28,10 @@ const MultiValueInput = ({ values = [], onChange }) => {
 
     return (
         <input
-            className="MultiValueInput"
+            className='MultiValueInput'
             value={text}
-            onChange={(e) => setText(e.target.value)}
-            onBlur={() => setText((input) => serializer(deserializer(input)))}
+            onChange={e => setText(e.target.value)}
+            onBlur={() => setText(input => serializer(deserializer(input)))}
         />
     );
 };
