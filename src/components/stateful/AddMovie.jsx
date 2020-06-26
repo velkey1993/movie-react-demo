@@ -5,6 +5,7 @@ import {Formik} from "formik";
 import * as yup from "yup";
 import './AddMovie.css';
 import Form from "react-bootstrap/Form";
+import {AppContext} from "./App";
 
 const schema = yup.object().shape({
     title: yup.string().required("Title required!"),
@@ -15,9 +16,9 @@ const schema = yup.object().shape({
     runtime: yup.number().required("Runtime required!")
 })
 
-function AddMovie({show, onHide, genres, addMovie}) {
+function AddMovie({show, onHide, addMovie}) {
 
-    const modalFormVariables = {show, onHide, genres};
+    const modalFormVariables = {show, onHide};
 
     function blurRoot() {
         const root = document.getElementById("root");
@@ -112,24 +113,35 @@ function AddMovie({show, onHide, genres, addMovie}) {
                                     ? (<div className="error-message">* {errors.poster_path}</div>)
                                     : null}
                             </Form.Group>
-                            <Form.Group controlId="formGenres">
-                                <Form.Label>GENRES</Form.Label>
-                                <Form.Control
-                                    className={touched.genres && errors.genres ? "modal-input-bg error" : "modal-input-bg"}
-                                    multiple
-                                    as="select"
-                                    name="genres"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.genres}>
-                                    {genres.map((genre, index) => {
-                                        return <option key={index} value={genre.name}>{genre.name}</option>
-                                    })}
-                                </Form.Control>
-                                {touched.genres && errors.genres
-                                    ? (<div className="error-message">* {errors.genres}</div>)
-                                    : null}
-                            </Form.Group>
+                            <AppContext.Consumer>
+                                {
+                                    value => {
+                                        return (
+                                            <Form.Group controlId="formGenres">
+                                                <Form.Label>GENRES</Form.Label>
+                                                <Form.Control
+                                                    className={touched.genres && errors.genres ? "modal-input-bg error" : "modal-input-bg"}
+                                                    multiple
+                                                    as="select"
+                                                    name="genres"
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
+                                                    value={values.genres}>
+                                                    {
+                                                        value.genres.map((genre, index) => {
+                                                            return <option key={index}
+                                                                           value={genre.name}>{genre.name}</option>
+                                                        })
+                                                    }
+                                                </Form.Control>
+                                                {touched.genres && errors.genres
+                                                    ? (<div className="error-message">* {errors.genres}</div>)
+                                                    : null}
+                                            </Form.Group>
+                                        )
+                                    }
+                                }
+                            </AppContext.Consumer>
                             <Form.Group controlId="formOverview">
                                 <Form.Label>OVERVIEW</Form.Label>
                                 <Form.Control

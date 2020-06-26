@@ -4,19 +4,26 @@ import _ from 'lodash';
 import './Result.css';
 import Movie from "../stateless/Movie";
 import ErrorBoundary from "./ErrorBoundary";
+import {AppContext} from "./App";
+
+const sortByTypes = [
+    {name: "TITLE", value: "title"},
+    {name: "RELEASE DATE", value: "release_date"},
+    {name: "GENRES", value: "genres"}
+]
 
 class Result extends PureComponent {
 
     constructor(props) {
         super(props);
         this.state = {
-            sortByType : props.sortByTypes[0].value
+            sortByType: sortByTypes[0].value
         }
         this.handleSortByTypeChange = this.handleSortByTypeChange.bind(this);
         this.sortMovieList = this.sortMovieList.bind(this);
     }
 
-    sortMovieList (movieList, sortByType) {
+    sortMovieList(movieList, sortByType) {
         return _.sortBy(movieList, movie => {
             if (sortByType === 'genres') {
                 return movie[sortByType][0];
@@ -28,27 +35,36 @@ class Result extends PureComponent {
     handleSortByTypeChange(e) {
         const sortByType = e.target.value
         this.setState({
-            sortByType : sortByType
+            sortByType: sortByType
         })
     }
 
-    render () {
+    render() {
+
         return (
             <div id="result-container" className="jumbotron">
                 <div className="row">
-                    <div id="result-container-movie-types" className="col-lg-9">
+                    <AppContext.Consumer>
                         {
-                            this.props.genres.map((genre, index) => {
-                                return <p key={index}>{genre.name}</p>
-                            })
+                            value => {
+                                return (
+                                    <div id="result-container-movie-types" className="col-xl-11 col-lg-9 col-md-8 col-sm-8 col-xs-12">
+                                        {
+                                            value.genres.map((genre, index) => {
+                                                return <p key={index}>{genre.name}</p>
+                                            })
+                                        }
+                                    </div>
+                                )
+                            }
                         }
-                    </div>
-                    <div className="col-lg-3">
+                    </AppContext.Consumer>
+                    <div className="col-xl-1 col-lg-3 col-md-4 col-sm-8 col-xs-12">
                         <div id="result-container-movie-sort-by-types">
                             <p>SORT BY</p>
                             <select onChange={this.handleSortByTypeChange}>
                                 {
-                                    this.props.sortByTypes.map((type, index) => {
+                                    sortByTypes.map((type, index) => {
                                         return <option key={index} value={type.value}>{type.name}</option>
                                     })
                                 }
@@ -68,6 +84,7 @@ class Result extends PureComponent {
                                         movie={movie}
                                         deleteMovie={this.props.deleteMovie}
                                         updateMovie={this.props.updateMovie}
+                                        showMovieDetails={this.props.showMovieDetails}
                                     />
                                 </ErrorBoundary>
                             );
@@ -82,9 +99,10 @@ class Result extends PureComponent {
 }
 
 Result.propTypes = {
-    genres: PropTypes.array,
-    sortByTypes: PropTypes.array,
-    movies: PropTypes.array
+    movies: PropTypes.array,
+    deleteMovie: PropTypes.func,
+    updateMovie: PropTypes.func,
+    showMovieDetails: PropTypes.func
 }
 
 export default Result;
