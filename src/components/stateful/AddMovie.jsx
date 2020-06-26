@@ -7,7 +7,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import './AddMovie.css';
 import Form from 'react-bootstrap/Form';
-import { AppContext } from './App';
+import AppContext from './AppContext';
 
 const schema = yup.object().shape({
     title: yup.string().required('Title required!'),

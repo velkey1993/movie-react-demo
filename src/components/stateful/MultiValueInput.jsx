@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
-import { usePrevious } from '../../utils/Custom';
+import usePrevious from '../../utils/usePrevious';
 
+const deserializer = str => str
+    .split(',')
+    .map(item => item.trim())
+    .filter(item => item.length !== 0);
+
+const serializer = values => values.join(', ');
 
 const MultiValueInput = ({ values = [], onChange }) => {
-    const deserializer = str => str
-        .split(',')
-        .map(item => item.trim())
-        .filter(item => item.length !== 0);
-
-    const serializer = values => values.join(', ');
-
     const [text, setText] = useState(serializer(values));
     const previousText = usePrevious(text, text);
     useEffect(() => {

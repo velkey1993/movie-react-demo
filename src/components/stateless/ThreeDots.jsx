@@ -1,5 +1,5 @@
 import React from 'react';
-import { withFilter } from '../../utils/Custom';
+import withFilter from '../../utils/withFilter';
 
 const ThreeDots = ({ onClick }) => (
     <div

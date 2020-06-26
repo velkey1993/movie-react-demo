@@ -1,6 +1,6 @@
 import React from 'react';
 import CloseButton from './CloseButton';
-import { withModal } from '../../utils/Custom';
+import withModal from '../../utils/withModal';
 
 const Delete = withModal(({ close, deleteMovie }) => (
     <>

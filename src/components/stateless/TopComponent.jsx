@@ -1,12 +1,11 @@
-import Search from "../stateful/Search";
-import MovieDetails from "./MovieDetails";
-import React from "react";
+import React from 'react';
+import Search from '../stateful/Search';
+import MovieDetails from './MovieDetails';
 
-function TopComponent({movie, closeDetails, addMovie}) {
-
+function TopComponent({ movie, closeDetails, addMovie }) {
     return movie
-        ? <MovieDetails movie={movie} closeDetails={closeDetails}/>
-        : <Search addMovie={addMovie}/>;
+        ? <MovieDetails movie={movie} closeDetails={closeDetails} />
+        : <Search addMovie={addMovie} />;
 }
 
 export default TopComponent;

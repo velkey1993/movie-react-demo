@@ -3,8 +3,9 @@ import './App.css';
 import Result from './Result';
 import ErrorBoundary from './ErrorBoundary';
 import * as mockMovieService from '../../service/MockMovieService';
-import { useStateWithLocaleStorage } from '../../utils/Custom';
+import useStateWithLocaleStorage from '../../utils/useStateWithLocaleStorage';
 import TopComponent from '../stateless/TopComponent';
+import AppContext from './AppContext';
 
 const GENRES = [
     { name: 'ALL', value: ['All'] },
@@ -15,24 +16,23 @@ const GENRES = [
     { name: 'OTHER', value: ['Spaghetti Western'] },
 ];
 
-export const AppContext = React.createContext({});
-
 function App() {
     const [movies, setMovies] = useStateWithLocaleStorage('movies', () => mockMovieService.read());
     const [movieId, setMovieId] = useState();
 
     const updateMovieCallback = useCallback(
         (movie) => {
-            movie = mockMovieService.update(movie);
-            setMovies(movies => movies.map(item => (item.id === movie.id ? movie : item)));
+            const updatedMovie = mockMovieService.update(movie);
+            setMovies(items => items
+                .map(item => (item.id === updatedMovie.id ? updatedMovie : item)));
         },
         [setMovies],
     );
 
     const deleteMovieCallback = useCallback(
         (id) => {
-            id = mockMovieService.remove(id);
-            setMovies(movies => movies.filter(item => item.id !== id));
+            const removedId = mockMovieService.remove(id);
+            setMovies(items => items.filter(item => item.id !== removedId));
         },
         [setMovies],
     );
@@ -48,8 +48,8 @@ function App() {
                             movie={movies.find(movie => movie.id === movieId)}
                             closeDetails={() => setMovieId(undefined)}
                             addMovie={(movie) => {
-                                movie = mockMovieService.create(movie);
-                                setMovies(movies => [...movies, movie]);
+                                const createdMovie = mockMovieService.create(movie);
+                                setMovies(items => [...items, createdMovie]);
                             }}
                         />
                     </ErrorBoundary>

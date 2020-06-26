@@ -1,6 +1,6 @@
 import React from 'react';
 import CloseButton from './CloseButton';
-import { withFilter } from '../../utils/Custom';
+import withFilter from '../../utils/withFilter';
 
 const PopUp = ({ openEdit, openDelete, close }) => (
     <>

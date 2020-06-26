@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import './Movie.css';
 import EditOrDelete from '../stateful/EditOrDelete';
-import { withFilter } from '../../utils/Custom';
+import withFilter from '../../utils/withFilter';
 
 const Movie = ({
     movie, deleteMovie, updateMovie, showMovieDetails,
@@ -43,8 +43,8 @@ const Movie = ({
 
 Movie.propTypes = {
     movie: PropTypes.shape({
-        title: PropTypes.string,
-        id: PropTypes.number,
+        title: PropTypes.string.isRequired,
+        id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     }).isRequired,
     deleteMovie: PropTypes.func.isRequired,
     updateMovie: PropTypes.func.isRequired,

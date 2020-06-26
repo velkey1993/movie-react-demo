@@ -4,13 +4,24 @@ import _ from 'lodash';
 import './Result.css';
 import Movie from '../stateless/Movie';
 import ErrorBoundary from './ErrorBoundary';
-import { AppContext } from './App';
+import AppContext from './AppContext';
 
 const sortByTypes = [
     { name: 'TITLE', value: 'title' },
     { name: 'RELEASE DATE', value: 'release_date' },
     { name: 'GENRES', value: 'genres' },
 ];
+
+const sortMovieList = (movieList, sortByType) => _.sortBy(
+    movieList,
+    (movie) => {
+        if (sortByType === 'genres') {
+            return movie[sortByType][0];
+        }
+        return movie[sortByType];
+    },
+    movie => movie.title,
+);
 
 class Result extends PureComponent {
     constructor(props) {
@@ -19,21 +30,8 @@ class Result extends PureComponent {
             sortByType: sortByTypes[0].value,
         };
         this.handleSortByTypeChange = this.handleSortByTypeChange.bind(this);
-        this.sortMovieList = this.sortMovieList.bind(this);
     }
 
-    sortMovieList(movieList, sortByType) {
-        return _.sortBy(
-            movieList,
-            (movie) => {
-                if (sortByType === 'genres') {
-                    return movie[sortByType][0];
-                }
-                return movie[sortByType];
-            },
-            movie => movie.title,
-        );
-    }
 
     handleSortByTypeChange(e) {
         const sortByType = e.target.value;
@@ -76,7 +74,7 @@ class Result extends PureComponent {
                     </p>
                 </div>
                 <div id='result-container-movie-list' className='row'>
-                    {this.sortMovieList(
+                    {sortMovieList(
                         this.props.movies,
                         this.state.sortByType,
                     ).map(movie => (
@@ -100,10 +98,15 @@ class Result extends PureComponent {
 }
 
 Result.propTypes = {
-    movies: PropTypes.array,
-    deleteMovie: PropTypes.func,
-    updateMovie: PropTypes.func,
-    showMovieDetails: PropTypes.func,
+    movies: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number,
+        ]).isRequired,
+    })).isRequired,
+    deleteMovie: PropTypes.func.isRequired,
+    updateMovie: PropTypes.func.isRequired,
+    showMovieDetails: PropTypes.func.isRequired,
 };
 
 export default Result;

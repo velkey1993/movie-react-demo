@@ -25,7 +25,11 @@ const Search = ({ addMovie }) => {
                             <b id='add-movie-button-text'>+ ADD MOVIE</b>
                         </Button>
                         <ErrorBoundary>
-                            <AddMovie show={modalShow} onHide={() => setModalShow(false)} addMovie={addMovie} />
+                            <AddMovie
+                                show={modalShow}
+                                onHide={() => setModalShow(false)}
+                                addMovie={addMovie}
+                            />
                         </ErrorBoundary>
                     </Col>
                 </Row>
