@@ -63,12 +63,12 @@
     padding-inline-start: 0px;
 }
 
-.x-modal-popup-content ul li {
+.x-modal-popup-content ul li div {
     padding-left: 20px;
     padding-right: 80px;
 }
 
-.x-modal-popup-content ul li:hover {
+.x-modal-popup-content ul li div:hover {
     background-color: #f65261;
 }
 

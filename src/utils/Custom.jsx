@@ -1,20 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-export const useEscAware = (callback) => {
-    const escFunction = callback => (event) => {
-        if (event.keyCode === 27) {
-            callback && callback();
+export const withFilter = (callback, keyCode, ref) => (event) => {
+    if ((!keyCode || event.keyCode === keyCode)) {
+        if ((!ref || event.target === ref.current)) {
+            callback && callback(event);
         }
-    };
+    }
+};
 
-    const fun = escFunction(callback);
+export const useEscAware = (callback) => {
+    const handleEsc = withFilter(callback, 27);
 
     useEffect(() => {
-        document.addEventListener('keydown', fun, false);
+        document.addEventListener('keydown', handleEsc, false);
         return () => {
-            document.removeEventListener('keydown', fun, false);
+            document.removeEventListener('keydown', handleEsc, false);
         };
-    }, [fun]);
+    }, [handleEsc]);
 };
 
 const useWindowWidth = () => {

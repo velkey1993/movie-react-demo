@@ -31,5 +31,6 @@ module.exports = {
         'react/jsx-indent': ['error', 4],
         'react/jsx-indent-props': ['error', 4],
         'no-else-return': ['off'],
+        'no-unused-expressions': ["error", { "allowShortCircuit": true, "allowTernary": true }]
     },
 };

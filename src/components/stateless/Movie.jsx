@@ -1,37 +1,54 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import './Movie.css';
 import EditOrDelete from '../stateful/EditOrDelete';
+import { withFilter } from '../../utils/Custom';
 
 const Movie = ({
     movie, deleteMovie, updateMovie, showMovieDetails,
-}) => (
-    <div className='movie col-xl-1 col-lg-3 col-md-4 col-sm-6 col-xs-12'>
-        <div className='image-wrapper'>
-            <img
-                src={movie.poster_path}
-                alt={movie.title}
-                onClick={() => showMovieDetails(movie.id)}
-            />
-            <EditOrDelete
-                movie={movie}
-                deleteMovie={deleteMovie}
-                updateMovie={updateMovie}
-            />
+}) => {
+    const imageRef = useRef();
+    const imageWrapperRef = useRef();
+
+    return (
+
+        <div className='movie col-xl-1 col-lg-3 col-md-4 col-sm-6 col-xs-12'>
+            <div
+                ref={imageWrapperRef}
+                tabIndex='0'
+                role='button'
+                className='image-wrapper'
+                onClick={withFilter(() => showMovieDetails(movie.id), null, imageRef)}
+                onKeyDown={withFilter(() => showMovieDetails(movie.id), 13, imageWrapperRef)}
+            >
+                <img
+                    ref={imageRef}
+                    src={movie.poster_path}
+                    alt={movie.title}
+                />
+                <EditOrDelete
+                    movie={movie}
+                    deleteMovie={deleteMovie}
+                    updateMovie={updateMovie}
+                />
+            </div>
+            <div className='movie-data'>
+                <h4 className='title'>{movie.title}</h4>
+                <h5 className='genre'>{movie.genres.join(', ')}</h5>
+                <h5 className='year'>{new Date(movie.release_date).toISOString().slice(0, 4)}</h5>
+            </div>
         </div>
-        <div className='movie-data'>
-            <h4 className='title'>{movie.title}</h4>
-            <h5 className='genre'>{movie.genres.join(', ')}</h5>
-            <h5 className='year'>{new Date(movie.release_date).toISOString().slice(0, 4)}</h5>
-        </div>
-    </div>
-);
+    );
+};
 
 Movie.propTypes = {
-    movie: PropTypes.object,
-    deleteMovie: PropTypes.func,
-    updateMovie: PropTypes.func,
-    showMovieDetails: PropTypes.func,
+    movie: PropTypes.shape({
+        title: PropTypes.string,
+        id: PropTypes.number,
+    }).isRequired,
+    deleteMovie: PropTypes.func.isRequired,
+    updateMovie: PropTypes.func.isRequired,
+    showMovieDetails: PropTypes.func.isRequired,
 };
 
 export default Movie;

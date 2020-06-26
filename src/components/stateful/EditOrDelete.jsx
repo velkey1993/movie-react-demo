@@ -23,8 +23,8 @@ function EditOrDelete({ movie, updateMovie, deleteMovie }) {
             {state === 'edit' && (
                 <Edit
                     movie={movie}
-                    updateMovie={(movie) => {
-                        updateMovie(movie);
+                    updateMovie={(data) => {
+                        updateMovie(data);
                         setState('closed');
                     }}
                     close={() => setState('closed')}

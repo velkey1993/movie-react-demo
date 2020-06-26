@@ -51,7 +51,9 @@
     text-shadow: 0px 0px 1px #dddddd;
 }
 
-.movie:hover .dots {
+.movie .image-wrapper:focus .dots,
+.movie:hover .dots,
+.movie:focus-within .dots {
     visibility: visible;
 }
 
