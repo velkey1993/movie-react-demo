@@ -23,9 +23,9 @@
     visibility: initial;
 }
 
-.MultiValueInput:hover + ul {
+/* .MultiValueInput:hover + ul {
     visibility: initial;
-}
+} */
 
 *:focus-within .MultiValueSelector ul {
     visibility: hidden;
