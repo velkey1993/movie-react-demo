@@ -9,10 +9,10 @@ const Item = ({ selected, value, onChangeSelect }) => (
         <div
             role='option'
             aria-selected={selected}
-            tabIndex={-1}
+            tabIndex={0}
             className={`Item${selected ? ' selected' : ''}`}
             onClick={onChangeSelect}
-            onKeyDown={withFilter(onChangeSelect, 'space')}
+            onKeyDown={withFilter(onChangeSelect, ' ')}
         >
             {value}
         </div>
