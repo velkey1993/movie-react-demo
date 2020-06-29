@@ -4,6 +4,7 @@ const withFilter = (callback, keyCode, ref) => (event) => {
         || [keyCode].flatMap(x => x).includes(event.keyCode)
         || [keyCode].flatMap(x => x).includes(event.key))) {
         if ((!ref || event.target === ref.current)) {
+            event.preventDefault();
             callback && callback(event);
         }
     }

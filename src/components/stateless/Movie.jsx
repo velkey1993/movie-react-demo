@@ -19,7 +19,7 @@ const Movie = ({
                 role='button'
                 className='image-wrapper'
                 onClick={withFilter(() => showMovieDetails(movie.id), null, imageRef)}
-                onKeyDown={withFilter(() => showMovieDetails(movie.id), 13, imageWrapperRef)}
+                onKeyDown={withFilter(() => showMovieDetails(movie.id), ' ', imageWrapperRef)}
             >
                 <img
                     ref={imageRef}
