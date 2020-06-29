@@ -1,12 +1,11 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import './Movie.css';
-import EditOrDelete from '../stateful/EditOrDelete';
+import EditOrDeleteContainer from "../containers/EditOrDeleteContainer";
 import withFilter from '../../utils/withFilter';
 
-const Movie = ({
-    movie, deleteMovie, updateMovie, showMovieDetails,
-}) => {
+const Movie = ({ movie, showMovieDetails}) => {
+
     const imageRef = useRef();
     const imageWrapperRef = useRef();
 
@@ -26,10 +25,8 @@ const Movie = ({
                     src={movie.poster_path}
                     alt={movie.title}
                 />
-                <EditOrDelete
+                <EditOrDeleteContainer
                     movie={movie}
-                    deleteMovie={deleteMovie}
-                    updateMovie={updateMovie}
                 />
             </div>
             <div className='movie-data'>
@@ -46,8 +43,6 @@ Movie.propTypes = {
         title: PropTypes.string.isRequired,
         id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     }).isRequired,
-    deleteMovie: PropTypes.func.isRequired,
-    updateMovie: PropTypes.func.isRequired,
     showMovieDetails: PropTypes.func.isRequired,
 };
 

@@ -18,6 +18,11 @@
     height: 30px;
 }
 
+#result-container-movie-types #selected-genre {
+    border-bottom: red 2px solid;
+    cursor: pointer;
+}
+
 #result-container-movie-sort-by-types p {
     color: #555555;
     margin-right: 20px;
