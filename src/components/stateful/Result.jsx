@@ -1,64 +1,53 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import './Result.css';
+import { connect } from 'react-redux';
 import Movie from '../stateless/Movie';
 import ErrorBoundary from './ErrorBoundary';
-import AppContext from './AppContext';
+import { filterMoviesByGenre, sortMoviesByType } from '../../redux/moviesFilterAndSortActions';
+import makeGetVisibleMovies from '../../redux/visibleMoviesSelector';
+import HorizontalScrollableSelectMenu from '../HorizontalScrollableSelectMenu';
+import makeGetVisibleGenreFilters from '../../redux/visibleFilterGenresSelector';
 
-const sortByTypes = [
+const sortType = [
     { name: 'TITLE', value: 'title' },
     { name: 'RELEASE DATE', value: 'release_date' },
     { name: 'GENRES', value: 'genres' },
 ];
 
-const sortMovieList = (movieList, sortByType) => _.sortBy(
-    movieList,
-    (movie) => {
-        if (sortByType === 'genres') {
-            return movie[sortByType][0];
-        }
-        return movie[sortByType];
-    },
-    movie => movie.title,
-);
-
 class Result extends PureComponent {
     constructor(props) {
         super(props);
-        this.state = {
-            sortByType: sortByTypes[0].value,
-        };
-        this.handleSortByTypeChange = this.handleSortByTypeChange.bind(this);
+        this.handleSortTypeChange = this.handleSortTypeChange.bind(this);
+        this.handleGenreFilterChange = this.handleGenreFilterChange.bind(this);
     }
 
+    handleSortTypeChange(e) {
+        const type = e.target.value;
+        this.props.onSortTypeChange(type);
+    }
 
-    handleSortByTypeChange(e) {
-        const sortByType = e.target.value;
-        this.setState({
-            sortByType,
-        });
+    handleGenreFilterChange(e) {
+        const type = e.target.innerText;
+        this.props.onGenreFilterChange(type);
     }
 
     render() {
         return (
             <div id='result-container' className='jumbotron'>
                 <div className='row'>
-                    <AppContext.Consumer>
-                        {value => (
-                            <div
-                                id='result-container-movie-types'
-                                className='col-xl-11 col-lg-9 col-md-8 col-sm-8 col-xs-12'
-                            >
-                                {value.genres.map(genre => <p key={genre.name}>{genre.name}</p>)}
-                            </div>
-                        )}
-                    </AppContext.Consumer>
-                    <div className='col-xl-1 col-lg-3 col-md-4 col-sm-8 col-xs-12'>
-                        <div id='result-container-movie-sort-by-types'>
-                            <p>SORT BY</p>
-                            <select onChange={this.handleSortByTypeChange}>
-                                {sortByTypes.map(type => (
+                    <HorizontalScrollableSelectMenu
+                        id='result-container-movie-types'
+                        className='col-xl-11 col-lg-9 col-md-8 col-sm-8 col-xs-9'
+                        values={['All', ...(this.props.visibleGenreFilters)]}
+                        selected={this.props.genreFilter || 'All'}
+                        onSelectionChange={this.handleGenreFilterChange}
+                    />
+                    <div id='result-container-movie-sort-by-types' className='col-xl-1 col-lg-3 col-md-4 col-sm-4 col-xs-3'>
+                        <div className='wrapper'>
+                            <span className='hidden-xs'>SORT BY</span>
+                            <select onChange={this.handleSortTypeChange}>
+                                {sortType.map(type => (
                                     <option key={type.value} value={type.value}>
                                         {type.name}
                                     </option>
@@ -67,22 +56,16 @@ class Result extends PureComponent {
                         </div>
                     </div>
                 </div>
-                <hr />
                 <div id='result-container-movie-count'>
                     <p>
-                        <b>{`${this.props.movies.length} movies found`}</b>
+                        <b>{`${this.props.visibleMovies.length} movies found`}</b>
                     </p>
                 </div>
                 <div id='result-container-movie-list' className='row'>
-                    {sortMovieList(
-                        this.props.movies,
-                        this.state.sortByType,
-                    ).map(movie => (
+                    {this.props.visibleMovies.map(movie => (
                         <ErrorBoundary key={movie.id}>
                             <Movie
                                 movie={movie}
-                                deleteMovie={this.props.deleteMovie}
-                                updateMovie={this.props.updateMovie}
                                 showMovieDetails={this.props.showMovieDetails}
                             />
                         </ErrorBoundary>
@@ -98,15 +81,33 @@ class Result extends PureComponent {
 }
 
 Result.propTypes = {
-    movies: PropTypes.arrayOf(PropTypes.shape({
+    visibleMovies: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.number,
         ]).isRequired,
     })).isRequired,
-    deleteMovie: PropTypes.func.isRequired,
-    updateMovie: PropTypes.func.isRequired,
     showMovieDetails: PropTypes.func.isRequired,
 };
 
-export default Result;
+const makeMapStateToProps = () => {
+    const getVisibleMovies = makeGetVisibleMovies();
+    const getVisibleGenreFilters = makeGetVisibleGenreFilters();
+    const mapStateToProps = (state, props) => ({
+        genreFilter: state.filterAndSort.genreFilter,
+        sortType: state.filterAndSort.sortType,
+        visibleMovies: getVisibleMovies(state, props),
+        visibleGenreFilters: getVisibleGenreFilters(state, props),
+    });
+    return mapStateToProps;
+};
+
+const mapDispatchToProps = {
+    onGenreFilterChange: filterMoviesByGenre,
+    onSortTypeChange: sortMoviesByType,
+};
+
+export default connect(
+    makeMapStateToProps,
+    mapDispatchToProps,
+)(Result);

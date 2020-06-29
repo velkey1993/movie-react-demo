@@ -47,7 +47,6 @@ export default class Edit extends React.Component {
         }));
     }
 
-
     handleMultiValueInputChange(name, multiValues) {
         this.setState(state => ({
             movie: {

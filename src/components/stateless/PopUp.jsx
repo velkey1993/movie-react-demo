@@ -1,6 +1,6 @@
 import React from 'react';
 import CloseButton from './CloseButton';
-import withFilter from '../../utils/withFilter';
+import handleKeyDown from '../../utils/handleKeyDown';
 
 const PopUp = ({ openEdit, openDelete, close }) => (
     <>
@@ -14,7 +14,7 @@ const PopUp = ({ openEdit, openDelete, close }) => (
                         tabIndex='0'
                         role='button'
                         onClick={openEdit}
-                        onKeyDown={withFilter(openEdit, 13)}
+                        onKeyDown={handleKeyDown(openEdit, 'Enter')}
                     >
                         Edit
                     </div>
@@ -24,7 +24,7 @@ const PopUp = ({ openEdit, openDelete, close }) => (
                         tabIndex='0'
                         role='button'
                         onClick={openDelete}
-                        onKeyDown={withFilter(openDelete, 13)}
+                        onKeyDown={handleKeyDown(openDelete, 'Enter')}
                     >
                         Delete
                     </div>

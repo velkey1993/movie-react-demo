@@ -1,5 +1,5 @@
 
-const withFilter = (callback, keyCode, ref) => (event) => {
+const handleKeyDown = (callback, keyCode, ref) => (event) => {
     if ((!keyCode
         || [keyCode].flatMap(x => x).includes(event.keyCode)
         || [keyCode].flatMap(x => x).includes(event.key))) {
@@ -10,4 +10,4 @@ const withFilter = (callback, keyCode, ref) => (event) => {
     }
 };
 
-export default withFilter;
+export default handleKeyDown;

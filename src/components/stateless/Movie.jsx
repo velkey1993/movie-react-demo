@@ -2,10 +2,10 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import './Movie.css';
 import EditOrDelete from '../stateful/EditOrDelete';
-import withFilter from '../../utils/withFilter';
+import handleKeyDown from '../../utils/handleKeyDown';
 
-const Movie = ({
-    movie, deleteMovie, updateMovie, showMovieDetails,
+const Movie = React.memo(({
+    movie, showMovieDetails,
 }) => {
     const imageRef = useRef();
     const imageWrapperRef = useRef();
@@ -18,8 +18,8 @@ const Movie = ({
                 tabIndex='0'
                 role='button'
                 className='image-wrapper'
-                onClick={withFilter(() => showMovieDetails(movie.id), null, imageRef)}
-                onKeyDown={withFilter(() => showMovieDetails(movie.id), ' ', imageWrapperRef)}
+                onClick={handleKeyDown(() => showMovieDetails(movie.id), null, imageRef)}
+                onKeyDown={handleKeyDown(() => showMovieDetails(movie.id), ' ', imageWrapperRef)}
             >
                 <img
                     ref={imageRef}
@@ -28,8 +28,6 @@ const Movie = ({
                 />
                 <EditOrDelete
                     movie={movie}
-                    deleteMovie={deleteMovie}
-                    updateMovie={updateMovie}
                 />
             </div>
             <div className='movie-data'>
@@ -39,15 +37,13 @@ const Movie = ({
             </div>
         </div>
     );
-};
+});
 
 Movie.propTypes = {
     movie: PropTypes.shape({
         title: PropTypes.string.isRequired,
         id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     }).isRequired,
-    deleteMovie: PropTypes.func.isRequired,
-    updateMovie: PropTypes.func.isRequired,
     showMovieDetails: PropTypes.func.isRequired,
 };
 

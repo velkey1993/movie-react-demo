@@ -27,10 +27,11 @@ module.exports = {
         'react/prop-types': 0,
         'jsx-quotes': [2, 'prefer-single'],
         'react/destructuring-assignment': [0],
-        indent: ['error', 4],
+        indent: ['error', 4, { "SwitchCase": 1 }],
         'react/jsx-indent': ['error', 4],
         'react/jsx-indent-props': ['error', 4],
         'no-else-return': ['off'],
-        'no-unused-expressions': ["error", { "allowShortCircuit": true, "allowTernary": true }]
+        'no-unused-expressions': ["error", { "allowShortCircuit": true, "allowTernary": true }],
+        'no-multiple-empty-lines': ["error", { "max": 1}]
     },
 };

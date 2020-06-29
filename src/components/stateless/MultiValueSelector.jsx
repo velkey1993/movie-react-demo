@@ -1,8 +1,7 @@
 import React from 'react';
 import MultiValueInput from '../stateful/MultiValueInput';
 import './MultiValueSelector.css';
-import withFilter from '../../utils/withFilter';
-
+import handleKeyDown from '../../utils/handleKeyDown';
 
 const Item = ({ selected, value, onChangeSelect }) => (
     <li>
@@ -12,7 +11,7 @@ const Item = ({ selected, value, onChangeSelect }) => (
             tabIndex={0}
             className={`Item${selected ? ' selected' : ''}`}
             onClick={onChangeSelect}
-            onKeyDown={withFilter(onChangeSelect, ' ')}
+            onKeyDown={handleKeyDown(onChangeSelect, ' ')}
         >
             {value}
         </div>

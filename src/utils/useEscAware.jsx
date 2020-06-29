@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import withFilter from './withFilter';
+import handleKeyDown from './handleKeyDown';
 
 const useEscAware = (callback) => {
-    const handleEsc = withFilter(callback, 27);
+    const handleEsc = handleKeyDown(callback, 'Escape');
 
     useEffect(() => {
         document.addEventListener('keydown', handleEsc, false);
