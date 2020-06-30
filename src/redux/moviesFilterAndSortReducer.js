@@ -1,6 +1,6 @@
 const initialState = {
     genreFilter: null,
-    sortType: 'genre',
+    sortType: 'title',
 };
 
 const reducer = (state = initialState, action) => {
