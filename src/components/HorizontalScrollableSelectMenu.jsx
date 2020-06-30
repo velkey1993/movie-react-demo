@@ -32,14 +32,12 @@ const HorizontalScrollableSelectMenu = ({
         if (node) {
             node.addEventListener('wheel', (e) => {
                 e.preventDefault();
-                window.requestAnimationFrame(() => {
-                    scroll(e.deltaY);
-                });
+                scroll(e.deltaY);
             });
         }
         return () => {
             if (node) {
-                node.removeEventListener('scroll');
+                node.removeEventListener('wheel');
             }
         };
     }, [scroll]);
