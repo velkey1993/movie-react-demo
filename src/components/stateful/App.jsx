@@ -2,10 +2,10 @@ import React, { useState, useMemo, useEffect } from 'react';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import AppContext from './AppContext';
-import Result from './Result';
 import ErrorBoundary from './ErrorBoundary';
 import TopComponent from '../stateless/TopComponent';
 import { fetchMoviesIfNeed } from '../../redux/moviesActions';
+import ResultContainer from './ResultContainer';
 
 const GENRES = [
     { name: 'ALL', value: ['All'] },
@@ -43,7 +43,7 @@ function App() {
                         />
                     </ErrorBoundary>
                     <ErrorBoundary>
-                        <Result
+                        <ResultContainer
                             showMovieDetails={setMovieId}
                         />
                     </ErrorBoundary>
