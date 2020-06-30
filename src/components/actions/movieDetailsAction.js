@@ -3,9 +3,9 @@ export const CLOSE_MOVIE_DETAILS = 'CLOSE_MOVIE_DETAILS';
 
 export const showMovieDetails = movieId => ({
     type: SHOW_MOVIE_DETAILS,
-    movieId
+    movieId,
 });
 
 export const closeMovieDetails = () => ({
-    type: CLOSE_MOVIE_DETAILS
+    type: CLOSE_MOVIE_DETAILS,
 });

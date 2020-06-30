@@ -4,15 +4,15 @@ export const DELETE_MOVIE = 'DELETE_MOVIE';
 
 export const addMovie = movie => ({
     type: ADD_MOVIE,
-    movie
+    movie,
 });
 
 export const editMovie = movie => ({
     type: EDIT_MOVIE,
-    movie
+    movie,
 });
 
 export const deleteMovie = movieId => ({
     type: DELETE_MOVIE,
-    movieId: movieId
+    movieId,
 });

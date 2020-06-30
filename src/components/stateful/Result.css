@@ -20,6 +20,9 @@
 
 #result-container-movie-types #selected-genre {
     border-bottom: red 2px solid;
+}
+
+#result-container-movie-types #unselected-genre {
     cursor: pointer;
 }
 

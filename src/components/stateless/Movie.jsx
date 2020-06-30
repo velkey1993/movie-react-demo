@@ -1,11 +1,10 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import './Movie.css';
-import EditOrDeleteContainer from "../containers/EditOrDeleteContainer";
+import EditOrDeleteContainer from '../containers/EditOrDeleteContainer';
 import withFilter from '../../utils/withFilter';
 
-const Movie = ({ movie, showMovieDetails}) => {
-
+const Movie = ({ movie, showMovieDetails }) => {
     const imageRef = useRef();
     const imageWrapperRef = useRef();
 
@@ -32,7 +31,10 @@ const Movie = ({ movie, showMovieDetails}) => {
             <div className='movie-data'>
                 <h4 className='title'>{movie.title}</h4>
                 <h5 className='genre'>{movie.genres.join(', ')}</h5>
-                <h5 className='year'>{new Date(movie.release_date).toISOString().slice(0, 4)}</h5>
+                <h5 className='year'>
+                    {new Date(movie.release_date).toISOString()
+                        .slice(0, 4)}
+                </h5>
             </div>
         </div>
     );
