@@ -3,15 +3,21 @@ import ErrorBoundary from '../stateful/ErrorBoundary';
 import '../stateful/Result.css';
 import MovieContainer from '../containers/MovieContainer';
 
-function ResultContent({ movies }) {
+function ResultContent({ movies, loading }) {
     return (
         <>
             <div id='result-container-movie-count'>
-                <p>
-                    <b>{movies.length}</b>
-                    {' '}
-                    movies found
-                </p>
+                {
+                    loading
+                        ? <p>Loading...</p>
+                        : (
+                            <p>
+                                <b>{movies.length}</b>
+                                {' '}
+                                movies found
+                            </p>
+                        )
+                }
             </div>
             <div id='result-container-movie-list' className='row'>
                 {

@@ -2,9 +2,9 @@ import React, { useMemo } from 'react';
 import './App.css';
 import ErrorBoundary from './ErrorBoundary';
 import TopComponentContainer from '../containers/TopComponentContainer';
-import Result from './Result';
 import { GenresList } from '../actions/filterAction';
 import AppContext from './AppContext';
+import ResultContainer from '../containers/ResultContainer';
 
 function App() {
     const genresContext = useMemo(() => ({ genres: GenresList }), []);
@@ -17,7 +17,7 @@ function App() {
                         <TopComponentContainer />
                     </ErrorBoundary>
                     <ErrorBoundary>
-                        <Result />
+                        <ResultContainer />
                     </ErrorBoundary>
                 </AppContext.Provider>
             </div>

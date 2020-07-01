@@ -24,7 +24,9 @@ const getMovies = (movies, filterType, sortType) => {
 };
 
 const mapStateToProps = state => ({
-    movies: getMovies(state.movies, state.filterType, state.sortType),
+    movies: getMovies(state.movies.array, state.filterType, state.sortType),
+    error: state.movies.error,
+    loading: state.movies.loading,
 });
 
 export default connect(mapStateToProps, null)(ResultContent);

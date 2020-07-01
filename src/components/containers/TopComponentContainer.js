@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
 import TopComponent from '../stateless/TopComponent';
-import { addMovie } from '../actions/movieAction';
+import { addMovieAsync } from '../actions/movieAction';
 import { closeMovieDetails } from '../actions/movieDetailsAction';
 
 const mapStateToProps = state => ({
-    movie: state.movies.find(movie => movie.id === state.movieDetails),
+    movie: state.movies.array.find(movie => movie.id === state.movieDetails),
 });
 
 const mapDispatchToProps = dispatch => ({
-    addMovie: movie => dispatch(addMovie(movie)),
+    addMovie: movie => dispatch(addMovieAsync(movie)),
     closeDetails: () => dispatch(closeMovieDetails()),
 });
 
