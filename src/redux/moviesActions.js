@@ -1,21 +1,28 @@
 import axios from 'axios';
 
+export const PENDING = 'PENDING';
+export const ERROR = 'ERROR';
+export const FETCH_MOVIES_SUCCESS = 'FETCH_MOVIES_SUCCESS';
+export const ADD_MOVIE_SUCCESS = 'ADD_MOVIE_SUCCESS';
+export const EDIT_MOVIE_SUCCESS = 'EDIT_MOVIE_SUCCESS';
+export const DELETE_MOVIE_SUCCESS = 'DELETE_MOVIE_SUCCESS';
+
 function pending() {
     return dispatch => dispatch({
-        type: 'PENDING',
+        type: PENDING,
     });
 }
 
 function handleError(error) {
     return dispatch => dispatch({
-        type: 'ERROR',
+        type: ERROR,
         error,
     });
 }
 
 function fetchMoviesSuccess(data) {
     return dispatch => dispatch({
-        type: 'FETCH_MOVIES_SUCCESS',
+        type: FETCH_MOVIES_SUCCESS,
         payload: data,
     });
 }
@@ -45,7 +52,7 @@ export function fetchMoviesIfNeed() {
 
 function addMovieSuccess(data) {
     return dispatch => dispatch({
-        type: 'ADD_MOVIE_SUCCESS',
+        type: ADD_MOVIE_SUCCESS,
         payload: data,
     });
 }
@@ -65,7 +72,7 @@ export function addMovie(data) {
 
 function editMovieSuccess(data) {
     return dispatch => dispatch({
-        type: 'EDIT_MOVIE_SUCCESS',
+        type: EDIT_MOVIE_SUCCESS,
         payload: data,
     });
 }
@@ -86,7 +93,7 @@ export function editMovie(data) {
 
 export function deleteMovieSuccess(movieId) {
     return dispatch => dispatch({
-        type: 'DELETE_MOVIE_SUCCESS',
+        type: DELETE_MOVIE_SUCCESS,
         payload: movieId,
     });
 }

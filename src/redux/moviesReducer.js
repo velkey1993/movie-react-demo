@@ -1,3 +1,12 @@
+import {
+    PENDING,
+    ERROR,
+    FETCH_MOVIES_SUCCESS,
+    ADD_MOVIE_SUCCESS,
+    EDIT_MOVIE_SUCCESS,
+    DELETE_MOVIE_SUCCESS,
+} from './moviesActions';
+
 const initialState = {
     pending: false,
     movies: [],
@@ -6,27 +15,27 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'PENDING':
+        case PENDING:
             return {
                 ...state,
                 pending: true,
             };
 
-        case 'ERROR':
+        case ERROR:
             return {
                 ...state,
                 pending: false,
                 error: action.error,
             };
 
-        case 'FETCH_MOVIES_SUCCESS':
+        case FETCH_MOVIES_SUCCESS:
             return {
                 ...state,
                 movies: action.payload,
                 error: null,
             };
 
-        case 'ADD_MOVIE_SUCCESS':
+        case ADD_MOVIE_SUCCESS:
             return {
                 ...state,
                 movies: state.movies.concat(action.payload),
@@ -34,7 +43,7 @@ const reducer = (state = initialState, action) => {
                 error: null,
             };
 
-        case 'EDIT_MOVIE_SUCCESS':
+        case EDIT_MOVIE_SUCCESS:
             return {
                 ...state,
                 movies: state.movies
@@ -42,7 +51,7 @@ const reducer = (state = initialState, action) => {
                 error: null,
             };
 
-        case 'DELETE_MOVIE_SUCCESS':
+        case DELETE_MOVIE_SUCCESS:
             return {
                 ...state,
                 movies: state.movies.filter(
