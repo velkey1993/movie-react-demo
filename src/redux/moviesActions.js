@@ -1,4 +1,4 @@
-import axios from 'axios';
+import * as movieService from '../service/MovieService';
 
 export const PENDING = 'PENDING';
 export const ERROR = 'ERROR';
@@ -30,8 +30,7 @@ function fetchMoviesSuccess(data) {
 export function fetchMovies() {
     return (dispatch) => {
         dispatch(pending());
-        axios
-            .get('http://localhost:4000/movies')
+        movieService.read()
             .then((res) => {
                 dispatch(fetchMoviesSuccess(res.data.data));
             })
@@ -59,8 +58,7 @@ function addMovieSuccess(data) {
 export function addMovie(data) {
     return (dispatch) => {
         dispatch(pending());
-        axios
-            .post('http://localhost:4000/movies', data)
+        movieService.create(data)
             .then((res) => {
                 dispatch(addMovieSuccess(res.data));
             })
@@ -80,8 +78,7 @@ function editMovieSuccess(data) {
 export function editMovie(data) {
     return (dispatch) => {
         dispatch(pending());
-        axios
-            .put('http://localhost:4000/movies', data)
+        movieService.update(data)
             .then((res) => {
                 dispatch(editMovieSuccess(res.data));
             })
@@ -101,8 +98,7 @@ export function deleteMovieSuccess(movieId) {
 export function deleteMovie(id) {
     return (dispatch) => {
         dispatch(pending());
-        axios
-            .delete(`http://localhost:4000/movies/${id}`)
+        movieService.remove(id)
             .then(() => {
                 dispatch(deleteMovieSuccess(id));
             })
