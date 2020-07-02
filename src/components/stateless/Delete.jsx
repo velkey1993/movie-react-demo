@@ -13,7 +13,10 @@ const Delete = withModal(({ close, deleteMovie }) => (
                 <p>Are you sure you want to delete this movie?</p>
                 <button
                     type='submit'
-                    onClick={deleteMovie}
+                    onClick={() => {
+                        deleteMovie();
+                        close();
+                    }}
                 >
                     CONFIRM
                 </button>
