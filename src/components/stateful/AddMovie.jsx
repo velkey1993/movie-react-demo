@@ -77,139 +77,110 @@ function AddMovie({ show, onHide }) {
                 }}
             >
                 {}
-                {({
-                    values,
-                    errors,
-                    touched,
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                    isSubmitting,
-                    resetForm,
-                }) => (
-                    <Form onSubmit={handleSubmit}>
-                        <ModalHeader closeButton />
-                        <ModalBody>
-                            <Modal.Title id='contained-modal-title-vcenter'>
-                                <h1>ADD MOVIE</h1>
-                            </Modal.Title>
-                            <AddMovieField
-                                controlId='formText'
-                                formLabel='TITLE'
-                                touched={touched.title}
-                                errors={errors.title}
-                                formControlType='text'
-                                formControlName='title'
-                                formControlPlaceholder='Select Title'
-                                handleChange={handleChange}
-                                handleBlur={handleBlur}
-                                formControlValue={values.title}
-                            />
-                            <AddMovieField
-                                controlId='formReleaseDate'
-                                formLabel='RELEASE DATE'
-                                touched={touched.release_date}
-                                errors={errors.release_date}
-                                formControlType='date'
-                                formControlName='release_date'
-                                formControlPlaceholder='Select Date'
-                                handleChange={handleChange}
-                                handleBlur={handleBlur}
-                                formControlValue={values.release_date}
-                            />
-                            <AddMovieField
-                                controlId='formPosterPath'
-                                formLabel='MOVIE URL'
-                                touched={touched.poster_path}
-                                errors={errors.poster_path}
-                                formControlType='url'
-                                formControlName='poster_path'
-                                formControlPlaceholder='Movie URL here'
-                                handleChange={handleChange}
-                                handleBlur={handleBlur}
-                                formControlValue={values.poster_path}
-                            />
-                            <AppContext.Consumer>
-                                {
-                                    value => (
-                                        <Form.Group controlId='formGenres'>
-                                            <Form.Label>GENRES</Form.Label>
-                                            <Form.Control
-                                                className={touched.genres && errors.genres ? 'modal-input-bg error' : 'modal-input-bg'}
-                                                multiple
-                                                as='select'
-                                                name='genres'
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                value={values.genres}
-                                            >
-                                                {
-                                                    value.genres.map(genre => (
-                                                        <option
-                                                            key={genre.name}
-                                                            value={genre.name}
-                                                        >
-                                                            {genre.name}
-                                                        </option>
-                                                    ))
-                                                }
-                                            </Form.Control>
-                                            {touched.genres && errors.genres
-                                                ? (
-                                                    <div className='error-message'>
-                                                        *
-                                                        {errors.genres}
-                                                    </div>
-                                                )
-                                                : null}
-                                        </Form.Group>
-                                    )
-                                }
-                            </AppContext.Consumer>
-                            <AddMovieField
-                                controlId='formOverview'
-                                formLabel='OVERVIEW'
-                                touched={touched.overview}
-                                errors={errors.overview}
-                                formControlType='text'
-                                formControlName='overview'
-                                formControlPlaceholder='Overview here'
-                                handleChange={handleChange}
-                                handleBlur={handleBlur}
-                                formControlValue={values.overview}
-                            />
-                            <AddMovieField
-                                controlId='formRuntime'
-                                formLabel='RUNTIME'
-                                touched={touched.runtime}
-                                errors={errors.runtime}
-                                formControlType='number'
-                                formControlName='runtime'
-                                formControlPlaceholder='Runtime here'
-                                handleChange={handleChange}
-                                handleBlur={handleBlur}
-                                formControlValue={values.runtime}
-                            />
-                        </ModalBody>
-                        <ModalFooter>
-                            <Button
-                                id='modal-footer-bt-reset'
-                                type='reset'
-                                onClick={resetForm}
-                            >
-                                RESET
-                            </Button>
-                            <Button
-                                id='modal-footer-bt-submit'
-                                variant='primary'
-                                type='submit'
-                                disabled={isSubmitting}
-                            >
-                                SUBMIT
-                            </Button>
-                        </ModalFooter>
-                    </Form>
-                )}
+                {
+                    props => (
+                        <Form onSubmit={props.handleSubmit}>
+                            <ModalHeader closeButton />
+                            <ModalBody>
+                                <Modal.Title id='contained-modal-title-vcenter'>
+                                    <h1>ADD MOVIE</h1>
+                                </Modal.Title>
+                                <AddMovieField
+                                    controlId='formText'
+                                    formLabel='TITLE'
+                                    formControlPlaceholder='Select Title'
+                                    name='title'
+                                    type='text'
+                                />
+                                <AddMovieField
+                                    controlId='formReleaseDate'
+                                    formLabel='RELEASE DATE'
+                                    formControlPlaceholder='Select Date'
+                                    name='release_date'
+                                    type='date'
+                                />
+                                <AddMovieField
+                                    controlId='formPosterPath'
+                                    formLabel='MOVIE URL'
+                                    formControlPlaceholder='Movie URL here'
+                                    name='poster_path'
+                                    type='url'
+                                />
+                                <AppContext.Consumer>
+                                    {
+                                        value => (
+                                            <Form.Group controlId='formGenres'>
+                                                <Form.Label>GENRES</Form.Label>
+                                                <Form.Control
+                                                    className={
+                                                        props.touched.genres && props.errors.genres
+                                                            ? 'modal-input-bg error'
+                                                            : 'modal-input-bg'
+                                                    }
+                                                    multiple
+                                                    as='select'
+                                                    name='genres'
+                                                    onChange={props.handleChange}
+                                                    onBlur={props.handleBlur}
+                                                    value={props.values.genres}
+                                                >
+                                                    {
+                                                        value.genres.map(genre => (
+                                                            <option
+                                                                key={genre.name}
+                                                                value={genre.name}
+                                                            >
+                                                                {genre.name}
+                                                            </option>
+                                                        ))
+                                                    }
+                                                </Form.Control>
+                                                {props.touched.genres && props.errors.genres
+                                                    ? (
+                                                        <div className='error-message'>
+                                                            *
+                                                            {props.errors.genres}
+                                                        </div>
+                                                    )
+                                                    : null}
+                                            </Form.Group>
+                                        )
+                                    }
+                                </AppContext.Consumer>
+                                <AddMovieField
+                                    controlId='formOverview'
+                                    formLabel='OVERVIEW'
+                                    formControlPlaceholder='Overview here'
+                                    name='overview'
+                                    type='text'
+                                />
+                                <AddMovieField
+                                    controlId='formRuntime'
+                                    formLabel='RUNTIME'
+                                    formControlPlaceholder='Runtime here'
+                                    name='runtime'
+                                    type='number'
+                                />
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button
+                                    id='modal-footer-bt-reset'
+                                    type='reset'
+                                    onClick={props.resetForm}
+                                >
+                                    RESET
+                                </Button>
+                                <Button
+                                    id='modal-footer-bt-submit'
+                                    variant='primary'
+                                    type='submit'
+                                    disabled={props.isSubmitting}
+                                >
+                                    SUBMIT
+                                </Button>
+                            </ModalFooter>
+                        </Form>
+                    )}
             </Formik>
         </Modal>
     );
