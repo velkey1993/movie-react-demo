@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import ErrorBoundary from '../stateful/ErrorBoundary';
 import '../stateful/Result.css';
 import MovieContainer from '../containers/MovieContainer';
 
-function ResultContent({ movies, loading }) {
+function ResultContent({
+    movies, filterType, sortType, getMovies, loading,
+}) {
+    const memoizedMovies = useMemo(
+        () => getMovies(movies, filterType, sortType, getMovies),
+        [movies, filterType, sortType, getMovies],
+    );
+
     return (
         <>
             <div id='result-container-movie-count'>
@@ -12,7 +19,7 @@ function ResultContent({ movies, loading }) {
                         ? <p>Loading...</p>
                         : (
                             <p>
-                                <b>{movies.length}</b>
+                                <b>{memoizedMovies.length}</b>
                                 {' '}
                                 movies found
                             </p>
@@ -21,7 +28,7 @@ function ResultContent({ movies, loading }) {
             </div>
             <div id='result-container-movie-list' className='row'>
                 {
-                    movies.map(movie => (
+                    memoizedMovies.map(movie => (
                         <ErrorBoundary key={movie.id}>
                             <MovieContainer movie={movie} />
                         </ErrorBoundary>
