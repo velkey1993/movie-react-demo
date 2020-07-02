@@ -109,41 +109,24 @@ function AddMovie({ show, onHide }) {
                                 <AppContext.Consumer>
                                     {
                                         value => (
-                                            <Form.Group controlId='formGenres'>
-                                                <Form.Label>GENRES</Form.Label>
-                                                <Form.Control
-                                                    className={
-                                                        props.touched.genres && props.errors.genres
-                                                            ? 'modal-input-bg error'
-                                                            : 'modal-input-bg'
-                                                    }
-                                                    multiple
-                                                    as='select'
-                                                    name='genres'
-                                                    onChange={props.handleChange}
-                                                    onBlur={props.handleBlur}
-                                                    value={props.values.genres}
-                                                >
-                                                    {
-                                                        value.genres.map(genre => (
-                                                            <option
-                                                                key={genre.name}
-                                                                value={genre.name}
-                                                            >
-                                                                {genre.name}
-                                                            </option>
-                                                        ))
-                                                    }
-                                                </Form.Control>
-                                                {props.touched.genres && props.errors.genres
-                                                    ? (
-                                                        <div className='error-message'>
-                                                            *
-                                                            {props.errors.genres}
-                                                        </div>
-                                                    )
-                                                    : null}
-                                            </Form.Group>
+                                            <AddMovieField
+                                                controlId='formGenres'
+                                                formLabel='GENRES URL'
+                                                name='genres'
+                                                as='select'
+                                                multiple
+                                            >
+                                                {
+                                                    value.genres.map(genre => (
+                                                        <option
+                                                            key={genre.name}
+                                                            value={genre.name}
+                                                        >
+                                                            {genre.name}
+                                                        </option>
+                                                    ))
+                                                }
+                                            </AddMovieField>
                                         )
                                     }
                                 </AppContext.Consumer>
