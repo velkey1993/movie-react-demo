@@ -1,27 +1,25 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
+import { useField } from 'formik';
 
 function AddMovieField({
-    controlId, formLabel, touched, errors, formControlType, formControlName, formControlPlaceholder,
-    handleChange, handleBlur, formControlValue,
+    controlId, formLabel, formControlPlaceholder, ...props
 }) {
+    const [field, meta] = useField(props);
     return (
         <Form.Group controlId={controlId}>
             <Form.Label>{formLabel}</Form.Label>
             <Form.Control
-                className={touched && errors ? 'modal-input-bg error' : 'modal-input-bg'}
-                type={formControlType}
-                name={formControlName}
+                className={meta.touched && meta.error ? 'modal-input-bg error' : 'modal-input-bg'}
                 placeholder={formControlPlaceholder}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={formControlValue}
+                {...field}
+                {...props}
             />
-            {touched && errors
+            {meta.touched && meta.error
                 ? (
                     <div className='error-message'>
                         *
-                        {errors}
+                        {meta.error}
                     </div>
                 )
                 : null}
