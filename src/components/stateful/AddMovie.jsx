@@ -7,6 +7,8 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import './AddMovie.css';
 import Form from 'react-bootstrap/Form';
+import { useDispatch } from 'react-redux';
+import { addMovie } from '../../redux/moviesActions';
 import AppContext from './AppContext';
 
 const schema = yup.object().shape({
@@ -18,8 +20,9 @@ const schema = yup.object().shape({
     runtime: yup.number().required('Runtime required!'),
 });
 
-function AddMovie({ show, onHide, addMovie }) {
+function AddMovie({ show, onHide }) {
     const modalFormVariables = { show, onHide };
+    const dispatch = useDispatch();
 
     function blurRoot() {
         const root = document.getElementById('root');
@@ -56,7 +59,7 @@ function AddMovie({ show, onHide, addMovie }) {
                 }}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                     setSubmitting(true);
-                    addMovie(values);
+                    dispatch(addMovie(values));
                     resetForm();
                     onHide();
                     setSubmitting(false);

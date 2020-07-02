@@ -1,5 +1,5 @@
 import React from 'react';
-import withFilter from '../../utils/withFilter';
+import handleKeyDown from '../../utils/handleKeyDown';
 
 const ThreeDots = ({ onClick }) => (
     <div
@@ -7,7 +7,7 @@ const ThreeDots = ({ onClick }) => (
         role='button'
         className='dots'
         onClick={onClick}
-        onKeyDown={withFilter(onClick, 13)}
+        onKeyDown={handleKeyDown(onClick, 'Enter')}
     >
         <strong>&nbsp;&nbsp;⋮&nbsp;&nbsp;</strong>
     </div>

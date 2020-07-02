@@ -4,7 +4,7 @@ import { Button, Col, Row } from 'react-bootstrap';
 import AddMovie from './AddMovie';
 import ErrorBoundary from './ErrorBoundary';
 
-const Search = ({ addMovie }) => {
+const Search = () => {
     const placeholderText = 'What do you want to watch?';
 
     const [modalShow, setModalShow] = useState(false);
@@ -28,7 +28,6 @@ const Search = ({ addMovie }) => {
                             <AddMovie
                                 show={modalShow}
                                 onHide={() => setModalShow(false)}
-                                addMovie={addMovie}
                             />
                         </ErrorBoundary>
                     </Col>

@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-
+import { useDispatch } from 'react-redux';
 import './EditOrDelete.css';
 import Delete from '../stateless/Delete';
 import Edit from './Edit';
 import PopUp from '../stateless/PopUp';
 import ThreeDots from '../stateless/ThreeDots';
+import { editMovie as updateMovie, deleteMovie } from '../../redux/moviesActions';
 
-function EditOrDelete({ movie, updateMovie, deleteMovie }) {
+function EditOrDelete({ movie }) {
+    const dispatch = useDispatch();
     const [state, setState] = useState('closed');
     return (
         <>
@@ -24,7 +26,7 @@ function EditOrDelete({ movie, updateMovie, deleteMovie }) {
                 <Edit
                     movie={movie}
                     updateMovie={(data) => {
-                        updateMovie(data);
+                        dispatch(updateMovie(data));
                         setState('closed');
                     }}
                     close={() => setState('closed')}
@@ -34,7 +36,7 @@ function EditOrDelete({ movie, updateMovie, deleteMovie }) {
                 <Delete
                     close={() => setState('closed')}
                     deleteMovie={() => {
-                        deleteMovie(movie.id);
+                        dispatch(deleteMovie(movie.id));
                         setState('closed');
                     }}
                 />

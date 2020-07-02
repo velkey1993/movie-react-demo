@@ -1,5 +1,5 @@
 import React from 'react';
-import withFilter from '../../utils/withFilter';
+import handleKeyDown from '../../utils/handleKeyDown';
 
 const CloseButton = ({ close }) => (
     <div
@@ -7,7 +7,7 @@ const CloseButton = ({ close }) => (
         tabIndex={0}
         className='x-close'
         onClick={close}
-        onKeyDown={withFilter(close, [13, 27, ' '])}
+        onKeyDown={handleKeyDown(close, ['Enter', 'Escape', ' '])}
     >
         ╳
     </div>

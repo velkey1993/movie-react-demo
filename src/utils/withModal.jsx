@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useEscAware from './useEscAware';
 
-const useWindowWidth = () => {
+export const useWindowWidth = () => {
     const [windowWidth, setWindowWidth] = useState(window?.innerWidth || 0);
 
     useEffect(() => {
