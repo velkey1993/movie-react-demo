@@ -10,18 +10,29 @@ import Form from 'react-bootstrap/Form';
 import { useDispatch } from 'react-redux';
 import { addMovie } from '../../redux/moviesActions';
 import AppContext from './AppContext';
+import AddMovieField from '../stateless/AddMovieField';
 
-const schema = yup.object().shape({
-    title: yup.string().required('Title required!'),
-    release_date: yup.date().required('Release date required!'),
-    poster_path: yup.string().required('Movie URL required!'),
-    genres: yup.array().required('Genre required!'),
-    overview: yup.string().required('Overview required!'),
-    runtime: yup.number().required('Runtime required!'),
-});
+const schema = yup.object()
+    .shape({
+        title: yup.string()
+            .required('Title required!'),
+        release_date: yup.date()
+            .required('Release date required!'),
+        poster_path: yup.string()
+            .required('Movie URL required!'),
+        genres: yup.array()
+            .required('Genre required!'),
+        overview: yup.string()
+            .required('Overview required!'),
+        runtime: yup.number()
+            .required('Runtime required!'),
+    });
 
 function AddMovie({ show, onHide }) {
-    const modalFormVariables = { show, onHide };
+    const modalFormVariables = {
+        show,
+        onHide,
+    };
     const dispatch = useDispatch();
 
     function blurRoot() {
@@ -85,66 +96,42 @@ function AddMovie({ show, onHide }) {
                             <Modal.Title id='contained-modal-title-vcenter'>
                                 <h1>ADD MOVIE</h1>
                             </Modal.Title>
-                            <Form.Group controlId='formText'>
-                                <Form.Label>TITLE</Form.Label>
-                                <Form.Control
-                                    className={touched.title && errors.title ? 'modal-input-bg error' : 'modal-input-bg'}
-                                    type='text'
-                                    name='title'
-                                    placeholder='Select Title'
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.title}
-                                />
-                                {touched.title && errors.title
-                                    ? (
-                                        <div className='error-message'>
-                                            *
-                                            {errors.title}
-                                        </div>
-                                    )
-                                    : null}
-                            </Form.Group>
-                            <Form.Group controlId='formReleaseDate'>
-                                <Form.Label>RELEASE DATE</Form.Label>
-                                <Form.Control
-                                    className={touched.release_date && errors.release_date ? 'modal-input-bg error' : 'modal-input-bg'}
-                                    type='date'
-                                    name='release_date'
-                                    placeholder='Select Date'
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.release_date}
-                                />
-                                {touched.release_date && errors.release_date
-                                    ? (
-                                        <div className='error-message'>
-                                            *
-                                            {errors.release_date}
-                                        </div>
-                                    )
-                                    : null}
-                            </Form.Group>
-                            <Form.Group controlId='formPosterPath'>
-                                <Form.Label>MOVIE URL</Form.Label>
-                                <Form.Control
-                                    className={touched.poster_path && errors.poster_path ? 'modal-input-bg error' : 'modal-input-bg'}
-                                    type='url'
-                                    name='poster_path'
-                                    placeholder='Movie URL here'
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.poster_path}
-                                />
-                                {touched.poster_path && errors.poster_path
-                                    ? (
-                                        <div className='error-message'>
-                                            *
-                                            {errors.poster_path}
-                                        </div>
-                                    )
-                                    : null}
-                            </Form.Group>
+                            <AddMovieField
+                                controlId='formText'
+                                formLabel='TITLE'
+                                touched={touched.title}
+                                errors={errors.title}
+                                formControlType='text'
+                                formControlName='title'
+                                formControlPlaceholder='Select Title'
+                                handleChange={handleChange}
+                                handleBlur={handleBlur}
+                                formControlValue={values.title}
+                            />
+                            <AddMovieField
+                                controlId='formReleaseDate'
+                                formLabel='RELEASE DATE'
+                                touched={touched.release_date}
+                                errors={errors.release_date}
+                                formControlType='date'
+                                formControlName='release_date'
+                                formControlPlaceholder='Select Date'
+                                handleChange={handleChange}
+                                handleBlur={handleBlur}
+                                formControlValue={values.release_date}
+                            />
+                            <AddMovieField
+                                controlId='formPosterPath'
+                                formLabel='MOVIE URL'
+                                touched={touched.poster_path}
+                                errors={errors.poster_path}
+                                formControlType='url'
+                                formControlName='poster_path'
+                                formControlPlaceholder='Movie URL here'
+                                handleChange={handleChange}
+                                handleBlur={handleBlur}
+                                formControlValue={values.poster_path}
+                            />
                             <AppContext.Consumer>
                                 {
                                     value => (
@@ -182,49 +169,39 @@ function AddMovie({ show, onHide }) {
                                     )
                                 }
                             </AppContext.Consumer>
-                            <Form.Group controlId='formOverview'>
-                                <Form.Label>OVERVIEW</Form.Label>
-                                <Form.Control
-                                    className={touched.overview && errors.overview ? 'modal-input-bg error' : 'modal-input-bg'}
-                                    type='text'
-                                    name='overview'
-                                    placeholder='Overview here'
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.overview}
-                                />
-                                {touched.overview && errors.overview
-                                    ? (
-                                        <div className='error-message'>
-                                            *
-                                            {errors.overview}
-                                        </div>
-                                    )
-                                    : null}
-                            </Form.Group>
-                            <Form.Group controlId='formRuntime'>
-                                <Form.Label>RUNTIME</Form.Label>
-                                <Form.Control
-                                    className={touched.runtime && errors.runtime ? 'modal-input-bg error' : 'modal-input-bg'}
-                                    type='number'
-                                    name='runtime'
-                                    placeholder='Runtime here'
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.runtime}
-                                />
-                                {touched.runtime && errors.runtime
-                                    ? (
-                                        <div className='error-message'>
-                                            *
-                                            {errors.runtime}
-                                        </div>
-                                    )
-                                    : null}
-                            </Form.Group>
+                            <AddMovieField
+                                controlId='formOverview'
+                                formLabel='OVERVIEW'
+                                touched={touched.overview}
+                                errors={errors.overview}
+                                formControlType='text'
+                                formControlName='overview'
+                                formControlPlaceholder='Overview here'
+                                handleChange={handleChange}
+                                handleBlur={handleBlur}
+                                formControlValue={values.overview}
+                            />
+                            <AddMovieField
+                                controlId='formRuntime'
+                                formLabel='RUNTIME'
+                                touched={touched.runtime}
+                                errors={errors.runtime}
+                                formControlType='number'
+                                formControlName='runtime'
+                                formControlPlaceholder='Runtime here'
+                                handleChange={handleChange}
+                                handleBlur={handleBlur}
+                                formControlValue={values.runtime}
+                            />
                         </ModalBody>
                         <ModalFooter>
-                            <Button id='modal-footer-bt-reset' type='reset' onClick={resetForm}>RESET</Button>
+                            <Button
+                                id='modal-footer-bt-reset'
+                                type='reset'
+                                onClick={resetForm}
+                            >
+                                RESET
+                            </Button>
                             <Button
                                 id='modal-footer-bt-submit'
                                 variant='primary'
