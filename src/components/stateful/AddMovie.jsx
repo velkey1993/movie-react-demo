@@ -59,9 +59,12 @@ function AddMovie({ show, onHide }) {
                 }}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                     setSubmitting(true);
-                    dispatch(addMovie(values));
-                    resetForm();
-                    onHide();
+                    dispatch(addMovie(values))
+                        .then((() => {
+                            resetForm();
+                            onHide();
+                        }))
+                        .catch(e => alert(e));
                     setSubmitting(false);
                 }}
             >

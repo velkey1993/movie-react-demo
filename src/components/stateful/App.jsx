@@ -23,7 +23,8 @@ function App() {
     const [movieId, setMovieId] = useState();
 
     useEffect(() => {
-        dispatch(fetchMoviesIfNeed());
+        dispatch(fetchMoviesIfNeed())
+            .catch(e => alert(e));
     }, [dispatch]);
 
     useEffect(() => {

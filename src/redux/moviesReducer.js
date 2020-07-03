@@ -1,7 +1,9 @@
+import _ from 'lodash';
 import {
     PENDING,
     ERROR,
     FETCH_MOVIES_SUCCESS,
+    FETCH_MOVIES_PAGINATION_SUCCESS,
     ADD_MOVIE_SUCCESS,
     EDIT_MOVIE_SUCCESS,
     DELETE_MOVIE_SUCCESS,
@@ -31,7 +33,19 @@ const reducer = (state = initialState, action) => {
         case FETCH_MOVIES_SUCCESS:
             return {
                 ...state,
-                movies: action.payload,
+                movies: action.payload.data,
+                totalAmount: action.payload.totalAmount,
+                pending: false,
+                error: null,
+            };
+
+        case FETCH_MOVIES_PAGINATION_SUCCESS:
+            return {
+                ...state,
+                // backend seems buggy, return same movie in different offset
+                movies: _.uniqBy([...state.movies, ...(action.payload.data)], 'id'),
+                totalAmount: action.payload.totalAmount,
+                pending: false,
                 error: null,
             };
 
@@ -48,6 +62,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 movies: state.movies
                     .map(movie => (movie.id === action.payload.id ? action.payload : movie)),
+                pending: false,
                 error: null,
             };
 
@@ -57,6 +72,7 @@ const reducer = (state = initialState, action) => {
                 movies: state.movies.filter(
                     item => item.id !== action.payload,
                 ),
+                pending: false,
                 error: null,
             };
         default:

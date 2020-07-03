@@ -38,7 +38,7 @@ function MovieDetails({ movie, closeDetails }) {
                                         {movie.title}
                                         &emsp;
                                         <span id='movie-details-container-data-vote-average'>
-                                            {movie.vote_average}
+                                            {movie.vote_average?.toFixed(1) || Number.NaN}
                                         </span>
                                     </p>
                                 </Col>

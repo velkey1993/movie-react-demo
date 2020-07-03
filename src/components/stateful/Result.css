@@ -148,6 +148,17 @@ hr {
     color: white;
 }
 
+#result-container-no-movie {
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#result-container-no-movie h3 {
+    margin: auto;
+}
+
 #result-container-movie-page-name {
     position: absolute;
     height: 30px;

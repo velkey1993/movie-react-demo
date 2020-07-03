@@ -8,10 +8,7 @@ const rootReducer = combineReducers({
     filterAndSort: moviesFilterAndSortReducer,
 });
 
-export default function configureStore(preloadedState) {
-    return createStore(
-        rootReducer,
-        preloadedState,
-        applyMiddleware(thunkMiddleware),
-    );
-}
+export default createStore(
+    rootReducer,
+    applyMiddleware(thunkMiddleware),
+);
