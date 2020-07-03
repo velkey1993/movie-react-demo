@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const DESC_TYPES = ['vote_average', 'release_date', 'vote_count', 'revenue', 'budget', 'runtime'];
 
-const DELAY = 1000;
+const DELAY = 0;
 
 const delay = value => new Promise((resolve) => {
     setTimeout(() => {
