@@ -1,9 +1,4 @@
-/* eslint-disable react/button-has-type */
 import React from 'react';
-import * as yup from 'yup';
-import {
-    Formik, Form, Field, ErrorMessage,
-} from 'formik';
 import CloseButton from '../stateless/CloseButton';
 import MultiValueSelector from '../stateless/MultiValueSelector';
 
@@ -19,16 +14,6 @@ const GENRES = [
     'Mystery',
     'Thriller',
 ];
-
-const schema = yup.object().shape({
-    title: yup.string().required('Title required!'),
-    release_date: yup.date().required('Release date required!'),
-    poster_path: yup.string().required('Movie URL required!'),
-    genres: yup.array().min(1, 'Genre required!'),
-    overview: yup.string().required('Overview required!'),
-    runtime: yup.number().min(0, 'Runtime min 0!').required('Runtime required!'),
-});
-
 export default class Edit extends React.Component {
     constructor(props) {
         super(props);
@@ -81,72 +66,82 @@ export default class Edit extends React.Component {
             >
                 <div className='x-modal-edit-content'>
                     <CloseButton close={this.props.close} />
-                    <Formik
-                        validationSchema={schema}
-                        initialValues={this.props.movie}
-                        onSubmit={(values) => {
-                            this.props.updateMovie(values)
-                                .then(this.props.close)
-                                .catch(e => alert(e));
-                        }}
-                    >
-                        {({
-                            values,
-                            isSubmitting,
-                            setFieldValue,
-                        }) => (
-                            <Form className='inner'>
-                                <h3>EDIT MOVIE</h3>
-                                <h5 className='id'>MOVIE ID</h5>
-                                <p>
-                                    {this.state.movie.id || ''}
-                                </p>
-                                <h5>TITLE</h5>
-                                <Field type='text' name='title' placeholder='title' />
-                                <ErrorMessage name='title' component='div' className='error-message' />
-                                <h5>RELEASE DATE</h5>
-                                <Field type='date' name='release_date' />
-                                <ErrorMessage name='release_date' component='div' className='error-message' />
-                                <h5>MOVIE URL</h5>
-                                <Field type='url' name='poster_path' />
-                                <ErrorMessage name='release_date' component='div' className='error-message' />
+                    <div className='inner'>
+                        <h3>EDIT MOVIE</h3>
+                        <h5 className='id'>MOVIE ID</h5>
+                        <p>
+                            {this.state.movie.id || ''}
+                            {' '}
+                        </p>
+                        <h5>TITLE</h5>
+                        <input
+                            name='title'
+                            type='text'
+                            onChange={this.handleInputChange}
+                            value={this.state.movie.title || ''}
+                        />
+                        <h5>RELEASE DATE</h5>
+                        <input
+                            name='release_date'
+                            type='date'
+                            onChange={this.handleInputChange}
+                            value={this.state.movie.release_date}
+                        />
+                        <h5>MOVIE URL</h5>
+                        <input
+                            name='poster_path'
+                            type='url'
+                            onChange={this.handleInputChange}
+                            value={this.state.movie.poster_path || ''}
+                        />
+                        <h5>GENRE</h5>
+                        <MultiValueSelector
+                            options={GENRES}
+                            values={this.state.movie.genres}
+                            onChange={values => this.handleMultiValueInputChange(
+                                'genres',
+                                values,
+                            )
+                            }
+                        />
+                        <h5>OVERVIEW</h5>
+                        <input
+                            name='overview'
+                            type='text'
+                            onChange={this.handleInputChange}
+                            value={this.state.movie.overview || ''}
+                        />
+                        <h5>RUNTIME</h5>
+                        <input
+                            name='runtime'
+                            type='number'
+                            onChange={this.handleInputChange}
+                            value={this.state.movie.runtime || ''}
+                        />
 
-                                <h5>GENRE</h5>
-                                <MultiValueSelector
-                                    options={GENRES}
-                                    values={values.genres}
-                                    onChange={
-                                        selectedValues => setFieldValue('genres', selectedValues)
-                                    }
-                                />
-                                <ErrorMessage name='genres' component='div' className='error-message' />
-                                <h5>OVERVIEW</h5>
-                                <Field type='text' name='overview' />
-                                <ErrorMessage name='overview' component='div' className='error-message' />
-                                <h5>RUNTIME</h5>
-                                <Field type='number' name='runtime' />
-                                <ErrorMessage name='runtime' component='div' className='error-message' />
-                                <button
-                                    type='submit'
-                                    className='save'
-                                    disabled={isSubmitting}
-                                >
-                                    SAVE
-                                </button>
-                                <button
-                                    type='reset'
-                                    className='reset'
-                                    disabled={isSubmitting}
-                                >
-                                    RESET
-                                </button>
-                            </Form>
-
-                        )}
-                    </Formik>
+                        <div>
+                            <button
+                                type='submit'
+                                className='save'
+                                onClick={() => {
+                                    this.props.updateMovie(this.state.movie);
+                                }}
+                            >
+                                SAVE
+                            </button>
+                            <button
+                                type='button'
+                                className='reset'
+                                onClick={() => {
+                                    this.setState({ movie: this.props.movie });
+                                }}
+                            >
+                                RESET
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-
         );
     }
 }
