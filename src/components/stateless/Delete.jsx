@@ -14,8 +14,9 @@ const Delete = withModal(({ close, deleteMovie }) => (
                 <button
                     type='submit'
                     onClick={() => {
-                        deleteMovie();
-                        close();
+                        deleteMovie()
+                            // delete will auto clean the relate movie so this modal will disappear
+                            .catch(e => alert(e));
                     }}
                 >
                     CONFIRM

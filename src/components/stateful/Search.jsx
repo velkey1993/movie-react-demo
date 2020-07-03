@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './Search.css';
 import { Button, Col, Row } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import AddMovie from './AddMovie';
 import ErrorBoundary from './ErrorBoundary';
+import { searchMovies } from '../../redux/moviesFilterAndSortActions';
 
 const Search = () => {
     const placeholderText = 'What do you want to watch?';
+
+    const dispatch = useDispatch();
+    const inputRef = useRef();
 
     const [modalShow, setModalShow] = useState(false);
 
@@ -39,10 +44,18 @@ const Search = () => {
                 </Row>
                 <Row>
                     <Col xs={10} sm={10} md={10} lg={10} xl={10}>
-                        <input id='search-container-search-bar-input' placeholder={placeholderText} />
+                        <input
+                            ref={inputRef}
+                            id='search-container-search-bar-input'
+                            placeholder={placeholderText}
+                        />
                     </Col>
                     <Col xs={2} sm={2} md={2} lg={2} xl={2}>
-                        <button type='button' id='search-container-search-bar-button'>
+                        <button
+                            type='button'
+                            id='search-container-search-bar-button'
+                            onClick={() => dispatch(searchMovies(inputRef.current?.value))}
+                        >
                             <b>SEARCH</b>
                         </button>
                     </Col>

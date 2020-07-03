@@ -25,17 +25,13 @@ function EditOrDelete({ movie }) {
             {state === 'edit' && (
                 <Edit
                     movie={movie}
-                    updateMovie={(data) => {
-                        dispatch(updateMovie(data));
-                    }}
+                    updateMovie={data => dispatch(updateMovie(data))}
                     close={() => setState('closed')}
                 />
             )}
             {state === 'delete' && (
                 <Delete
-                    deleteMovie={() => {
-                        dispatch(deleteMovie(movie.id));
-                    }}
+                    deleteMovie={() => dispatch(deleteMovie(movie.id))}
                     close={() => setState('closed')}
                 />
             )}

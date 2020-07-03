@@ -7,6 +7,11 @@ import { useWindowWidth } from '../utils/withModal';
 const HorizontalScrollableSelectMenu = ({
     id, className, values, selected, onSelectionChange,
 }) => {
+    const handleSelectionChange = (e, key) => {
+        e.preventDefault();
+        onSelectionChange(key);
+    };
+
     const menuRef = useRef();
     const [scrollLeft, setScrollLeft] = useState(0);
 
@@ -72,19 +77,17 @@ const HorizontalScrollableSelectMenu = ({
                 >
                     {values.map(value => (
                         <li
-                            className={value.toUpperCase()
-                                === selected?.toUpperCase()
+                            className={selected.includes(value.key)
                                 ? 'selected'
                                 : ''}
                             tabIndex={0}
-                            onClick={onSelectionChange}
-                            onKeyDown={handleKeyDown(onSelectionChange, ' ')}
-                            key={value}
+                            onClick={e => handleSelectionChange(e, value.key)}
+                            onKeyDown={handleKeyDown(e => handleSelectionChange(e, value.key), ' ')}
+                            key={value.key}
                             role='option'
-                            aria-selected={value.toUpperCase()
-                                  === selected?.toUpperCase()}
+                            aria-selected={selected.includes(value.key)}
                         >
-                            <span>{value.toUpperCase()}</span>
+                            <span>{value.display}</span>
                         </li>
                     ))}
                 </ul>

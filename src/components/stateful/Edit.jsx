@@ -85,8 +85,9 @@ export default class Edit extends React.Component {
                         validationSchema={schema}
                         initialValues={this.props.movie}
                         onSubmit={(values) => {
-                            this.props.updateMovie(values);
-                            this.props.close();
+                            this.props.updateMovie(values)
+                                .then(this.props.close)
+                                .catch(e => alert(e));
                         }}
                     >
                         {({

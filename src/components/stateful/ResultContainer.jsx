@@ -1,16 +1,15 @@
 import { connect } from 'react-redux';
-import { filterMoviesByGenre, sortMoviesByType } from '../../redux/moviesFilterAndSortActions';
-import makeGetVisibleMovies from '../../redux/visibleMoviesSelector';
+import { filterMoviesByGenre, sortMoviesByType, fetchNextPagination } from '../../redux/moviesFilterAndSortActions';
 import makeGetVisibleGenreFilters from '../../redux/visibleFilterGenresSelector';
 import Result from './Result';
 
 const makeMapStateToProps = () => {
-    const getVisibleMovies = makeGetVisibleMovies();
     const getVisibleGenreFilters = makeGetVisibleGenreFilters();
     const mapStateToProps = (state, props) => ({
         selectedGenreFilter: state.filterAndSort.genreFilter,
         selectedSortType: state.filterAndSort.sortType,
-        movies: getVisibleMovies(state, props),
+        movies: state.movies.movies,
+        totalAmount: state.movies.totalAmount,
         genreFilters: getVisibleGenreFilters(state, props),
     });
     return mapStateToProps;
@@ -19,6 +18,7 @@ const makeMapStateToProps = () => {
 const mapDispatchToProps = {
     onGenreFilterChange: filterMoviesByGenre,
     onSortTypeChange: sortMoviesByType,
+    fetchNextPagination,
 };
 
 export default connect(

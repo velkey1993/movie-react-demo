@@ -1,11 +1,13 @@
 import {
     FILTER_MOVIES_BY_GENRE,
     SORT_MOVIES_BY_TYPE,
+    SEARCH_MOVIES,
 } from './moviesFilterAndSortActions';
 
 const initialState = {
-    genreFilter: null,
-    sortType: 'title',
+    genreFilter: [''],
+    sortType: 'release_date',
+    search: '',
 };
 
 const reducer = (state = initialState, action) => {
@@ -20,6 +22,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 sortType: action.payload,
             };
+        case SEARCH_MOVIES:
+            return {
+                ...state,
+                search: action.payload,
+            };
+
         default:
             return state;
     }
