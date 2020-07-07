@@ -1,12 +1,14 @@
 import React, { useEffect, useMemo } from 'react';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
+import _ from 'lodash';
 import { searchMovies } from '../../redux/moviesFilterAndSortActions';
 import ErrorBoundary from './ErrorBoundary';
 import TopComponent from '../stateless/TopComponent';
 import ResultContainer from './ResultContainer';
 import AppContext from './AppContext';
 import { fetchMovie } from '../../redux/moviesActions';
+import usePrevious from '../../utils/usePrevious';
 
 const GENRES = [
     { name: 'ALL', value: ['All'] },
@@ -20,7 +22,7 @@ const GENRES = [
 function App({ match: { params } }) {
     const dispatch = useDispatch();
     const movies = useSelector(state => state.movies.movies);
-    const error = useSelector(state => state.movies.error);
+    const error = useSelector(state => state.movies.error, _.isEqual);
     const genresContext = useMemo(() => ({ genres: GENRES }), []);
 
     useEffect(() => {
@@ -33,9 +35,9 @@ function App({ match: { params } }) {
         }
     }, [dispatch, params]);
 
-    useEffect(() => {
-        error && alert(error);
-    }, [error]);
+    const prevError = usePrevious(error, error);
+
+    error && prevError !== error && alert(error);
 
     return (
         <>
