@@ -1,11 +1,12 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
-import AppContext from './AppContext';
+import { searchMovies } from '../../redux/moviesFilterAndSortActions';
 import ErrorBoundary from './ErrorBoundary';
 import TopComponent from '../stateless/TopComponent';
-import { fetchMoviesIfNeed } from '../../redux/moviesActions';
 import ResultContainer from './ResultContainer';
+import AppContext from './AppContext';
+import { fetchMovieDetails } from '../../redux/movieDetailsActions';
 
 const GENRES = [
     { name: 'ALL', value: ['All'] },
@@ -16,37 +17,34 @@ const GENRES = [
     { name: 'OTHER', value: ['Spaghetti Western'] },
 ];
 
-function App() {
-    const movies = useSelector(state => state.movies.movies);
-    const error = useSelector(state => state.movies.error);
+function App({ match: { params } }) {
     const dispatch = useDispatch();
-    const [movieId, setMovieId] = useState();
+    const error = useSelector(state => state.movies.error);
+    const genresContext = useMemo(() => ({ genres: GENRES }), []);
 
     useEffect(() => {
-        dispatch(fetchMoviesIfNeed())
-            .catch(e => alert(e));
-    }, [dispatch]);
+        if (params.query) {
+            dispatch(searchMovies(params.query))
+                .catch(e => alert(e));
+        } else if (params.id) {
+            dispatch(fetchMovieDetails(params.id))
+                .catch(e => alert(e));
+        }
+    }, [dispatch, params]);
 
     useEffect(() => {
         error && alert(error);
     }, [error]);
-
-    const genresContext = useMemo(() => ({ genres: GENRES }), []);
 
     return (
         <>
             <div id='container' className='container'>
                 <AppContext.Provider value={genresContext}>
                     <ErrorBoundary>
-                        <TopComponent
-                            movie={movies.find(movie => movie.id === movieId)}
-                            closeDetails={() => setMovieId(undefined)}
-                        />
+                        <TopComponent />
                     </ErrorBoundary>
                     <ErrorBoundary>
-                        <ResultContainer
-                            showMovieDetails={setMovieId}
-                        />
+                        <ResultContainer />
                     </ErrorBoundary>
                 </AppContext.Provider>
             </div>

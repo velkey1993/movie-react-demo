@@ -1,15 +1,13 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import './Search.css';
 import { Button, Col, Row } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import AddMovie from './AddMovie';
 import ErrorBoundary from './ErrorBoundary';
-import { searchMovies } from '../../redux/moviesFilterAndSortActions';
 
 const Search = () => {
     const placeholderText = 'What do you want to watch?';
 
-    const dispatch = useDispatch();
     const inputRef = useRef();
 
     const [modalShow, setModalShow] = useState(false);
@@ -26,7 +24,11 @@ const Search = () => {
                         </p>
                     </Col>
                     <Col xs={2} sm={2} md={2} lg={2} xl={2}>
-                        <Button id='add-movie-button' variant='primary' onClick={() => setModalShow(true)}>
+                        <Button
+                            id='add-movie-button'
+                            variant='primary'
+                            onClick={() => setModalShow(true)}
+                        >
                             <b id='add-movie-button-text'>+ ADD MOVIE</b>
                         </Button>
                         <ErrorBoundary>
@@ -51,13 +53,14 @@ const Search = () => {
                         />
                     </Col>
                     <Col xs={2} sm={2} md={2} lg={2} xl={2}>
-                        <button
-                            type='button'
-                            id='search-container-search-bar-button'
-                            onClick={() => dispatch(searchMovies(inputRef.current?.value))}
-                        >
-                            <b>SEARCH</b>
-                        </button>
+                        <Link to={() => `/search/${inputRef.current?.value}`}>
+                            <button
+                                type='button'
+                                id='search-container-search-bar-button'
+                            >
+                                <b>SEARCH</b>
+                            </button>
+                        </Link>
                     </Col>
                 </Row>
             </div>

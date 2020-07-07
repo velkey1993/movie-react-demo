@@ -32,6 +32,12 @@ export function read(sortBy, filter, search, offset) {
         .then(delay);
 }
 
+export function readMovieDetails(id) {
+    return axios
+        .get(`http://localhost:4000/movies/${id}`)
+        .then(delay);
+}
+
 export function update(movie) {
     return axios
         .put('http://localhost:4000/movies', movie)

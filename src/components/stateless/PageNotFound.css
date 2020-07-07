@@ -1,0 +1,47 @@
+#page-not-found-container {
+    position: relative;
+    margin-top: 30px;
+    background: #232323;
+    border-radius: 0;
+}
+
+#page-not-found-container-text {
+    text-align: center;
+    margin-top: 100px;
+}
+
+#page-not-found-container-image {
+    text-align: center;
+}
+
+#page-not-found-container-movie-page-name {
+    position: absolute;
+    height: 50px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #f65261;
+    background: #424242;
+}
+
+#page-not-found-container-button-wrapper {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+#page-not-found-container-button {
+    background-color: rgba(85, 85, 85, 0);
+    border: 0;
+}
+
+#page-not-found-container-button-text {
+    color: rgb(246, 82, 97);
+    background-color: rgba(85, 85, 85, 0);
+    border-radius: 6px;
+    border: 1px solid rgb(246, 82, 97);
+    padding: 10px 40px;
+    font-size: 250%;
+    margin: 0;
+}
