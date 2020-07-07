@@ -9,9 +9,13 @@ export const ADD_MOVIE_SUCCESS = 'ADD_MOVIE_SUCCESS';
 export const EDIT_MOVIE_SUCCESS = 'EDIT_MOVIE_SUCCESS';
 export const DELETE_MOVIE_SUCCESS = 'DELETE_MOVIE_SUCCESS';
 
-function pending() {
+const SEARCH = 'search';
+const FETCH_BY_ID = 'id';
+
+function pending(fetchType) {
     return dispatch => dispatch({
         type: PENDING,
+        payload: fetchType,
     });
 }
 
@@ -47,13 +51,16 @@ export function fetchMovies(sortBy, filter, search) {
     return (dispatch, getState) => {
         if (!search) return Promise.reject(new Error('Search text is empty'));
         if (getState().movies.pending) return Promise.reject(new Error('Pending action'));
-        dispatch(pending());
+        dispatch(pending(SEARCH));
         return movieService.searchMovies(sortBy, filter, search)
             .then((res) => {
                 dispatch(fetchMoviesSuccess(res.data));
             })
-            .catch((error) => {
-                dispatch(handleError(error?.response?.data.messages || error));
+            .catch((e) => {
+                const error = e?.response?.data.messages
+                    ? new Error(e?.response?.data.messages) : e;
+                dispatch(handleError(error.message));
+                throw error;
             });
     };
 }
@@ -61,13 +68,16 @@ export function fetchMovies(sortBy, filter, search) {
 export function fetchMovie(id) {
     return (dispatch, getState) => {
         if (getState().movies.pending) return Promise.reject(new Error('Pending action'));
-        dispatch(pending());
+        dispatch(pending(FETCH_BY_ID));
         return movieService.read(id)
             .then((res) => {
                 dispatch(fetchMovieSuccess(res.data));
             })
-            .catch((error) => {
-                dispatch(handleError(error?.response?.data.messages || error));
+            .catch((e) => {
+                const error = e?.response?.data.messages
+                    ? new Error(e?.response?.data.messages) : e;
+                dispatch(handleError(error.message));
+                throw error;
             });
     };
 }
@@ -75,13 +85,16 @@ export function fetchMovie(id) {
 export function fetchMoviesPagination(sortBy, filter, search, offset) {
     return (dispatch, getState) => {
         if (getState().movies.pending) return Promise.reject(new Error('Pending action'));
-        dispatch(pending());
+        dispatch(pending(SEARCH));
         return movieService.searchMovies(sortBy, filter, search, offset)
             .then((res) => {
                 dispatch(fetchMoviesPaginationSuccess(res.data));
             })
-            .catch((error) => {
-                dispatch(handleError(error?.response?.data.messages || error));
+            .catch((e) => {
+                const error = e?.response?.data.messages
+                    ? new Error(e?.response?.data.messages) : e;
+                dispatch(handleError(error.message));
+                throw error;
             });
     };
 }

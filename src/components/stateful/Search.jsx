@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Search.css';
 import { Button, Col, Row } from 'react-bootstrap';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import AddMovie from './AddMovie';
 import ErrorBoundary from './ErrorBoundary';
 import handleKeyDown from '../../utils/handleKeyDown';
@@ -51,19 +51,18 @@ const Search = () => {
                             placeholder={placeholderText}
                             value={searchText}
                             onChange={e => setSearchText(e.target.value)}
-                            onKeyDown={handleKeyDown(() => searchText && history.push(`/search/${searchText}`), 'enter')}
+                            onKeyDown={handleKeyDown(() => searchText && history.push(`/search/${searchText}`), 'Enter')}
                         />
                     </Col>
                     <Col xs={2} sm={2} md={2} lg={2} xl={2}>
-                        <Link to={searchText ? () => `/search/${searchText}` : ''}>
-                            <button
-                                disabled={!searchText}
-                                type='button'
-                                id='search-container-search-bar-button'
-                            >
-                                <b>SEARCH</b>
-                            </button>
-                        </Link>
+                        <button
+                            type='button'
+                            disabled={!searchText}
+                            onClick={searchText ? () => history.push(`/search/${searchText}`) : undefined}
+                            id='search-container-search-bar-button'
+                        >
+                            <b>SEARCH</b>
+                        </button>
                     </Col>
                 </Row>
             </div>

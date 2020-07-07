@@ -3,20 +3,23 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { ToastProvider } from 'react-toast-notifications';
 import App from './components/stateful/App';
 import * as serviceWorker from './serviceWorker';
 import store from './redux/store';
 import PageNotFound from './components/stateless/PageNotFound';
 
 ReactDOM.render(
-    <Provider store={store}>
-        <Router>
-            <Switch>
-                <Route exact path={['/', '/film/:id', '/search/:query']} component={App} />
-                <Route component={PageNotFound} />
-            </Switch>
-        </Router>
-    </Provider>,
+    <ToastProvider>
+        <Provider store={store}>
+            <Router>
+                <Switch>
+                    <Route exact path={['/', '/film/:id', '/search/:query']} component={App} />
+                    <Route component={PageNotFound} />
+                </Switch>
+            </Router>
+        </Provider>
+    </ToastProvider>,
     document.getElementById('root'),
 );
 

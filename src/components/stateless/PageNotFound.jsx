@@ -17,7 +17,7 @@ function PageNotFound() {
             </Row>
             <Row xs={12} sm={12} md={12} lg={12} xl={12}>
                 <div id='page-not-found-container-text'>
-                    <h1>Page Not Found</h1>
+                    <h1>Not Found</h1>
                 </div>
             </Row>
             <Row xs={12} sm={12} md={12} lg={12} xl={12}>

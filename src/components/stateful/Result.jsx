@@ -1,7 +1,7 @@
-/* eslint-disable no-alert */
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Result.css';
+import { useToasts } from 'react-toast-notifications';
 import Movie from '../stateless/Movie';
 import ErrorBoundary from './ErrorBoundary';
 import HorizontalScrollableSelectMenu from '../HorizontalScrollableSelectMenu';
@@ -30,19 +30,21 @@ const Result = ({
     fetchNextPagination,
     fetchBy,
 }) => {
+    const { addToast } = useToasts();
+
     const handleSelectionChange = (key) => {
         if (key === FILTER_ALL) {
             onGenreFilterChange([FILTER_ALL])
-                .catch(e => alert(e));
+                .catch(error => addToast(error.message, { appearance: 'error', autoDismiss: true }));
         } else if (selectedGenreFilter.includes(key)) {
             const newFilter = selectedGenreFilter.filter(genre => genre !== key);
             onGenreFilterChange(newFilter.length === 0 ? [''] : newFilter)
-                .catch(e => alert(e));
+                .catch(error => addToast(error.message, { appearance: 'error', autoDismiss: true }));
         } else {
             onGenreFilterChange(
                 [...selectedGenreFilter, key].filter(genre => genre !== FILTER_ALL),
             )
-                .catch(e => alert(e));
+                .catch(error => addToast(error.message, { appearance: 'error', autoDismiss: true }));
         }
     };
 
@@ -51,7 +53,7 @@ const Result = ({
             if (totalAmount > movies.length) {
                 fetchNextPagination()
                     .then(() => setIsFetching(false))
-                    .catch(e => alert(e));
+                    .catch(error => addToast(error.message, { appearance: 'error', autoDismiss: true }));
             } else {
                 setIsFetching(false);
             }

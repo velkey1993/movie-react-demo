@@ -13,3 +13,22 @@ ul {
     margin-inline-end: 0px;
     padding-inline-start: 0px;
 }
+
+.react-toast-notifications__toast__countdown {
+    background-color: #f65261 !important;
+}
+
+.react-toast-notifications__toast__icon-wrapper {
+    background-color: #f65261 !important;
+}
+
+.react-toast-notifications__toast__content {
+    background-color: #232323 !important;
+    color: #dddddd;
+}
+
+.react-toast-notifications__toast__dismiss-button, .react-toast-notifications__toast__dismiss-text {
+    background-color: #555555 !important;
+    color: #dddddd !important;
+    opacity: 1 !important;
+}

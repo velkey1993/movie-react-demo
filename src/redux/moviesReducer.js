@@ -22,6 +22,8 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 pending: true,
+                fetchBy: action.payload ? action.payload : state.fetchBy,
+                error: null,
             };
 
         case ERROR:
@@ -84,6 +86,7 @@ const reducer = (state = initialState, action) => {
                 movies: state.movies.filter(
                     item => item.id !== action.payload,
                 ),
+                totalAmount: state.totalAmount - 1,
                 pending: false,
                 error: null,
             };

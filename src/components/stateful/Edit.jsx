@@ -126,7 +126,8 @@ export default class Edit extends React.Component {
                                 onClick={() => {
                                     this.props.updateMovie(this.state.movie)
                                         .then(() => this.props.close())
-                                        .catch(error => alert(`Edit failed ${error}`));
+                                        .then(() => this.props.addToast('Saved Successfully', { appearance: 'success', autoDismiss: true }))
+                                        .catch(error => this.props.addToast(error.message, { appearance: 'error', autoDismiss: true }));
                                 }}
                             >
                                 SAVE

@@ -1,14 +1,9 @@
 import React from 'react';
 import './MovieDetails.css';
 import { Button, Col, Row } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import { Link, Redirect, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-function MovieDetails() {
-    const { id } = useParams();
-    const movie = useSelector(state => state.movies.movies.find(item => item.id.toString() === id));
-    const error = useSelector(state => state.movies.error);
-
+function MovieDetails({ placeholder, movie }) {
     return (
         <div id='movie-details-container' className='jumbotron'>
             <div id='movie-details-container-background' />
@@ -53,7 +48,7 @@ function MovieDetails() {
                                                     >
                                                         {
                                                             movie.vote_average?.toFixed(1)
-                                                            || Number.NaN
+                                                            || Number.NaN.toString()
                                                         }
                                                     </span>
                                                 </p>
@@ -85,9 +80,7 @@ function MovieDetails() {
                                     </Col>
                                 </Row>
                             )
-                            : error
-                                ? <Redirect to='/page-not-found' />
-                                : <h1>Loading...</h1>
+                            : <h1>{placeholder}</h1>
                     }
                 </div>
             </div>
