@@ -47,7 +47,6 @@ Movie.propTypes = {
         title: PropTypes.string.isRequired,
         id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     }).isRequired,
-    showMovieDetails: PropTypes.func.isRequired,
 };
 
 export default Movie;

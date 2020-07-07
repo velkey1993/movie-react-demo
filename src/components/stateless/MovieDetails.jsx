@@ -2,11 +2,12 @@ import React from 'react';
 import './MovieDetails.css';
 import { Button, Col, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, useParams } from 'react-router-dom';
 
 function MovieDetails() {
-    const movie = useSelector(state => state.movieDetails.movieDetails);
-    const error = useSelector(state => state.movieDetails.error);
+    const { id } = useParams();
+    const movie = useSelector(state => state.movies.movies.find(item => item.id.toString() === id));
+    const error = useSelector(state => state.movies.error);
 
     return (
         <div id='movie-details-container' className='jumbotron'>

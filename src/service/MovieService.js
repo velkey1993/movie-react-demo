@@ -16,7 +16,7 @@ export function create(movie) {
         .then(delay);
 }
 
-export function read(sortBy, filter, search, offset) {
+export function searchMovies(sortBy, filter, search, offset) {
     const sortOrder = DESC_TYPES.includes(sortBy) ? 'desc' : 'asc';
     return axios
         .get('http://localhost:4000/movies', {
@@ -32,7 +32,7 @@ export function read(sortBy, filter, search, offset) {
         .then(delay);
 }
 
-export function readMovieDetails(id) {
+export function read(id) {
     return axios
         .get(`http://localhost:4000/movies/${id}`)
         .then(delay);

@@ -3,6 +3,7 @@ import * as movieService from '../service/MovieService';
 export const PENDING = 'PENDING';
 export const ERROR = 'ERROR';
 export const FETCH_MOVIES_SUCCESS = 'FETCH_MOVIES_SUCCESS';
+export const FETCH_MOVIE_SUCCESS = 'FETCH_MOVIE_SUCCESS';
 export const FETCH_MOVIES_PAGINATION_SUCCESS = 'FETCH_MOVIES_PAGINATION_SUCCESS';
 export const ADD_MOVIE_SUCCESS = 'ADD_MOVIE_SUCCESS';
 export const EDIT_MOVIE_SUCCESS = 'EDIT_MOVIE_SUCCESS';
@@ -28,6 +29,13 @@ function fetchMoviesSuccess(data) {
     });
 }
 
+function fetchMovieSuccess(data) {
+    return dispatch => dispatch({
+        type: FETCH_MOVIE_SUCCESS,
+        payload: data,
+    });
+}
+
 function fetchMoviesPaginationSuccess(data) {
     return dispatch => dispatch({
         type: FETCH_MOVIES_PAGINATION_SUCCESS,
@@ -37,11 +45,26 @@ function fetchMoviesPaginationSuccess(data) {
 
 export function fetchMovies(sortBy, filter, search) {
     return (dispatch, getState) => {
+        if (!search) return Promise.reject(new Error('Search text is empty'));
         if (getState().movies.pending) return Promise.reject(new Error('Pending action'));
         dispatch(pending());
-        return movieService.read(sortBy, filter, search)
+        return movieService.searchMovies(sortBy, filter, search)
             .then((res) => {
                 dispatch(fetchMoviesSuccess(res.data));
+            })
+            .catch((error) => {
+                dispatch(handleError(error?.response?.data.messages || error));
+            });
+    };
+}
+
+export function fetchMovie(id) {
+    return (dispatch, getState) => {
+        if (getState().movies.pending) return Promise.reject(new Error('Pending action'));
+        dispatch(pending());
+        return movieService.read(id)
+            .then((res) => {
+                dispatch(fetchMovieSuccess(res.data));
             })
             .catch((error) => {
                 dispatch(handleError(error?.response?.data.messages || error));
@@ -53,7 +76,7 @@ export function fetchMoviesPagination(sortBy, filter, search, offset) {
     return (dispatch, getState) => {
         if (getState().movies.pending) return Promise.reject(new Error('Pending action'));
         dispatch(pending());
-        return movieService.read(sortBy, filter, search, offset)
+        return movieService.searchMovies(sortBy, filter, search, offset)
             .then((res) => {
                 dispatch(fetchMoviesPaginationSuccess(res.data));
             })

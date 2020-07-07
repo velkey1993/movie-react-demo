@@ -6,7 +6,7 @@ import ErrorBoundary from './ErrorBoundary';
 import TopComponent from '../stateless/TopComponent';
 import ResultContainer from './ResultContainer';
 import AppContext from './AppContext';
-import { fetchMovieDetails } from '../../redux/movieDetailsActions';
+import { fetchMovie } from '../../redux/moviesActions';
 
 const GENRES = [
     { name: 'ALL', value: ['All'] },
@@ -19,6 +19,7 @@ const GENRES = [
 
 function App({ match: { params } }) {
     const dispatch = useDispatch();
+    const movies = useSelector(state => state.movies.movies);
     const error = useSelector(state => state.movies.error);
     const genresContext = useMemo(() => ({ genres: GENRES }), []);
 
@@ -26,8 +27,8 @@ function App({ match: { params } }) {
         if (params.query) {
             dispatch(searchMovies(params.query))
                 .catch(e => alert(e));
-        } else if (params.id) {
-            dispatch(fetchMovieDetails(params.id))
+        } else if (params.id && !movies.find(movie => movie.id.toString() === params.id)) {
+            dispatch(fetchMovie(params.id))
                 .catch(e => alert(e));
         }
     }, [dispatch, params]);

@@ -1,15 +1,15 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import './Search.css';
 import { Button, Col, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import AddMovie from './AddMovie';
 import ErrorBoundary from './ErrorBoundary';
+import handleKeyDown from '../../utils/handleKeyDown';
 
 const Search = () => {
     const placeholderText = 'What do you want to watch?';
-
-    const inputRef = useRef();
-
+    const history = useHistory();
+    const [searchText, setSearchText] = useState('');
     const [modalShow, setModalShow] = useState(false);
 
     return (
@@ -47,14 +47,17 @@ const Search = () => {
                 <Row>
                     <Col xs={10} sm={10} md={10} lg={10} xl={10}>
                         <input
-                            ref={inputRef}
                             id='search-container-search-bar-input'
                             placeholder={placeholderText}
+                            value={searchText}
+                            onChange={e => setSearchText(e.target.value)}
+                            onKeyDown={handleKeyDown(() => searchText && history.push(`/search/${searchText}`), 'enter')}
                         />
                     </Col>
                     <Col xs={2} sm={2} md={2} lg={2} xl={2}>
-                        <Link to={() => `/search/${inputRef.current?.value}`}>
+                        <Link to={searchText ? () => `/search/${searchText}` : ''}>
                             <button
+                                disabled={!searchText}
                                 type='button'
                                 id='search-container-search-bar-button'
                             >
