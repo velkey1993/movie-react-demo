@@ -124,7 +124,9 @@ export default class Edit extends React.Component {
                                 type='submit'
                                 className='save'
                                 onClick={() => {
-                                    this.props.updateMovie(this.state.movie);
+                                    this.props.updateMovie(this.state.movie)
+                                        .then(() => this.props.close())
+                                        .catch(error => alert(`Edit failed ${error}`));
                                 }}
                             >
                                 SAVE

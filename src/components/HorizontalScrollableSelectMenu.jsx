@@ -34,15 +34,16 @@ const HorizontalScrollableSelectMenu = ({
 
     useEffect(() => {
         const node = menuRef.current;
+        const func = (e) => {
+            e.preventDefault();
+            scroll(e.deltaY);
+        };
         if (node) {
-            node.addEventListener('wheel', (e) => {
-                e.preventDefault();
-                scroll(e.deltaY);
-            });
+            node.addEventListener('wheel', func);
         }
         return () => {
             if (node) {
-                node.removeEventListener('wheel');
+                node.removeEventListener('wheel', func);
             }
         };
     }, [scroll]);

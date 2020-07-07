@@ -31,7 +31,6 @@
     top: 0;
     left: 15px;
     padding-left: 10px;
-    z-index: 1;
     overflow: hidden;
     background: linear-gradient(to right, rgb(35, 35, 35), rgba(0, 0, 0, 0));
     outline: none;
@@ -51,7 +50,6 @@
     top: 0;
     right: 0;
     padding-right: 10px;
-    z-index: 1;
     overflow: hidden;
     background: linear-gradient(to right, rgba(0, 0, 0, 0), rgb(35, 35, 35));
     outline: none;
@@ -78,6 +76,7 @@
     list-style-type: none;
     height: 3em;
     vertical-align: middle;
+    border-bottom: #ffffff 0.1em solid;
 }
 
 #result-container-movie-types li:before {
@@ -104,7 +103,6 @@
 #result-container-movie-types li:focus {
     background-color: #424242;
     outline: none;
-    border-bottom: #ffffff 0.1em solid;
 }
 
 #result-container-movie-types li.selected {

@@ -89,8 +89,11 @@ export function addMovie(data) {
             .then((res) => {
                 dispatch(addMovieSuccess(res.data));
             })
-            .catch((error) => {
-                dispatch(handleError(error?.response?.data.messages || error));
+            .catch((e) => {
+                const error = e?.response?.data.messages
+                    ? new Error(e?.response?.data.messages) : e;
+                dispatch(handleError(error.message));
+                throw error;
             });
     };
 }
@@ -110,8 +113,11 @@ export function editMovie(data) {
             .then((res) => {
                 dispatch(editMovieSuccess(res.data));
             })
-            .catch((error) => {
-                dispatch(handleError(error?.response?.data.messages || error));
+            .catch((e) => {
+                const error = e?.response?.data.messages
+                    ? new Error(e?.response?.data.messages) : e;
+                dispatch(handleError(error.message));
+                throw error;
             });
     };
 }
@@ -131,8 +137,11 @@ export function deleteMovie(id) {
             .then(() => {
                 dispatch(deleteMovieSuccess(id));
             })
-            .catch((error) => {
-                dispatch(handleError(error?.response?.data.messages || error));
+            .catch((e) => {
+                const error = e?.response?.data.messages
+                    ? new Error(e?.response?.data.messages) : e;
+                dispatch(handleError(error.message));
+                throw error;
             });
     };
 }
