@@ -41,15 +41,12 @@
 
 #page-not-found-container-button {
     background-color: rgba(85, 85, 85, 0);
-    border: 0;
+    border: 1px solid rgb(246, 82, 97);
+    border-radius: 6px;
 }
 
 #page-not-found-container-button-text {
     color: rgb(246, 82, 97);
-    background-color: rgba(85, 85, 85, 0);
-    border-radius: 6px;
-    border: 1px solid rgb(246, 82, 97);
     padding: 10px 40px;
     font-size: 250%;
-    margin: 0;
 }

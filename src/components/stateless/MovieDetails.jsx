@@ -1,6 +1,6 @@
 import React from 'react';
 import './MovieDetails.css';
-import { Button, Col, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 function MovieDetails({ placeholder, movie }) {
@@ -18,13 +18,8 @@ function MovieDetails({ placeholder, movie }) {
                         </Col>
                         <Col xs={1} sm={1} md={1} lg={1} xl={1}>
                             <div>
-                                <Link to='/'>
-                                    <Button
-                                        id='movie-details-container-search-button'
-                                        variant='primary'
-                                    >
-                                        <span className='glyphicon glyphicon-search' />
-                                    </Button>
+                                <Link id='movie-details-container-search-button' to='/' className='btn btn-primary'>
+                                    <span className='glyphicon glyphicon-search' />
                                 </Link>
                             </div>
                         </Col>

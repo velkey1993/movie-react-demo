@@ -27,13 +27,8 @@ function PageNotFound() {
             </Row>
             <Row xs={12} sm={12} md={12} lg={12} xl={12}>
                 <div id='page-not-found-container-button-wrapper'>
-                    <Link to='/'>
-                        <button
-                            type='button'
-                            id='page-not-found-container-button'
-                        >
-                            <p id='page-not-found-container-button-text'>GO BACK TO HOME</p>
-                        </button>
+                    <Link id='page-not-found-container-button' to='/' className='btn'>
+                        <span id='page-not-found-container-button-text'>GO BACK TO HOME</span>
                     </Link>
                 </div>
             </Row>
