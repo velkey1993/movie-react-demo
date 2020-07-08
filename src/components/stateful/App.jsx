@@ -26,7 +26,7 @@ const fetch = (params, dispatch, movies, addToast) => {
     if (params.query) {
         dispatch(searchMovies(params.query))
             .catch(error => addToast(error.message, { appearance: 'error', autoDismiss: true }));
-    } else if (params.id && !movies.find(movie => movie.id.toString() === params.id)) {
+    } else if (params.id && !movies.find(movie => movie.id === parseInt(params.id, 10))) {
         dispatch(fetchMovie(params.id))
             .catch(error => addToast(error.message, { appearance: 'error', autoDismiss: true }));
     }
