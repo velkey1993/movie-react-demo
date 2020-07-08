@@ -6,7 +6,7 @@ import pageNotFound from '../../assets/page_not_found.png';
 
 function PageNotFound() {
     return (
-        <div id='page-not-found-container' className='jumbotron'>
+        <div id='page-not-found-container' className='container'>
             <Row>
                 <Col xs={12} sm={12} md={12} lg={12} xl={12}>
                     <p id='search-container-page-name'>
@@ -16,13 +16,13 @@ function PageNotFound() {
                 </Col>
             </Row>
             <Row xs={12} sm={12} md={12} lg={12} xl={12}>
-                <div id='page-not-found-container-text'>
-                    <h1>Not Found</h1>
+                <div id='page-not-found-container-image'>
+                    <img src={pageNotFound} alt={404} />
                 </div>
             </Row>
             <Row xs={12} sm={12} md={12} lg={12} xl={12}>
-                <div id='page-not-found-container-image'>
-                    <img src={pageNotFound} alt={404} style={{ margin: '-80px 0' }} />
+                <div id='page-not-found-container-text'>
+                    <h1>Not Found</h1>
                 </div>
             </Row>
             <Row xs={12} sm={12} md={12} lg={12} xl={12}>
