@@ -21,10 +21,11 @@ const schema = yup.object()
         poster_path: yup.string()
             .required('Movie URL required!'),
         genres: yup.array()
-            .required('Genre required!'),
+            .min(1, 'Genre required!'),
         overview: yup.string()
             .required('Overview required!'),
         runtime: yup.number()
+            .min(0, 'Runtime min 0!')
             .required('Runtime required!'),
     });
 
