@@ -1,9 +1,12 @@
 import React from 'react';
 import './MovieDetails.css';
 import { Col, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { filterMovies } from '../../redux/moviesFilterAndSortActions';
 
 function MovieDetails({ placeholder, movie }) {
+    const dispatch = useDispatch();
+
     return (
         <div id='movie-details-container' className='jumbotron'>
             <div id='movie-details-container-background' />
@@ -18,9 +21,22 @@ function MovieDetails({ placeholder, movie }) {
                         </Col>
                         <Col xs={1} sm={1} md={1} lg={1} xl={1}>
                             <div>
-                                <Link id='movie-details-container-search-button' to='/' className='btn btn-primary'>
+                                <button
+                                    id='movie-details-container-search-button'
+                                    type='button'
+                                    className='btn btn-primary'
+                                    onClick={
+                                        () => dispatch(
+                                            filterMovies({
+                                                skipFetch: true,
+                                                forcePushToHistory: true,
+                                            }),
+                                        )
+                                    }
+                                >
                                     <span className='glyphicon glyphicon-search' />
-                                </Link>
+
+                                </button>
                             </div>
                         </Col>
                     </Row>

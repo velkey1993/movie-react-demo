@@ -1,7 +1,5 @@
 import {
-    FILTER_MOVIES_BY_GENRE,
-    SORT_MOVIES_BY_TYPE,
-    SEARCH_MOVIES,
+    FILTER_MOVIES, PUSH,
 } from './moviesFilterAndSortActions';
 
 const initialState = {
@@ -12,20 +10,17 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case FILTER_MOVIES_BY_GENRE:
+        case FILTER_MOVIES:
             return {
                 ...state,
-                genreFilter: action.payload,
+                genreFilter: action.payload.genre || state.genreFilter,
+                sortType: action.payload.type || state.sortType,
+                search: action.payload.search || state.search,
             };
-        case SORT_MOVIES_BY_TYPE:
+        case PUSH:
             return {
                 ...state,
-                sortType: action.payload,
-            };
-        case SEARCH_MOVIES:
-            return {
-                ...state,
-                search: action.payload,
+                path: action.payload,
             };
 
         default:

@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import './Search.css';
 import { Button, Col, Row } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import AddMovie from './AddMovie';
 import ErrorBoundary from './ErrorBoundary';
 import handleKeyDown from '../../utils/handleKeyDown';
+import { filterMoviesBySearch } from '../../redux/moviesFilterAndSortActions';
 
 const Search = () => {
+    const dispatch = useDispatch();
     const placeholderText = 'What do you want to watch?';
-    const history = useHistory();
     const [searchText, setSearchText] = useState('');
     const [modalShow, setModalShow] = useState(false);
 
@@ -51,14 +52,16 @@ const Search = () => {
                             placeholder={placeholderText}
                             value={searchText}
                             onChange={e => setSearchText(e.target.value)}
-                            onKeyDown={handleKeyDown(() => searchText && history.push(`/search/${searchText}`), 'Enter')}
+                            onKeyDown={handleKeyDown(() => searchText && dispatch(filterMoviesBySearch(searchText)), 'Enter')}
                         />
                     </Col>
                     <Col xs={2} sm={2} md={2} lg={2} xl={2}>
                         <button
                             type='button'
                             disabled={!searchText}
-                            onClick={searchText ? () => history.push(`/search/${searchText}`) : undefined}
+                            onClick={searchText
+                                ? () => dispatch(filterMoviesBySearch(searchText))
+                                : undefined}
                             id='search-container-search-bar-button'
                         >
                             <b>SEARCH</b>

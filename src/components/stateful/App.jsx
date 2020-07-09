@@ -4,12 +4,13 @@ import React, {
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useToasts } from 'react-toast-notifications';
-import { searchMovies } from '../../redux/moviesFilterAndSortActions';
+import qs from 'query-string';
 import ErrorBoundary from './ErrorBoundary';
 import TopComponent from '../stateless/TopComponent';
 import ResultContainer from './ResultContainer';
 import AppContext from './AppContext';
 import { fetchMovie } from '../../redux/moviesActions';
+import { filterMovies } from '../../redux/moviesFilterAndSortActions';
 import useEffectImmediate from '../../utils/useEffectImmediate';
 import Loading from '../stateless/Loading';
 
@@ -23,16 +24,20 @@ const GENRES = [
 ];
 
 const fetch = (params, dispatch, movies, addToast) => {
-    if (params.query) {
-        dispatch(searchMovies(params.query))
-            .catch(error => addToast(error.message, { appearance: 'error', autoDismiss: true }));
-    } else if (params.id && !movies.find(movie => movie.id === parseInt(params.id, 10))) {
+    if (params.id && !movies.find(movie => movie.id === parseInt(params.id, 10))) {
         dispatch(fetchMovie(params.id))
+            .catch(error => addToast(error.message, { appearance: 'error', autoDismiss: true }));
+    } else if (params.search) {
+        dispatch(filterMovies({
+            sort: params.sortBy,
+            filter: [params.filter].flatMap(x => x),
+            search: params.search,
+        }))
             .catch(error => addToast(error.message, { appearance: 'error', autoDismiss: true }));
     }
 };
 
-function App({ match: { params } }) {
+function App({ match: { params }, location }) {
     const genresContext = useMemo(() => ({ genres: GENRES }), []);
 
     const { addToast } = useToasts();
@@ -40,8 +45,9 @@ function App({ match: { params } }) {
     const movies = useSelector(state => state.movies.movies);
     const { pending } = useSelector(state => state.movies);
 
+    // set fetch type and state to pending before the render
     useEffectImmediate(
-        () => fetch(params, dispatch, movies, addToast), [params, dispatch],
+        () => fetch({ ...params, ...qs.parse(location.search) }, dispatch, movies, addToast), [],
     );
 
     return (

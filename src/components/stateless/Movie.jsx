@@ -1,18 +1,19 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import './Movie.css';
-import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import EditOrDelete from '../stateful/EditOrDelete';
 import handleKeyDown from '../../utils/handleKeyDown';
+import { push } from '../../redux/moviesFilterAndSortActions';
 
 const Movie = React.memo(({
     movie,
 }) => {
-    const history = useHistory();
+    const dispatch = useDispatch();
     const imageRef = useRef();
     const imageWrapperRef = useRef();
 
-    const showMovieDetails = id => history.push(`/film/${id}`);
+    const showMovieDetails = id => dispatch(push(`/film/${id}`));
 
     return (
 

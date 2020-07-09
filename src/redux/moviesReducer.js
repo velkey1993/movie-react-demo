@@ -66,7 +66,8 @@ const reducer = (state = initialState, action) => {
         case ADD_MOVIE_SUCCESS:
             return {
                 ...state,
-                movies: state.movies.concat(action.payload),
+                // do not put add movie to movie list
+                // movies: state.movies.concat(action.payload),
                 pending: false,
                 error: null,
             };
