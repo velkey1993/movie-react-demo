@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import './EditOrDelete.css';
+import { useToasts } from 'react-toast-notifications';
 import Delete from '../stateless/Delete';
 import Edit from './Edit';
 import PopUp from '../stateless/PopUp';
@@ -10,6 +11,7 @@ import { editMovie as updateMovie, deleteMovie } from '../../redux/moviesActions
 function EditOrDelete({ movie }) {
     const dispatch = useDispatch();
     const [state, setState] = useState('closed');
+    const { addToast } = useToasts();
     return (
         <>
             {state === 'closed' && (
@@ -27,12 +29,14 @@ function EditOrDelete({ movie }) {
                     movie={movie}
                     updateMovie={data => dispatch(updateMovie(data))}
                     close={() => setState('closed')}
+                    addToast={addToast}
                 />
             )}
             {state === 'delete' && (
                 <Delete
                     deleteMovie={() => dispatch(deleteMovie(movie.id))}
                     close={() => setState('closed')}
+                    addToast={addToast}
                 />
             )}
         </>

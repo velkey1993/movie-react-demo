@@ -6,6 +6,7 @@ import ModalHeader from 'react-bootstrap/ModalHeader';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import './AddMovie.css';
+import { useToasts } from 'react-toast-notifications';
 import Form from 'react-bootstrap/Form';
 import { useDispatch } from 'react-redux';
 import { addMovie } from '../../redux/moviesActions';
@@ -35,6 +36,7 @@ function AddMovie({ show, onHide }) {
         onHide,
     };
     const dispatch = useDispatch();
+    const { addToast } = useToasts();
 
     function blurRoot() {
         const root = document.getElementById('root');
@@ -72,11 +74,12 @@ function AddMovie({ show, onHide }) {
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                     setSubmitting(true);
                     dispatch(addMovie(values))
+                        .then(() => addToast('Saved Successfully', { appearance: 'success', autoDismiss: true }))
                         .then((() => {
                             resetForm();
                             onHide();
                         }))
-                        .catch(e => alert(e));
+                        .catch(error => addToast(error.message, { appearance: 'error', autoDismiss: true }));
                     setSubmitting(false);
                 }}
             >

@@ -14,7 +14,7 @@ const PopUp = ({ openEdit, openDelete, close }) => (
                         tabIndex='0'
                         role='button'
                         onClick={openEdit}
-                        onKeyDown={handleKeyDown(openEdit, 'Enter')}
+                        onKeyDown={handleKeyDown(openEdit, ['Enter', ' '])}
                     >
                         Edit
                     </div>
@@ -24,7 +24,7 @@ const PopUp = ({ openEdit, openDelete, close }) => (
                         tabIndex='0'
                         role='button'
                         onClick={openDelete}
-                        onKeyDown={handleKeyDown(openDelete, 'Enter')}
+                        onKeyDown={handleKeyDown(openDelete, ['Enter', ' '])}
                     >
                         Delete
                     </div>

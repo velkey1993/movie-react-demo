@@ -9,6 +9,7 @@ const makeMapStateToProps = () => {
         selectedGenreFilter: state.filterAndSort.genreFilter,
         selectedSortType: state.filterAndSort.sortType,
         movies: state.movies.movies,
+        fetchBy: state.movies.fetchBy,
         totalAmount: state.movies.totalAmount,
         genreFilters: getVisibleGenreFilters(state, props),
     });

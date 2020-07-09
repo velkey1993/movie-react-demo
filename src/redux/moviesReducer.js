@@ -7,6 +7,7 @@ import {
     ADD_MOVIE_SUCCESS,
     EDIT_MOVIE_SUCCESS,
     DELETE_MOVIE_SUCCESS,
+    FETCH_MOVIE_SUCCESS,
 } from './moviesActions';
 
 const initialState = {
@@ -21,6 +22,8 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 pending: true,
+                fetchBy: action.payload ? action.payload : state.fetchBy,
+                error: null,
             };
 
         case ERROR:
@@ -36,6 +39,17 @@ const reducer = (state = initialState, action) => {
                 movies: action.payload.data,
                 totalAmount: action.payload.totalAmount,
                 pending: false,
+                fetchBy: 'search',
+                error: null,
+            };
+
+        case FETCH_MOVIE_SUCCESS:
+            return {
+                ...state,
+                movies: [action.payload],
+                totalAmount: 1,
+                pending: false,
+                fetchBy: 'id',
                 error: null,
             };
 
@@ -52,7 +66,8 @@ const reducer = (state = initialState, action) => {
         case ADD_MOVIE_SUCCESS:
             return {
                 ...state,
-                movies: state.movies.concat(action.payload),
+                // do not put add movie to movie list
+                // movies: state.movies.concat(action.payload),
                 pending: false,
                 error: null,
             };
@@ -72,6 +87,7 @@ const reducer = (state = initialState, action) => {
                 movies: state.movies.filter(
                     item => item.id !== action.payload,
                 ),
+                totalAmount: state.totalAmount - 1,
                 pending: false,
                 error: null,
             };

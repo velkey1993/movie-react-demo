@@ -7,7 +7,7 @@ const ThreeDots = ({ onClick }) => (
         role='button'
         className='dots'
         onClick={onClick}
-        onKeyDown={handleKeyDown(onClick, 'Enter')}
+        onKeyDown={handleKeyDown(onClick, ['Enter', ' '])}
     >
         <strong>&nbsp;&nbsp;⋮&nbsp;&nbsp;</strong>
     </div>

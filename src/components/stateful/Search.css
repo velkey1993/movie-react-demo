@@ -58,3 +58,8 @@
     height: 50px;
     padding: 0 20px;
 }
+
+#search-container-search-bar-button[disabled] {
+    background-color: #976b6e;
+    border-color: #976b6e;
+}
