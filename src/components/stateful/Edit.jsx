@@ -84,11 +84,14 @@ export default class Edit extends React.Component {
                     <Formik
                         validationSchema={schema}
                         initialValues={this.props.movie}
-                        onSubmit={(values) => {
+                        onSubmit={(values, { setSubmitting }) => {
                             this.props.updateMovie(values)
                                 .then(this.props.close)
                                 .then(() => this.props.addToast('Saved Successfully', { appearance: 'success', autoDismiss: true }))
-                                .catch(error => this.props.addToast(error.message, { appearance: 'error', autoDismiss: true }));
+                                .catch((error) => {
+                                    setSubmitting(false);
+                                    this.props.addToast(error.message, { appearance: 'error', autoDismiss: true });
+                                });
                         }}
                     >
                         {({
