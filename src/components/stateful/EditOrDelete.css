@@ -85,6 +85,14 @@
     overflow: auto;
 }
 
+.x-modal-edit-content .error-message {
+    color: #FF6565;
+    padding: .5em .2em;
+    height: 1em;
+    position: absolute;
+    font-size: .8em;
+}
+
 .x-modal-edit-content .inner {
     margin: 50px;
     box-sizing: border-box;
@@ -150,6 +158,12 @@
 .x-modal-edit-content .save {
     color: #ddd;
     background-color: #f65261;
+}
+
+.x-modal-edit-content .save[disabled] {
+    color: ddd;
+    background-color: #976b6e;
+    border-color: #976b6e;
 }
 
 .x-modal-edit-content h5 {
