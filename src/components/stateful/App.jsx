@@ -13,6 +13,8 @@ import { fetchMovie } from '../../redux/moviesActions';
 import { filterMovies } from '../../redux/moviesFilterAndSortActions';
 import useEffectImmediate from '../../utils/useEffectImmediate';
 import Loading from '../stateless/Loading';
+import withToastProvider from '../../utils/withToastProvider';
+import withStoreProvider from '../../utils/withStoreProvider';
 
 const GENRES = [
     { name: 'ALL', value: ['All'] },
@@ -37,7 +39,7 @@ const fetch = (params, dispatch, movies, addToast) => {
     }
 };
 
-function App({ match: { params }, location }) {
+const App = withStoreProvider(withToastProvider(({ match: { params }, location }) => {
     const genresContext = useMemo(() => ({ genres: GENRES }), []);
 
     const { addToast } = useToasts();
@@ -65,6 +67,6 @@ function App({ match: { params }, location }) {
             </div>
         </>
     );
-}
+}));
 
 export default App;
