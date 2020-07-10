@@ -1,0 +1,166 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="jumbotron"
+  id="movie-details-container"
+>
+  <div
+    id="movie-details-container-background"
+  />
+  <div
+    id="movie-details-container-content"
+  >
+    <div
+      id="movie-details-container-data"
+    >
+      <Row
+        noGutters={false}
+      >
+        <Col
+          lg={11}
+          md={11}
+          sm={11}
+          xl={11}
+          xs={11}
+        >
+          <p
+            id="movie-details-container-page-name"
+          >
+            <b>
+              epam
+            </b>
+            roulette
+          </p>
+        </Col>
+        <Col
+          lg={1}
+          md={1}
+          sm={1}
+          xl={1}
+          xs={1}
+        >
+          <div>
+            <button
+              className="btn btn-primary"
+              id="movie-details-container-search-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <span
+                className="glyphicon glyphicon-search"
+              />
+            </button>
+          </div>
+        </Col>
+      </Row>
+      <Row
+        noGutters={false}
+      >
+        <Col
+          lg={3}
+          md={4}
+          sm={5}
+          xl={1}
+          xs={6}
+        >
+          <img
+            alt="Test title"
+            src="https://image.tmdb.org/t/p/w500/k4FwHlMhuRR5BISY2Gm2QZHlH5Q.jpg"
+          />
+        </Col>
+        <Col
+          lg={7}
+          md={6}
+          sm={5}
+          xl={9}
+          xs={6}
+        >
+          <Row
+            noGutters={false}
+          >
+            <Col
+              lg={12}
+              md={12}
+              sm={12}
+              xl={12}
+              xs={12}
+            >
+              <p
+                id="movie-details-container-data-title"
+              >
+                Test title
+                 
+                <span
+                  id="movie-details-container-data-vote-average"
+                >
+                  NaN
+                </span>
+              </p>
+            </Col>
+          </Row>
+          <Row
+            noGutters={false}
+          >
+            <Col
+              lg={12}
+              md={12}
+              sm={12}
+              xl={12}
+              xs={12}
+            >
+              <p />
+            </Col>
+          </Row>
+          <Row
+            noGutters={false}
+          >
+            <Col
+              lg={12}
+              md={12}
+              sm={12}
+              xl={12}
+              xs={12}
+            >
+              <p
+                style={
+                  Object {
+                    "color": "#f65261",
+                  }
+                }
+              >
+                2017
+                 
+                123
+                 
+                min
+              </p>
+            </Col>
+          </Row>
+          <Row
+            noGutters={false}
+          >
+            <Col
+              lg={12}
+              md={12}
+              sm={12}
+              xl={12}
+              xs={12}
+            >
+              <p
+                style={
+                  Object {
+                    "fontSize": "120%",
+                  }
+                }
+              >
+                An other-worldly story ...
+              </p>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+    </div>
+  </div>
+</div>
+`;
