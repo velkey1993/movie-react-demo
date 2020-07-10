@@ -124,7 +124,7 @@ function AddMovie({ show, onHide }) {
                                                 multiple
                                             >
                                                 {
-                                                    value.genres.map(genre => (
+                                                    value.genres?.map(genre => (
                                                         <option
                                                             key={genre.name}
                                                             value={genre.name}
