@@ -1,6 +1,4 @@
-import React, {
-    useMemo,
-} from 'react';
+import React from 'react';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useToasts } from 'react-toast-notifications';
@@ -8,65 +6,66 @@ import qs from 'query-string';
 import ErrorBoundary from './ErrorBoundary';
 import TopComponent from '../stateless/TopComponent';
 import ResultContainer from './ResultContainer';
-import AppContext from './AppContext';
-import { fetchMovie } from '../../redux/moviesActions';
-import { filterMovies } from '../../redux/moviesFilterAndSortActions';
+import { fetchMovie } from '../../redux/movies/actions/moviesActions';
+import { filterMovies } from '../../redux/filterAndSort/actions/moviesFilterAndSortActions';
 import useEffectImmediate from '../../utils/useEffectImmediate';
 import Loading from '../stateless/Loading';
 import withToastProvider from '../../utils/withToastProvider';
 import withStoreProvider from '../../utils/withStoreProvider';
-
-const GENRES = [
-    { name: 'ALL', value: ['All'] },
-    { name: 'DOCUMENTARY', value: ['Documentary'] },
-    { name: 'COMEDY', value: ['Animated Comedy'] },
-    { name: 'HORROR', value: ['Horror'] },
-    { name: 'CRIME', value: ['Crime'] },
-    { name: 'OTHER', value: ['Spaghetti Western'] },
-];
+import withAppContextProvider from '../../utils/withAppContextProvider';
 
 const fetch = (params, dispatch, movies, addToast) => {
     if (params.id && !movies.find(movie => movie.id === parseInt(params.id, 10))) {
         dispatch(fetchMovie(params.id))
-            .catch(error => addToast(error.message, { appearance: 'error', autoDismiss: true }));
+            .catch(error => addToast(error.message, {
+                appearance: 'error',
+                autoDismiss: true,
+            }));
     } else if (params.search) {
         dispatch(filterMovies({
             sort: params.sortBy,
             filter: [params.filter].flatMap(x => x),
             search: params.search,
         }))
-            .catch(error => addToast(error.message, { appearance: 'error', autoDismiss: true }));
+            .catch(error => addToast(error.message, {
+                appearance: 'error',
+                autoDismiss: true,
+            }));
     }
 };
 
-const App = withStoreProvider(withToastProvider(({ match: { params }, location }) => {
-    const genresContext = useMemo(() => ({ genres: GENRES }), []);
+const App = withStoreProvider(
+    withToastProvider(
+        withAppContextProvider(({ match: { params }, location }) => {
+            const { addToast } = useToasts();
+            const dispatch = useDispatch();
+            const movies = useSelector(state => state.movies.movies);
+            const { pending } = useSelector(state => state.movies);
 
-    const { addToast } = useToasts();
-    const dispatch = useDispatch();
-    const movies = useSelector(state => state.movies.movies);
-    const { pending } = useSelector(state => state.movies);
+            // set fetch type and state to pending before the render
+            useEffectImmediate(
+                () => fetch(
+                    { ...params, ...qs.parse(location.search) },
+                    dispatch,
+                    movies,
+                    addToast,
+                ),
+                [],
+            );
 
-    // set fetch type and state to pending before the render
-    useEffectImmediate(
-        () => fetch({ ...params, ...qs.parse(location.search) }, dispatch, movies, addToast), [],
-    );
-
-    return (
-        <>
-            <div id='container' className='container'>
-                {pending && <Loading msg='Loading...' />}
-                <AppContext.Provider value={genresContext}>
+            return (
+                <div id='container' className='container'>
+                    {pending && <Loading msg='Loading...' />}
                     <ErrorBoundary>
                         <TopComponent />
                     </ErrorBoundary>
                     <ErrorBoundary>
                         <ResultContainer />
                     </ErrorBoundary>
-                </AppContext.Provider>
-            </div>
-        </>
-    );
-}));
+                </div>
+            );
+        }),
+    ),
+);
 
 export default App;

@@ -8,7 +8,7 @@ import {
     EDIT_MOVIE_SUCCESS,
     DELETE_MOVIE_SUCCESS,
     FETCH_MOVIE_SUCCESS,
-} from './moviesActions';
+} from '../actions/moviesActions';
 
 const initialState = {
     pending: false,

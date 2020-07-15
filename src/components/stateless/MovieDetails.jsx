@@ -2,7 +2,7 @@ import React from 'react';
 import './MovieDetails.css';
 import { Col, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { filterMovies } from '../../redux/moviesFilterAndSortActions';
+import { filterMovies } from '../../redux/filterAndSort/actions/moviesFilterAndSortActions';
 
 function MovieDetails({ placeholder, movie }) {
     const dispatch = useDispatch();

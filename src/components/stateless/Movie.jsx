@@ -4,7 +4,7 @@ import './Movie.css';
 import { useDispatch } from 'react-redux';
 import EditOrDelete from '../stateful/EditOrDelete';
 import handleKeyDown from '../../utils/handleKeyDown';
-import { push } from '../../redux/moviesFilterAndSortActions';
+import { push } from '../../redux/filterAndSort/actions/moviesFilterAndSortActions';
 
 const Movie = React.memo(({
     movie,
