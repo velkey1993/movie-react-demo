@@ -1,14 +1,19 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import './Movie.css';
+import { useDispatch } from 'react-redux';
 import EditOrDelete from '../stateful/EditOrDelete';
 import handleKeyDown from '../../utils/handleKeyDown';
+import { push } from '../../redux/filterAndSort/actions/moviesFilterAndSortActions';
 
 const Movie = React.memo(({
-    movie, showMovieDetails,
+    movie,
 }) => {
+    const dispatch = useDispatch();
     const imageRef = useRef();
     const imageWrapperRef = useRef();
+
+    const showMovieDetails = id => dispatch(push(`/film/${id}`));
 
     return (
 
@@ -33,7 +38,10 @@ const Movie = React.memo(({
             <div className='movie-data'>
                 <h4 className='title'>{movie.title}</h4>
                 <h5 className='genre'>{movie.genres.join(', ')}</h5>
-                <h5 className='year'>{new Date(movie.release_date).toISOString().slice(0, 4)}</h5>
+                <h5 className='year'>
+                    {new Date(movie.release_date).toISOString()
+                        .slice(0, 4)}
+                </h5>
             </div>
         </div>
     );
@@ -44,7 +52,6 @@ Movie.propTypes = {
         title: PropTypes.string.isRequired,
         id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     }).isRequired,
-    showMovieDetails: PropTypes.func.isRequired,
 };
 
 export default Movie;

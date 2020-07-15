@@ -1,15 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { Provider } from 'react-redux';
+import {
+    Router, Switch, Route,
+} from 'react-router-dom';
 import App from './components/stateful/App';
 import * as serviceWorker from './serviceWorker';
-import store from './redux/store';
+import PageNotFound from './components/stateless/PageNotFound';
+import customHistory from './redux/history';
 
 ReactDOM.render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
+    <Router history={customHistory}>
+        <Switch>
+            <Route exact path={['/', '/film/:id', '/search']} component={App} />
+            <Route component={PageNotFound} />
+        </Switch>
+    </Router>,
     document.getElementById('root'),
 );
 

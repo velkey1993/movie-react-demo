@@ -1,17 +1,16 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import './Search.css';
 import { Button, Col, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import AddMovie from './AddMovie';
+import AddMovie from '../addMovie/AddMovie';
 import ErrorBoundary from './ErrorBoundary';
-import { searchMovies } from '../../redux/moviesFilterAndSortActions';
+import handleKeyDown from '../../utils/handleKeyDown';
+import { filterMoviesBySearch } from '../../redux/filterAndSort/actions/moviesFilterAndSortActions';
 
 const Search = () => {
-    const placeholderText = 'What do you want to watch?';
-
     const dispatch = useDispatch();
-    const inputRef = useRef();
-
+    const placeholderText = 'What do you want to watch?';
+    const [searchText, setSearchText] = useState('');
     const [modalShow, setModalShow] = useState(false);
 
     return (
@@ -26,7 +25,11 @@ const Search = () => {
                         </p>
                     </Col>
                     <Col xs={2} sm={2} md={2} lg={2} xl={2}>
-                        <Button id='add-movie-button' variant='primary' onClick={() => setModalShow(true)}>
+                        <Button
+                            id='add-movie-button'
+                            variant='primary'
+                            onClick={() => setModalShow(true)}
+                        >
                             <b id='add-movie-button-text'>+ ADD MOVIE</b>
                         </Button>
                         <ErrorBoundary>
@@ -45,16 +48,21 @@ const Search = () => {
                 <Row>
                     <Col xs={10} sm={10} md={10} lg={10} xl={10}>
                         <input
-                            ref={inputRef}
                             id='search-container-search-bar-input'
                             placeholder={placeholderText}
+                            value={searchText}
+                            onChange={e => setSearchText(e.target.value)}
+                            onKeyDown={handleKeyDown(() => searchText && dispatch(filterMoviesBySearch(searchText)), 'Enter')}
                         />
                     </Col>
                     <Col xs={2} sm={2} md={2} lg={2} xl={2}>
                         <button
                             type='button'
+                            disabled={!searchText}
+                            onClick={searchText
+                                ? () => dispatch(filterMoviesBySearch(searchText))
+                                : undefined}
                             id='search-container-search-bar-button'
-                            onClick={() => dispatch(searchMovies(inputRef.current?.value))}
                         >
                             <b>SEARCH</b>
                         </button>

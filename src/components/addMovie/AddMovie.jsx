@@ -6,11 +6,12 @@ import ModalHeader from 'react-bootstrap/ModalHeader';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import './AddMovie.css';
+import { useToasts } from 'react-toast-notifications';
 import Form from 'react-bootstrap/Form';
 import { useDispatch } from 'react-redux';
-import { addMovie } from '../../redux/moviesActions';
-import AppContext from './AppContext';
+import AppContext from '../stateful/AppContext';
 import AddMovieField from '../stateless/AddMovieField';
+import { addMovie } from '../../redux/movies/actions/moviesActions';
 
 const schema = yup.object()
     .shape({
@@ -35,6 +36,7 @@ function AddMovie({ show, onHide }) {
         onHide,
     };
     const dispatch = useDispatch();
+    const { addToast } = useToasts();
 
     function blurRoot() {
         const root = document.getElementById('root');
@@ -60,6 +62,7 @@ function AddMovie({ show, onHide }) {
             style={{ opacity: 1 }}
         >
             <Formik
+                validateOnChange
                 validationSchema={schema}
                 initialValues={{
                     title: 'Test',
@@ -72,11 +75,18 @@ function AddMovie({ show, onHide }) {
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                     setSubmitting(true);
                     dispatch(addMovie(values))
+                        .then(() => addToast('Saved Successfully', {
+                            appearance: 'success',
+                            autoDismiss: true,
+                        }))
                         .then((() => {
                             resetForm();
                             onHide();
                         }))
-                        .catch(e => alert(e));
+                        .catch(error => addToast(error.message, {
+                            appearance: 'error',
+                            autoDismiss: true,
+                        }));
                     setSubmitting(false);
                 }}
             >
@@ -90,7 +100,7 @@ function AddMovie({ show, onHide }) {
                                     <h1>ADD MOVIE</h1>
                                 </Modal.Title>
                                 <AddMovieField
-                                    controlId='formText'
+                                    controlId='formTitle'
                                     formLabel='TITLE'
                                     formControlPlaceholder='Select Title'
                                     name='title'
@@ -121,12 +131,12 @@ function AddMovie({ show, onHide }) {
                                                 multiple
                                             >
                                                 {
-                                                    value.genres.map(genre => (
+                                                    value.genres?.map(genre => (
                                                         <option
-                                                            key={genre.name}
-                                                            value={genre.name}
+                                                            key={genre}
+                                                            value={genre}
                                                         >
-                                                            {genre.name}
+                                                            {genre}
                                                         </option>
                                                     ))
                                                 }

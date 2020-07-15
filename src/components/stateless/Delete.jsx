@@ -2,7 +2,7 @@ import React from 'react';
 import CloseButton from './CloseButton';
 import withModal from '../../utils/withModal';
 
-const Delete = withModal(({ close, deleteMovie }) => (
+const Delete = withModal(({ close, deleteMovie, addToast }) => (
     <>
         <div className='x-modal-delete-content'>
             <CloseButton
@@ -15,8 +15,9 @@ const Delete = withModal(({ close, deleteMovie }) => (
                     type='submit'
                     onClick={() => {
                         deleteMovie()
+                            .then(() => addToast('Deleted Successfully', { appearance: 'success', autoDismiss: true }))
                             // delete will auto clean the relate movie so this modal will disappear
-                            .catch(e => alert(e));
+                            .catch(error => addToast(error.message, { appearance: 'error', autoDismiss: true }));
                     }}
                 >
                     CONFIRM
