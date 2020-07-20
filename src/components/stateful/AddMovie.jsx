@@ -6,12 +6,12 @@ import ModalHeader from 'react-bootstrap/ModalHeader';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import './AddMovie.css';
-import { useToasts } from 'react-toast-notifications';
 import Form from 'react-bootstrap/Form';
 import { useDispatch } from 'react-redux';
 import { addMovie } from '../../redux/moviesActions';
 import AppContext from './AppContext';
 import AddMovieField from '../stateless/AddMovieField';
+import useDefaultToasts from '../../utils/useDefaultToasts';
 
 const schema = yup.object()
     .shape({
@@ -36,7 +36,7 @@ function AddMovie({ show, onHide }) {
         onHide,
     };
     const dispatch = useDispatch();
-    const { addToast } = useToasts();
+    const { addSuccessToast, addErrorToast } = useDefaultToasts('Saved Successfully');
 
     function blurRoot() {
         const root = document.getElementById('root');
@@ -74,12 +74,12 @@ function AddMovie({ show, onHide }) {
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                     setSubmitting(true);
                     dispatch(addMovie(values))
-                        .then(() => addToast('Saved Successfully', { appearance: 'success', autoDismiss: true }))
+                        .then(addSuccessToast)
                         .then((() => {
                             resetForm();
                             onHide();
                         }))
-                        .catch(error => addToast(error.message, { appearance: 'error', autoDismiss: true }));
+                        .catch(addErrorToast);
                     setSubmitting(false);
                 }}
             >

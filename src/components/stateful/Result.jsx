@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Result.css';
-import { useToasts } from 'react-toast-notifications';
 import Movie from '../stateless/Movie';
 import ErrorBoundary from './ErrorBoundary';
 import HorizontalScrollableSelectMenu from '../HorizontalScrollableSelectMenu';
 import useInfiniteScroll from '../../utils/useInfiniteScroll';
+import { FETCH_BY_ID } from '../../redux/moviesActions';
+import useDefaultToasts from '../../utils/useDefaultToasts';
 
 const SORT_TYPES = [
     { name: 'TITLE', value: 'title' },
@@ -30,21 +31,21 @@ const Result = ({
     fetchNextPagination,
     fetchBy,
 }) => {
-    const { addToast } = useToasts();
+    const { addErrorToast } = useDefaultToasts();
 
     const handleSelectionChange = (key) => {
         if (key === FILTER_ALL) {
             onGenreFilterChange([FILTER_ALL])
-                .catch(error => addToast(error.message, { appearance: 'error', autoDismiss: true }));
+                .catch(addErrorToast);
         } else if (selectedGenreFilter.includes(key)) {
             const newFilter = selectedGenreFilter.filter(genre => genre !== key);
             onGenreFilterChange(newFilter.length === 0 ? [''] : newFilter)
-                .catch(error => addToast(error.message, { appearance: 'error', autoDismiss: true }));
+                .catch(addErrorToast);
         } else {
             onGenreFilterChange(
                 [...selectedGenreFilter, key].filter(genre => genre !== FILTER_ALL),
             )
-                .catch(error => addToast(error.message, { appearance: 'error', autoDismiss: true }));
+                .catch(addErrorToast);
         }
     };
 
@@ -53,7 +54,7 @@ const Result = ({
             if (totalAmount > movies.length) {
                 fetchNextPagination()
                     .then(() => setIsFetching(false))
-                    .catch(error => addToast(error.message, { appearance: 'error', autoDismiss: true }));
+                    .catch(addErrorToast);
             } else {
                 setIsFetching(false);
             }
@@ -62,7 +63,7 @@ const Result = ({
 
     return (
         <div id='result-container' className='jumbotron'>
-            {fetchBy === 'search' && (
+            {fetchBy !== FETCH_BY_ID && (
                 <div className='row'>
                     <HorizontalScrollableSelectMenu
                         id='result-container-movie-types'

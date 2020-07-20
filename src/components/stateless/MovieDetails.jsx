@@ -2,7 +2,7 @@ import React from 'react';
 import './MovieDetails.css';
 import { Col, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { filterMovies } from '../../redux/moviesFilterAndSortActions';
+import { closeMovieDetails } from '../../redux/moviesFilterAndSortActions';
 
 function MovieDetails({ placeholder, movie }) {
     const dispatch = useDispatch();
@@ -27,10 +27,7 @@ function MovieDetails({ placeholder, movie }) {
                                     className='btn btn-primary'
                                     onClick={
                                         () => dispatch(
-                                            filterMovies({
-                                                skipFetch: true,
-                                                forcePushToHistory: true,
-                                            }),
+                                            closeMovieDetails(),
                                         )
                                     }
                                 >

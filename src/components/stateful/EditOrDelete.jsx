@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import './EditOrDelete.css';
-import { useToasts } from 'react-toast-notifications';
 import Delete from '../stateless/Delete';
 import Edit from './Edit';
 import PopUp from '../stateless/PopUp';
 import ThreeDots from '../stateless/ThreeDots';
 import { editMovie as updateMovie, deleteMovie } from '../../redux/moviesActions';
+import useDefaultToasts from '../../utils/useDefaultToasts';
 
 function EditOrDelete({ movie }) {
     const dispatch = useDispatch();
     const [state, setState] = useState('closed');
-    const { addToast } = useToasts();
+    const addToast = useDefaultToasts();
     return (
         <>
             {state === 'closed' && (

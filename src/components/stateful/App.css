@@ -1,8 +1,8 @@
 .loading {
 	background-color: #ffffff;
 	width: 100%;
-	height: 1.5em;
-	margin-bottom: -1.5em;
+	height: 0.5em;
+	margin-bottom: -0.5em;
 	position: sticky;
 	z-index: 2;
 	top: 0;

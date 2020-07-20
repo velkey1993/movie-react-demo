@@ -15,9 +15,9 @@ const Delete = withModal(({ close, deleteMovie, addToast }) => (
                     type='submit'
                     onClick={() => {
                         deleteMovie()
-                            .then(() => addToast('Deleted Successfully', { appearance: 'success', autoDismiss: true }))
+                            .then(() => addToast.addSuccessToast('Deleted Successfully'))
                             // delete will auto clean the relate movie so this modal will disappear
-                            .catch(error => addToast(error.message, { appearance: 'error', autoDismiss: true }));
+                            .catch(addToast.addErrorToast);
                     }}
                 >
                     CONFIRM

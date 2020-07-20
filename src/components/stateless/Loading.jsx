@@ -1,4 +1,4 @@
 import React from 'react';
 
-const Loading = ({ msg }) => <div className='loading'>{msg}</div>;
+const Loading = () => <div className='loading' />;
 export default Loading;

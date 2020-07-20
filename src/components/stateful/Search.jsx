@@ -1,17 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Search.css';
 import { Button, Col, Row } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import AddMovie from './AddMovie';
 import ErrorBoundary from './ErrorBoundary';
 import handleKeyDown from '../../utils/handleKeyDown';
 import { filterMoviesBySearch } from '../../redux/moviesFilterAndSortActions';
+import useDefaultToasts from '../../utils/useDefaultToasts';
 
 const Search = () => {
+    const { addErrorToast } = useDefaultToasts();
     const dispatch = useDispatch();
+    const search = useSelector(state => state.filterAndSort.search);
+
     const placeholderText = 'What do you want to watch?';
-    const [searchText, setSearchText] = useState('');
+    const [searchText, setSearchText] = useState(search);
     const [modalShow, setModalShow] = useState(false);
+
+    useEffect(() => {
+        setSearchText(search);
+    }, [search]);
 
     return (
         <div id='search-container' className='jumbotron'>
@@ -52,16 +60,16 @@ const Search = () => {
                             placeholder={placeholderText}
                             value={searchText}
                             onChange={e => setSearchText(e.target.value)}
-                            onKeyDown={handleKeyDown(() => searchText && dispatch(filterMoviesBySearch(searchText)), 'Enter')}
+                            onKeyDown={
+                                handleKeyDown(() => dispatch(filterMoviesBySearch(searchText))
+                                    .catch(addErrorToast), 'Enter')}
                         />
                     </Col>
                     <Col xs={2} sm={2} md={2} lg={2} xl={2}>
                         <button
                             type='button'
-                            disabled={!searchText}
-                            onClick={searchText
-                                ? () => dispatch(filterMoviesBySearch(searchText))
-                                : undefined}
+                            onClick={() => dispatch(filterMoviesBySearch(searchText))
+                                .catch(addErrorToast)}
                             id='search-container-search-bar-button'
                         >
                             <b>SEARCH</b>

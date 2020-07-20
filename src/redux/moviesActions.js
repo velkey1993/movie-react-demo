@@ -9,8 +9,8 @@ export const ADD_MOVIE_SUCCESS = 'ADD_MOVIE_SUCCESS';
 export const EDIT_MOVIE_SUCCESS = 'EDIT_MOVIE_SUCCESS';
 export const DELETE_MOVIE_SUCCESS = 'DELETE_MOVIE_SUCCESS';
 
-const SEARCH = 'search';
-const FETCH_BY_ID = 'id';
+export const FETCH_BY_SEARCH = 'FETCH_BY_SEARCH';
+export const FETCH_BY_ID = 'FETCH_BY_ID';
 
 function pending(fetchType) {
     return dispatch => dispatch({
@@ -49,9 +49,8 @@ function fetchMoviesPaginationSuccess(data) {
 
 export function fetchMovies(sortBy, filter, search) {
     return (dispatch, getState) => {
-        if (!search) return Promise.reject(new Error('Search text is empty'));
         if (getState().movies.pending) return Promise.reject(new Error('Pending action'));
-        dispatch(pending(SEARCH));
+        dispatch(pending(FETCH_BY_SEARCH));
         return movieService.searchMovies(sortBy, filter, search)
             .then((res) => {
                 dispatch(fetchMoviesSuccess(res.data));
@@ -85,7 +84,7 @@ export function fetchMovie(id) {
 export function fetchMoviesPagination(sortBy, filter, search, offset) {
     return (dispatch, getState) => {
         if (getState().movies.pending) return Promise.reject(new Error('Pending action'));
-        dispatch(pending(SEARCH));
+        dispatch(pending(FETCH_BY_SEARCH));
         return movieService.searchMovies(sortBy, filter, search, offset)
             .then((res) => {
                 dispatch(fetchMoviesPaginationSuccess(res.data));

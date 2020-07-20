@@ -8,6 +8,8 @@ import {
     EDIT_MOVIE_SUCCESS,
     DELETE_MOVIE_SUCCESS,
     FETCH_MOVIE_SUCCESS,
+    FETCH_BY_SEARCH,
+    FETCH_BY_ID,
 } from './moviesActions';
 
 const initialState = {
@@ -39,7 +41,7 @@ const reducer = (state = initialState, action) => {
                 movies: action.payload.data,
                 totalAmount: action.payload.totalAmount,
                 pending: false,
-                fetchBy: 'search',
+                fetchBy: FETCH_BY_SEARCH,
                 error: null,
             };
 
@@ -49,7 +51,7 @@ const reducer = (state = initialState, action) => {
                 movies: [action.payload],
                 totalAmount: 1,
                 pending: false,
-                fetchBy: 'id',
+                fetchBy: FETCH_BY_ID,
                 error: null,
             };
 

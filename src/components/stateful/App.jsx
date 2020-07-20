@@ -3,16 +3,17 @@ import React, {
 } from 'react';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { useToasts } from 'react-toast-notifications';
 import qs from 'query-string';
 import ErrorBoundary from './ErrorBoundary';
 import TopComponent from '../stateless/TopComponent';
 import ResultContainer from './ResultContainer';
 import AppContext from './AppContext';
 import { fetchMovie } from '../../redux/moviesActions';
-import { filterMovies } from '../../redux/moviesFilterAndSortActions';
+import { filterMovies, push } from '../../redux/moviesFilterAndSortActions';
 import useEffectImmediate from '../../utils/useEffectImmediate';
 import Loading from '../stateless/Loading';
+import { SEARCH, HOME } from '../../roots';
+import useDefaultToasts from '../../utils/useDefaultToasts';
 
 const GENRES = [
     { name: 'ALL', value: ['All'] },
@@ -23,37 +24,42 @@ const GENRES = [
     { name: 'OTHER', value: ['Spaghetti Western'] },
 ];
 
-const fetch = (params, dispatch, movies, addToast) => {
+const fetch = (path, params, dispatch, movies, addErrorToast) => {
     if (params.id && !movies.find(movie => movie.id === parseInt(params.id, 10))) {
         dispatch(fetchMovie(params.id))
-            .catch(error => addToast(error.message, { appearance: 'error', autoDismiss: true }));
-    } else if (params.search) {
+            .catch(addErrorToast);
+    } else if (path === SEARCH) {
         dispatch(filterMovies({
             sort: params.sortBy,
             filter: [params.filter].flatMap(x => x),
             search: params.search,
         }))
-            .catch(error => addToast(error.message, { appearance: 'error', autoDismiss: true }));
+            .catch(addErrorToast);
+    } else {
+        dispatch(push(HOME));
     }
 };
 
-function App({ match: { params }, location }) {
+function App({ match: { params, path }, location }) {
     const genresContext = useMemo(() => ({ genres: GENRES }), []);
-
-    const { addToast } = useToasts();
+    const { addErrorToast } = useDefaultToasts();
     const dispatch = useDispatch();
     const movies = useSelector(state => state.movies.movies);
     const { pending } = useSelector(state => state.movies);
 
     // set fetch type and state to pending before the render
     useEffectImmediate(
-        () => fetch({ ...params, ...qs.parse(location.search) }, dispatch, movies, addToast), [],
+        () => fetch(path,
+            { ...params, ...qs.parse(location.search) },
+            dispatch,
+            movies,
+            addErrorToast), [],
     );
 
     return (
         <>
             <div id='container' className='container'>
-                {pending && <Loading msg='Loading...' />}
+                {pending && <Loading />}
                 <AppContext.Provider value={genresContext}>
                     <ErrorBoundary>
                         <TopComponent />

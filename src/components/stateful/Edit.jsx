@@ -87,10 +87,10 @@ export default class Edit extends React.Component {
                         onSubmit={(values, { setSubmitting }) => {
                             this.props.updateMovie(values)
                                 .then(this.props.close)
-                                .then(() => this.props.addToast('Saved Successfully', { appearance: 'success', autoDismiss: true }))
+                                .then(() => this.props.addToast.addSuccessToast('Saved Successfully'))
                                 .catch((error) => {
                                     setSubmitting(false);
-                                    this.props.addToast(error.message, { appearance: 'error', autoDismiss: true });
+                                    this.props.addToast.addErrorToast(error);
                                 });
                         }}
                     >

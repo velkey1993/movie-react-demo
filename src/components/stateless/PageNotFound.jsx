@@ -3,6 +3,7 @@ import './PageNotFound.css';
 import { Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import pageNotFound from '../../assets/page_not_found.png';
+import { HOME } from '../../roots';
 
 function PageNotFound() {
     return (
@@ -27,7 +28,7 @@ function PageNotFound() {
             </Row>
             <Row xs={12} sm={12} md={12} lg={12} xl={12}>
                 <div id='page-not-found-container-button-wrapper'>
-                    <Link id='page-not-found-container-button' to='/' className='btn'>
+                    <Link id='page-not-found-container-button' to={HOME} className='btn'>
                         <span id='page-not-found-container-button-text'>GO BACK TO HOME</span>
                     </Link>
                 </div>

@@ -6,6 +6,10 @@ import { useSelector } from 'react-redux';
 import Search from '../stateful/Search';
 import MovieDetails from './MovieDetails';
 import usePrevious from '../../utils/usePrevious';
+import {
+    HOME, SEARCH, FILM, PAGE_NOT_FOUND,
+} from '../../roots';
+import { FETCH_BY_ID } from '../../redux/moviesActions';
 
 function TopComponent() {
     const { id } = useParams();
@@ -28,11 +32,15 @@ function TopComponent() {
 
     return (
         <Switch>
-            <Route exact path='/film/:id'>
-                {fetchBy === 'id' && !movieToShow && !pending && error && <Redirect to='/page-not-found' />}
+            <Route exact path={`${FILM}/:id`}>
+                {fetchBy === FETCH_BY_ID
+                    && !movieToShow
+                    && !pending
+                    && error
+                    && <Redirect to={PAGE_NOT_FOUND} />}
                 <MovieDetails movie={movieToShow} placeholder={pending ? 'Loading' : 'Movie details are not available'} />
             </Route>
-            <Route exact path={['/', '/search']}>
+            <Route exact path={[HOME, SEARCH]}>
                 <Search />
             </Route>
         </Switch>

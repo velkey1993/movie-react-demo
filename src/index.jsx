@@ -11,13 +11,14 @@ import * as serviceWorker from './serviceWorker';
 import store from './redux/store';
 import PageNotFound from './components/stateless/PageNotFound';
 import customHistory from './redux/history';
+import { FILM, HOME, SEARCH } from './roots';
 
 ReactDOM.render(
     <ToastProvider>
         <Provider store={store}>
             <Router history={customHistory}>
                 <Switch>
-                    <Route exact path={['/', '/film/:id', '/search']} component={App} />
+                    <Route exact path={[HOME, `${FILM}/:id`, SEARCH]} component={App} />
                     <Route component={PageNotFound} />
                 </Switch>
             </Router>
