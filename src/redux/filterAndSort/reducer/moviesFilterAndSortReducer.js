@@ -1,6 +1,6 @@
 import {
     FILTER_MOVIES, PUSH,
-} from './moviesFilterAndSortActions';
+} from '../actions/moviesFilterAndSortActions';
 
 const initialState = {
     genreFilter: [''],

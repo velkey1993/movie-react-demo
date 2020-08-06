@@ -1,0 +1,359 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Advanced Search Component Tests should be mounted without crashing 1`] = `
+<Search>
+  <div
+    className="jumbotron"
+    id="search-container"
+  >
+    <div
+      id="search-container-background"
+    />
+    <div
+      id="search-container-content"
+    >
+      <Row
+        noGutters={false}
+      >
+        <div
+          className="row"
+        >
+          <Col
+            lg={10}
+            md={10}
+            sm={10}
+            xl={10}
+            xs={10}
+          >
+            <div
+              className="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10"
+            >
+              <p
+                id="search-container-page-name"
+              >
+                <b>
+                  epam
+                </b>
+                roulette
+              </p>
+            </div>
+          </Col>
+          <Col
+            lg={2}
+            md={2}
+            sm={2}
+            xl={2}
+            xs={2}
+          >
+            <div
+              className="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2"
+            >
+              <Button
+                active={false}
+                disabled={false}
+                id="add-movie-button"
+                onClick={[Function]}
+                type="button"
+                variant="primary"
+              >
+                <button
+                  className="btn btn-primary"
+                  disabled={false}
+                  id="add-movie-button"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  <b
+                    id="add-movie-button-text"
+                  >
+                    + ADD MOVIE
+                  </b>
+                </button>
+              </Button>
+              <ErrorBoundary>
+                <AddMovie
+                  onHide={[Function]}
+                  show={false}
+                >
+                  <Bootstrap(Modal)
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered={true}
+                    onExit={[Function]}
+                    onHide={[Function]}
+                    onShow={[Function]}
+                    show={false}
+                    size="md"
+                    style={
+                      Object {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <Modal
+                      animation={true}
+                      aria-labelledby="contained-modal-title-vcenter"
+                      autoFocus={true}
+                      backdrop={true}
+                      bsPrefix="modal"
+                      centered={true}
+                      dialogAs={
+                        Object {
+                          "$$typeof": Symbol(react.forward_ref),
+                          "displayName": "ModalDialog",
+                          "render": [Function],
+                        }
+                      }
+                      enforceFocus={true}
+                      keyboard={true}
+                      onExit={[Function]}
+                      onHide={[Function]}
+                      onShow={[Function]}
+                      restoreFocus={true}
+                      show={false}
+                      size="md"
+                      style={
+                        Object {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <Modal
+                        aria-labelledby="contained-modal-title-vcenter"
+                        autoFocus={true}
+                        backdrop={true}
+                        backdropTransition={[Function]}
+                        className="modal"
+                        containerClassName="modal-open"
+                        enforceFocus={true}
+                        keyboard={true}
+                        manager={
+                          BootstrapModalManager {
+                            "adjustAndStore": [Function],
+                            "containers": Array [],
+                            "data": Array [],
+                            "handleContainerOverflow": true,
+                            "hideSiblingNodes": true,
+                            "modals": Array [],
+                            "restore": [Function],
+                            "scrollbarSize": 0,
+                          }
+                        }
+                        onClick={[Function]}
+                        onEnter={[Function]}
+                        onEntering={[Function]}
+                        onExit={[Function]}
+                        onExited={[Function]}
+                        onHide={[Function]}
+                        onMouseUp={[Function]}
+                        onShow={[Function]}
+                        renderBackdrop={[Function]}
+                        restoreFocus={true}
+                        show={false}
+                        style={
+                          Object {
+                            "opacity": 1,
+                          }
+                        }
+                        transition={[Function]}
+                      />
+                    </Modal>
+                  </Bootstrap(Modal)>
+                </AddMovie>
+              </ErrorBoundary>
+            </div>
+          </Col>
+        </div>
+      </Row>
+      <Row
+        noGutters={false}
+      >
+        <div
+          className="row"
+        >
+          <Col
+            lg={12}
+            md={12}
+            sm={12}
+            xl={12}
+            xs={12}
+          >
+            <div
+              className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+            >
+              <h1
+                id="search-container-find-text"
+              >
+                FIND YOUR MOVIE
+              </h1>
+            </div>
+          </Col>
+        </div>
+      </Row>
+      <Row
+        noGutters={false}
+      >
+        <div
+          className="row"
+        >
+          <Col
+            lg={10}
+            md={10}
+            sm={10}
+            xl={10}
+            xs={10}
+          >
+            <div
+              className="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10"
+            >
+              <input
+                id="search-container-search-bar-input"
+                onChange={[Function]}
+                onKeyDown={[Function]}
+                placeholder="What do you want to watch?"
+                value=""
+              />
+            </div>
+          </Col>
+          <Col
+            lg={2}
+            md={2}
+            sm={2}
+            xl={2}
+            xs={2}
+          >
+            <div
+              className="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2"
+            >
+              <button
+                disabled={true}
+                id="search-container-search-bar-button"
+                type="button"
+              >
+                <b>
+                  SEARCH
+                </b>
+              </button>
+            </div>
+          </Col>
+        </div>
+      </Row>
+    </div>
+  </div>
+</Search>
+`;
+
+exports[`Basic Search Component Tests should shallow render search component 1`] = `
+<div
+  className="jumbotron"
+  id="search-container"
+>
+  <div
+    id="search-container-background"
+  />
+  <div
+    id="search-container-content"
+  >
+    <Row
+      noGutters={false}
+    >
+      <Col
+        lg={10}
+        md={10}
+        sm={10}
+        xl={10}
+        xs={10}
+      >
+        <p
+          id="search-container-page-name"
+        >
+          <b>
+            epam
+          </b>
+          roulette
+        </p>
+      </Col>
+      <Col
+        lg={2}
+        md={2}
+        sm={2}
+        xl={2}
+        xs={2}
+      >
+        <Button
+          active={false}
+          disabled={false}
+          id="add-movie-button"
+          onClick={[Function]}
+          type="button"
+          variant="primary"
+        >
+          <b
+            id="add-movie-button-text"
+          >
+            + ADD MOVIE
+          </b>
+        </Button>
+        <ErrorBoundary>
+          <AddMovie
+            onHide={[Function]}
+            show={false}
+          />
+        </ErrorBoundary>
+      </Col>
+    </Row>
+    <Row
+      noGutters={false}
+    >
+      <Col
+        lg={12}
+        md={12}
+        sm={12}
+        xl={12}
+        xs={12}
+      >
+        <h1
+          id="search-container-find-text"
+        >
+          FIND YOUR MOVIE
+        </h1>
+      </Col>
+    </Row>
+    <Row
+      noGutters={false}
+    >
+      <Col
+        lg={10}
+        md={10}
+        sm={10}
+        xl={10}
+        xs={10}
+      >
+        <input
+          id="search-container-search-bar-input"
+          onChange={[Function]}
+          onKeyDown={[Function]}
+          placeholder="What do you want to watch?"
+          value=""
+        />
+      </Col>
+      <Col
+        lg={2}
+        md={2}
+        sm={2}
+        xl={2}
+        xs={2}
+      >
+        <button
+          disabled={true}
+          id="search-container-search-bar-button"
+          type="button"
+        >
+          <b>
+            SEARCH
+          </b>
+        </button>
+      </Col>
+    </Row>
+  </div>
+</div>
+`;

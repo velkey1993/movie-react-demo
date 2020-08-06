@@ -1,6 +1,6 @@
 
-import { fetchMovies, fetchMoviesPagination } from './moviesActions';
-import customHistory from './history';
+import { fetchMovies, fetchMoviesPagination } from '../../movies/actions/moviesActions';
+import customHistory from '../../history';
 
 export const FILTER_MOVIES = 'FILTER_MOVIES';
 export const FILTER_MOVIES_BY_GENRE = 'FILTER_MOVIES_BY_GENRE';

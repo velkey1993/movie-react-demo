@@ -6,7 +6,7 @@ import Delete from '../stateless/Delete';
 import Edit from './Edit';
 import PopUp from '../stateless/PopUp';
 import ThreeDots from '../stateless/ThreeDots';
-import { editMovie as updateMovie, deleteMovie } from '../../redux/moviesActions';
+import { editMovie as updateMovie, deleteMovie } from '../../redux/movies/actions/moviesActions';
 
 function EditOrDelete({ movie }) {
     const dispatch = useDispatch();

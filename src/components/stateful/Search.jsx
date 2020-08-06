@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import './Search.css';
 import { Button, Col, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import AddMovie from './AddMovie';
+import AddMovie from '../addMovie/AddMovie';
 import ErrorBoundary from './ErrorBoundary';
 import handleKeyDown from '../../utils/handleKeyDown';
-import { filterMoviesBySearch } from '../../redux/moviesFilterAndSortActions';
+import { filterMoviesBySearch } from '../../redux/filterAndSort/actions/moviesFilterAndSortActions';
 
 const Search = () => {
     const dispatch = useDispatch();

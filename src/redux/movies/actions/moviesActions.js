@@ -1,4 +1,4 @@
-import * as movieService from '../service/MovieService';
+import MovieService from '../../../service/MovieService';
 
 export const PENDING = 'PENDING';
 export const ERROR = 'ERROR';
@@ -12,39 +12,39 @@ export const DELETE_MOVIE_SUCCESS = 'DELETE_MOVIE_SUCCESS';
 const SEARCH = 'search';
 const FETCH_BY_ID = 'id';
 
-function pending(fetchType) {
-    return dispatch => dispatch({
+export function pending(fetchType) {
+    return {
         type: PENDING,
         payload: fetchType,
-    });
+    };
 }
 
-function handleError(error) {
-    return dispatch => dispatch({
+export function handleError(error) {
+    return {
         type: ERROR,
         error,
-    });
+    };
 }
 
-function fetchMoviesSuccess(data) {
-    return dispatch => dispatch({
+export function fetchMoviesSuccess(data) {
+    return {
         type: FETCH_MOVIES_SUCCESS,
         payload: data,
-    });
+    };
 }
 
-function fetchMovieSuccess(data) {
-    return dispatch => dispatch({
+export function fetchMovieSuccess(data) {
+    return {
         type: FETCH_MOVIE_SUCCESS,
         payload: data,
-    });
+    };
 }
 
-function fetchMoviesPaginationSuccess(data) {
-    return dispatch => dispatch({
+export function fetchMoviesPaginationSuccess(data) {
+    return {
         type: FETCH_MOVIES_PAGINATION_SUCCESS,
         payload: data,
-    });
+    };
 }
 
 export function fetchMovies(sortBy, filter, search) {
@@ -52,26 +52,9 @@ export function fetchMovies(sortBy, filter, search) {
         if (!search) return Promise.reject(new Error('Search text is empty'));
         if (getState().movies.pending) return Promise.reject(new Error('Pending action'));
         dispatch(pending(SEARCH));
-        return movieService.searchMovies(sortBy, filter, search)
+        return MovieService.searchMovies(sortBy, filter, search)
             .then((res) => {
                 dispatch(fetchMoviesSuccess(res.data));
-            })
-            .catch((e) => {
-                const error = e?.response?.data.messages
-                    ? new Error(e?.response?.data.messages) : e;
-                dispatch(handleError(error.message));
-                throw error;
-            });
-    };
-}
-
-export function fetchMovie(id) {
-    return (dispatch, getState) => {
-        if (getState().movies.pending) return Promise.reject(new Error('Pending action'));
-        dispatch(pending(FETCH_BY_ID));
-        return movieService.read(id)
-            .then((res) => {
-                dispatch(fetchMovieSuccess(res.data));
             })
             .catch((e) => {
                 const error = e?.response?.data.messages
@@ -86,7 +69,7 @@ export function fetchMoviesPagination(sortBy, filter, search, offset) {
     return (dispatch, getState) => {
         if (getState().movies.pending) return Promise.reject(new Error('Pending action'));
         dispatch(pending(SEARCH));
-        return movieService.searchMovies(sortBy, filter, search, offset)
+        return MovieService.searchMovies(sortBy, filter, search, offset)
             .then((res) => {
                 dispatch(fetchMoviesPaginationSuccess(res.data));
             })
@@ -99,29 +82,35 @@ export function fetchMoviesPagination(sortBy, filter, search, offset) {
     };
 }
 
-export function fetchMoviesIfNeed() {
+export function fetchMovie(id) {
     return (dispatch, getState) => {
-        const { movies } = getState();
-        if (movies || movies === []) {
-            return dispatch(fetchMovies());
-        } else {
-            return Promise.resolve();
-        }
+        if (getState().movies.pending) return Promise.reject(new Error('Pending action'));
+        dispatch(pending(FETCH_BY_ID));
+        return MovieService.read(id)
+            .then((res) => {
+                dispatch(fetchMovieSuccess(res.data));
+            })
+            .catch((e) => {
+                const error = e?.response?.data.messages
+                    ? new Error(e?.response?.data.messages) : e;
+                dispatch(handleError(error.message));
+                throw error;
+            });
     };
 }
 
-function addMovieSuccess(data) {
-    return dispatch => dispatch({
+export function addMovieSuccess(data) {
+    return {
         type: ADD_MOVIE_SUCCESS,
         payload: data,
-    });
+    };
 }
 
 export function addMovie(data) {
     return (dispatch, getState) => {
         if (getState().movies.pending) return Promise.reject(new Error('Pending action'));
         dispatch(pending());
-        return movieService.create(data)
+        return MovieService.create(data)
             .then((res) => {
                 dispatch(addMovieSuccess(res.data));
             })
@@ -134,18 +123,18 @@ export function addMovie(data) {
     };
 }
 
-function editMovieSuccess(data) {
-    return dispatch => dispatch({
+export function editMovieSuccess(data) {
+    return {
         type: EDIT_MOVIE_SUCCESS,
         payload: data,
-    });
+    };
 }
 
 export function editMovie(data) {
     return (dispatch, getState) => {
         if (getState().movies.pending) return Promise.reject(new Error('Pending action'));
         dispatch(pending());
-        return movieService.update(data)
+        return MovieService.update(data)
             .then((res) => {
                 dispatch(editMovieSuccess(res.data));
             })
@@ -159,17 +148,17 @@ export function editMovie(data) {
 }
 
 export function deleteMovieSuccess(movieId) {
-    return dispatch => dispatch({
+    return {
         type: DELETE_MOVIE_SUCCESS,
         payload: movieId,
-    });
+    };
 }
 
 export function deleteMovie(id) {
     return (dispatch, getState) => {
         if (getState().movies.pending) return Promise.reject(new Error('Pending action'));
         dispatch(pending());
-        return movieService.remove(id)
+        return MovieService.remove(id)
             .then(() => {
                 dispatch(deleteMovieSuccess(id));
             })
