@@ -5,7 +5,7 @@ import MovieService from '../../../service/MovieService';
 
 const mockStore = configureMockStore([thunk]);
 
-jest.mock('../../service/MovieService');
+jest.mock('../../../service/MovieService');
 
 describe('moviesActions - sync - actions', () => {
     it('should create a pending action', () => {
